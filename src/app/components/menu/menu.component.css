@@ -1,0 +1,33 @@
+:host{
+    min-width: 100%;
+    background-color: rgb(255, 177, 177);
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: red;
+    min-width: 100%;
+}
+.caja{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 50%;
+}
+.carrusel{
+    background-color: grey;
+
+}
+
+.menu-info{
+    background-color: aquamarine;
+    min-width: 40%;
+}
+
+.botones{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

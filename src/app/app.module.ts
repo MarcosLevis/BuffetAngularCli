@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //Angular Material:
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { AgregarMenuComponent } from './components/agregar-menu/agregar-menu.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { MatIconModule } from '@angular/material/icon';
     MenuComponent,
     HomeComponent,
     RegistrarseComponent,
-    IniciarSesionComponent
+    IniciarSesionComponent,
+    AgregarMenuComponent
   ],
   imports: [
     BrowserModule,
