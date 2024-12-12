@@ -1,51 +1,67 @@
-<h1 mat-dialog-title>Menu</h1>
+<h1 mat-dialog-title>Agregar Menú</h1>
 <div mat-dialog-content>
-    <form>
-      <!-- Foto de perfil -->
-      <div class="form-group">
-        <label for="foto">Foto</label>
-        <input type="file" id="foto" accept="image/*" />
-      </div>
-  
-      <!-- DNI -->
-      <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" placeholder="Ingrese el nombre" />
-      </div>
-  
-      <!-- Contraseña -->
-      <div class="form-group">
-        <label for="entrada">Entrada</label>
-        <input type="text" id="entrada" placeholder="Ingrese la entrada" />
-      </div>
-  
-      <!-- Nombre -->
-      <div class="form-group">
-        <label for="plato">Plato principal</label>
-        <input type="text" id="plato" placeholder="Ingrese el plato principal" />
-      </div>
-  
-      <!-- Apellidos -->
-      <div class="form-group">
-        <label for="bebida">Bebida</label>
-        <input type="text" id="bebida" placeholder="Ingrese la bebida" />
-      </div>
-  
-      <!-- Email -->
-      <div class="form-group">
-        <label for="postre">Postre</label>
-        <input type="text" id="postre" placeholder="Ingrese el postre" />
-      </div>
-  
-      <!-- Botón de registro -->
-      <button mat-raised-button color="primary">Agregar Menu</button>
- 
-    </form>
+  <form [formGroup]="menuForm">
+    <!-- Foto -->
+    <mat-form-field appearance="fill">
+      <mat-label >Foto</mat-label>
+      <input matInput formControlName="foto" id="foto" accept="image/*" />
+      <!-- (change)="menuForm.get('foto')?.setValue($event.target.files[0])" -->
+    </mat-form-field>
 
+    <!-- Nombre -->
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" placeholder="Ingrese el nombre" />
+      <mat-error *ngIf="menuForm.get('nombre')?.hasError('required')">
+        El nombre es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Entrada -->
+    <mat-form-field appearance="fill">
+      <mat-label>Entrada</mat-label>
+      <input matInput formControlName="entrada" placeholder="Ingrese la entrada" />
+      <mat-error *ngIf="menuForm.get('entrada')?.hasError('required')">
+        La entrada es obligatoria
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Plato principal -->
+    <mat-form-field appearance="fill">
+      <mat-label>Plato principal</mat-label>
+      <input matInput formControlName="plato" placeholder="Ingrese el plato principal" />
+      <mat-error *ngIf="menuForm.get('plato')?.hasError('required')">
+        El plato principal es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Bebida -->
+    <mat-form-field appearance="fill">
+      <mat-label>Bebida</mat-label>
+      <input matInput formControlName="bebida" placeholder="Ingrese la bebida" />
+      <mat-error *ngIf="menuForm.get('bebida')?.hasError('required')">
+        La bebida es obligatoria
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Postre -->
+    <mat-form-field appearance="fill">
+      <mat-label>Postre</mat-label>
+      <input matInput formControlName="postre" placeholder="Ingrese el postre" />
+      <mat-error *ngIf="menuForm.get('postre')?.hasError('required')">
+        El postre es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+  </form>
 </div>
-<!-- 
-<button mat-icon-button class="close-btn" mat-dialog-close>
-    <mat-icon>close</mat-icon>
-</button> -->
 
-  
+<div mat-dialog-actions>
+  <!-- <button mat-button (click)="onCancelar()">Cancelar</button> -->
+  <button class="button is-primary is-small" (click)="onAgregarMenu()" [disabled]="menuForm.invalid">
+    Agregar Menú
+  </button>
+  <!-- <button mat-raised-button color="primary" (click)="onAgregarMenu()" [disabled]="menuForm.invalid">
+    Agregar Menú
+  </button> -->
+</div>

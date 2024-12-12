@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Menu } from 'src/app/models/Menu';
 
 @Component({
   selector: 'app-agregar-menu',
@@ -8,29 +10,36 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 })
 export class AgregarMenuComponent {
 
-
-  menu: any;
+  menuForm: FormGroup;
 
   constructor(
-  public dialogRef: MatDialogRef<AgregarMenuComponent>,
+    private fb: FormBuilder,
+    public dialogRef: MatDialogRef<AgregarMenuComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    this.menu = data || {
-      foto: '',
-      nombre: '',
-      entrada: '',
-      plato: '',
-      bebida: '',
-      postre: ''
-    };
-  }
+      // Inicializar el formulario con datos predefinidos (si existen)
+      this.menuForm = this.fb.group({
+        foto: [null], // Inicializamos con null porque es un archivo
+        nombre: [data?.nombre || '', Validators.required],
+        entrada: [data?.entrada || '', Validators.required],
+        plato: [data?.plato || '', Validators.required],
+        bebida: [data?.bebida || '', Validators.required],
+        postre: [data?.postre || '', Validators.required]
+      });
+    }
 
-  onAgregarMenu(): void {
-    this.dialogRef.close(this.menu); // Devolver los datos al cerrar
-  }
+    onAgregarMenu(): void {
+      if (this.menuForm.valid) {
+        this.dialogRef.close(this.menuForm.value); // Devolver los valores del formulario
+      } else {
+        console.log('El formulario no es válido');
+      }
+    }
+  
+    onCancelar(): void {
+      this.dialogRef.close(null); // Cerrar sin devolver nada
+    }
 
-  onCancelar(): void {
-    this.dialogRef.close(null); // Cerrar sin devolver nada
-  }
+
 }
 
