@@ -1,1 +1,74 @@
-<p>navbar works!</p>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="assets/buffet.png" alt="Logo" width="30" height="30">
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div *ngIf="logeado" class="navbar-start">
+        <a class="navbar-item" href="menu">
+            Menu
+        </a>
+  
+        <a class="navbar-item">
+            Comidas
+        </a>
+        <a class="navbar-item">
+            Sugerencias
+        </a>
+        <a class="navbar-item">
+            Responsables
+        </a>
+  
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            More
+          </a>
+  
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              About
+            </a>
+            <a class="navbar-item is-selected">
+              Jobs
+            </a>
+            <a class="navbar-item">
+              Contact
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              Report an issue
+            </a>
+          </div>
+        </div>
+      </div>
+
+
+  
+      <div  class="navbar-end">
+        <!-- este switch es para cambiar de logeado a deslogeado ahora que no esta hecha la logica y poder probar el navbar -->
+        <div class="navbar-item">
+          <a (click)="switch()">switch</a>
+        </div>
+
+        <div *ngIf="!logeado" class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" (click)="openDialogRegistrarse()">
+              Registrarse
+            </a>
+            <a class="button is-light" (click)="openDialogIniciarSesion()">
+              Iniciar Sesion
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
