@@ -2,11 +2,11 @@
 <div mat-dialog-content>
   <form [formGroup]="menuForm">
     <!-- Foto -->
-    <mat-form-field appearance="fill">
+    <!-- <mat-form-field appearance="fill">
       <mat-label >Foto</mat-label>
       <input matInput formControlName="foto" id="foto" accept="image/*" />
-      <!-- (change)="menuForm.get('foto')?.setValue($event.target.files[0])" -->
-    </mat-form-field>
+      (change)="menuForm.get('foto')?.setValue($event.target.files[0])"
+    </mat-form-field> -->
 
     <!-- Nombre -->
     <mat-form-field appearance="fill">
@@ -29,7 +29,7 @@
     <!-- Plato principal -->
     <mat-form-field appearance="fill">
       <mat-label>Plato principal</mat-label>
-      <input matInput formControlName="plato" placeholder="Ingrese el plato principal" />
+      <input matInput formControlName="platoPrincipal" placeholder="Ingrese el plato principal" />
       <mat-error *ngIf="menuForm.get('plato')?.hasError('required')">
         El plato principal es obligatorio
       </mat-error>
@@ -50,6 +50,14 @@
       <input matInput formControlName="postre" placeholder="Ingrese el postre" />
       <mat-error *ngIf="menuForm.get('postre')?.hasError('required')">
         El postre es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Precio</mat-label>
+      <input matInput formControlName="precio"  type="number" placeholder="Ingrese el precio" />
+      <mat-error *ngIf="menuForm.get('precio')?.hasError('required')">
+        El precio es obligatorio
       </mat-error>
     </mat-form-field>
 

@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class CoreLayoutComponent {
 
+
+// para mi este core layout tiene que usar un signal o un service que guarde la data del usuario logeado
+
 }

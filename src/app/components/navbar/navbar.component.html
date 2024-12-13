@@ -14,7 +14,7 @@
   
     <div id="navbarBasicExample" class="navbar-menu">
       <div *ngIf="logeado" class="navbar-start">
-        <a class="navbar-item" href="menu">
+        <a class="navbar-item" (click)="navigateMenu()">
             Menu
         </a>
   

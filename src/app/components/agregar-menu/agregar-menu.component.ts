@@ -19,12 +19,13 @@ export class AgregarMenuComponent {
   ) {
       // Inicializar el formulario con datos predefinidos (si existen)
       this.menuForm = this.fb.group({
-        foto: [null], // Inicializamos con null porque es un archivo
+        // foto: [null], // Inicializamos con null porque es un archivo
         nombre: [data?.nombre || '', Validators.required],
         entrada: [data?.entrada || '', Validators.required],
-        plato: [data?.plato || '', Validators.required],
+        platoPrincipal: [data?.platoPrincipal || '', Validators.required],
         bebida: [data?.bebida || '', Validators.required],
-        postre: [data?.postre || '', Validators.required]
+        postre: [data?.postre || '', Validators.required],
+        precio: [data?.postre || 0, [Validators.required,Validators.min(0), Validators.max(9999.9999)]],
       });
     }
 

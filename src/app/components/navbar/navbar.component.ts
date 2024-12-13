@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { RegistrarseComponent } from '../registrarse/registrarse.component';
 import { IniciarSesionComponent } from '../iniciar-sesion/iniciar-sesion.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,7 @@ export class NavbarComponent {
   //loegeado es una variable momentanea para probar la vista
   logeado: boolean = false;
 
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private router: Router) {}
 
   ngOnInit(){}
 
@@ -25,6 +26,10 @@ export class NavbarComponent {
     } else{
       this.logeado = true
     }
+  }
+
+  navigateMenu() {
+    this.router.navigate(['menu'])
   }
 
   openDialogRegistrarse(): void {

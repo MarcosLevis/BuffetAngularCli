@@ -17,6 +17,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { MatInputModule } from '@angular/material/input';
     MatIconModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [CoreLayoutComponent]
