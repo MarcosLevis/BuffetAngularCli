@@ -47,8 +47,9 @@
             <a class="navbar-item">
               Report an issue
             </a>
-          </div>
+          </div>          
         </div>
+
       </div>
 
 
@@ -68,6 +69,18 @@
               Iniciar Sesion
             </a>
           </div>
+        </div>
+        <div *ngIf="logeado" class="navbar-item has-dropdown is-hoverable">
+          <a class="material-icons" style="color: black; align-self: center;">account_circle</a>
+          <div class="navbar-dropdown  is-right">
+            <a class="navbar-item">
+              Perfil
+            </a>
+            <a class="navbar-item ">
+              Cerrar Sesión
+            </a>
+          </div>   
+
         </div>
       </div>
     </div>

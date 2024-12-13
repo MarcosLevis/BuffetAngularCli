@@ -16,12 +16,11 @@ export class MenuComponent {
   semana: Menu [] = [];
 
   constructor(public dialog: MatDialog, private menuService: MenuService) {
-
   }
   
   ngOnInit(){
-
   }
+  
   openDialogAgregarMenu(): void {
       const dialogRef = this.dialog.open(AgregarMenuComponent, {
       width: '450px',
