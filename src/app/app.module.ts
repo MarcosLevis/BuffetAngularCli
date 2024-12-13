@@ -8,11 +8,16 @@ import { HomeComponent } from './components/home/home.component';
 import { RegistrarseComponent } from './components/registrarse/registrarse.component';
 import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesion.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AgregarMenuComponent } from './components/agregar-menu/agregar-menu.component';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 //Angular Material:
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { AgregarMenuComponent } from './components/agregar-menu/agregar-menu.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +34,10 @@ import { AgregarMenuComponent } from './components/agregar-menu/agregar-menu.com
     AppRoutingModule,
     BrowserAnimationsModule,
     MatDialogModule,
-    MatIconModule
+    MatIconModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [CoreLayoutComponent]
