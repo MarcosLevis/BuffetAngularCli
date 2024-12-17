@@ -1,4 +1,3 @@
-// export abstract class Menu
 export class Menu {
     //se que no te va a gustar el public pero no pasa nada papa
     public id: number;
@@ -25,42 +24,16 @@ export class Menu {
     }
   }
 
-// export class MenuVegetariano extends Menu{
 
 
-//   constructor(    
-//     precio: number,
-//     nombre: string,
-//     entrada: string,
-//     platoPrincipal: string,
-//     postre: string,
-//     bebida: string,
-//     tipoMenu: string,
-//   ){
-//     super(precio,nombre,entrada,platoPrincipal,postre,bebida,tipoMenu);
-
-//   }
-
-//   // esVegetariano(){
-//   //   return true;
-//   // }
-// }
-
-// export class MenuEstandar extends Menu{
-
-//   constructor(    
-//     precio: number,
-//     nombre: string,
-//     entrada: string,
-//     platoPrincipal: string,
-//     postre: string,
-//     bebida: string,
-//     tipoMenu: string,
-//   ){
-//     super(precio,nombre,entrada,platoPrincipal,postre,bebida, tipoMenu);
-//   }
-
-//   // esVegetariano(){
-//   //   return false;
-//   // }
-// }
+  //esto lo agregue porque le sacaste la id en el back y el endpoint ya no espera que tenga aunque sea un id vacio
+export interface MenuObject {
+  nombre: string;
+  precio: number;
+  tipoItem: string;
+  entrada: string;
+  platoPrincipal: string;
+  postre: string;
+  bebida: string;
+  tipoMenu: string;
+}

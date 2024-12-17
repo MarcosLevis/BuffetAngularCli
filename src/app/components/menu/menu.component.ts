@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarMenuComponent } from '../agregar-menu/agregar-menu.component';
-import { Menu} from 'src/app/models/Menu';
+import { Menu, MenuObject} from 'src/app/models/Menu';
 import { MenuService } from 'src/app/services/MenuService';
 
 
@@ -12,7 +12,7 @@ import { MenuService } from 'src/app/services/MenuService';
 })
 export class MenuComponent {
 
-  pruebaMenu!: Menu;
+  pruebaMenu!: MenuObject;
   semana: Menu [] = [];
 
   constructor(public dialog: MatDialog, private menuService: MenuService) {
@@ -28,9 +28,7 @@ export class MenuComponent {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Datos del formulario:', result);      
-        this.pruebaMenu = new Menu(result);
-
+        this.pruebaMenu = result;
         // esto es de prueba
         this.pruebaMenu.tipoItem = 'tipoMenu'
         this.pruebaMenu.tipoMenu = 'menuestandar'
