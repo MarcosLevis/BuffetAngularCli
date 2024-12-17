@@ -3,17 +3,35 @@
 <div class="container">
     <div class="caja">
         <div class="carrusel">
-            <p>works</p>
+            <p>carrusel</p>
+        </div>
+        <div>
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+                <button
+                  class="button is-info"
+                  [disabled]="currentPage === 0"
+                  (click)="previousPage()"
+                >
+                  Anterior
+                </button>
+                <button
+                  class="button is-info"
+                  [disabled]="(currentPage + 1) * itemsPerPage >= menus.length"
+                  (click)="nextPage()"
+                >
+                  Siguiente
+                </button>
+              </nav>
         </div>
     </div>
     <div class="caja">
-        <div class="menu-info">
-            <h1> Nombre Menu</h1>
-            <p>Entrada: </p>
-            <p>Plato principal:</p>
-            <p>Bebida:</p>
-            <p>Postre: flan casero</p>
-            <p>Precio:</p>
+        <div class="menu-info"  *ngFor="let menu of getPaginatedMenus()">
+            <h1> {{menu.nombre}}</h1>
+            <p><strong>Entrada:</strong> {{ menu.entrada }}</p>
+            <p><strong>Plato Principal:</strong> {{ menu.platoPrincipal }}</p>
+            <p><strong>Postre:</strong> {{ menu.postre }}</p>
+            <p><strong>Bebida:</strong> {{ menu.bebida }}</p>
+            <p><strong>Precio:</strong> ${{ menu.precio }}</p>
             <div class="botones">
                 <button class="button is-primary is-small">Editar</button>
                 <button class="button is-primary  is-small">Desactivar</button>

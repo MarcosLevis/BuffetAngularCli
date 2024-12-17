@@ -23,17 +23,3 @@ export class Menu {
       this.tipoMenu =obj && obj.tipoMenu || '';
     }
   }
-
-
-
-  //esto lo agregue porque le sacaste la id en el back y el endpoint ya no espera que tenga aunque sea un id vacio
-export interface MenuObject {
-  nombre: string;
-  precio: number;
-  tipoItem: string;
-  entrada: string;
-  platoPrincipal: string;
-  postre: string;
-  bebida: string;
-  tipoMenu: string;
-}

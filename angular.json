@@ -64,7 +64,9 @@
               "browserTarget": "BuffetAngularCli:build:production"
             },
             "development": {
-              "browserTarget": "BuffetAngularCli:build:development"
+              "browserTarget": "BuffetAngularCli:build:development",
+              "proxyConfig": "src/proxy.conf.json"
+
             }
           },
           "defaultConfiguration": "development"

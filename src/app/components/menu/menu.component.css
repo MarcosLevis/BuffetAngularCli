@@ -4,7 +4,7 @@
 }
 
 .container{
-    display: flex;
+    display: flex;    
     align-items: center;
     justify-content: space-evenly;
     background-color: red;
@@ -12,6 +12,7 @@
 }
 .caja{
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-width: 50%;

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AgregarMenuComponent } from '../agregar-menu/agregar-menu.component';
-import { Menu, MenuObject} from 'src/app/models/Menu';
+import { Menu} from 'src/app/models/Menu';
 import { MenuService } from 'src/app/services/MenuService';
 
 
@@ -12,15 +12,40 @@ import { MenuService } from 'src/app/services/MenuService';
 })
 export class MenuComponent {
 
-  pruebaMenu!: MenuObject;
-  semana: Menu [] = [];
+  pruebaMenu!: Menu;
+  menus: Menu [] = [];
+  currentPage: number = 0;
+  itemsPerPage: number = 1;
+
 
   constructor(public dialog: MatDialog, private menuService: MenuService) {
   }
   
   ngOnInit(){
+    this.menuService.getMenus().subscribe(data => {
+      this.menus = data;
+      console.log(this.menus);
+    })
+  }
+
+  getPaginatedMenus(): any[] {
+    const start = this.currentPage * this.itemsPerPage;
+    return this.menus.slice(start, start + this.itemsPerPage);
   }
   
+  nextPage(): void {
+    if ((this.currentPage + 1) * this.itemsPerPage < this.menus.length) {
+      this.currentPage++;
+    }
+  }
+  
+  previousPage(): void {
+    if (this.currentPage > 0) {
+      this.currentPage--;
+    }
+  }
+
+
   openDialogAgregarMenu(): void {
       const dialogRef = this.dialog.open(AgregarMenuComponent, {
       width: '450px',
