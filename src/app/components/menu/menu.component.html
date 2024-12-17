@@ -7,18 +7,17 @@
         </div>
         <div>
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-                <button
-                  class="button is-info"
-                  [disabled]="currentPage === 0"
-                  (click)="previousPage()"
-                >
+                <ul class="pagination-list">
+                    <li *ngFor="let dia of diasSemana; let i = index">
+                        <a  (click)="cambiarPagina(i)" class="pagination-link">{{ dia }}</a>
+                      
+                        <!-- <a (click)="cambiarPagina(i)" class="pagination-link">{{ dia }}</a> -->
+                    </li>
+                  </ul>
+                <button class="button is-info is-small" [disabled]="currentPage === 0" (click)="previousPage()" >
                   Anterior
                 </button>
-                <button
-                  class="button is-info"
-                  [disabled]="(currentPage + 1) * itemsPerPage >= menus.length"
-                  (click)="nextPage()"
-                >
+                <button class="button is-info is-small" [disabled]="(currentPage + 1) * itemsPerPage >= menus.length" (click)="nextPage()">
                   Siguiente
                 </button>
               </nav>

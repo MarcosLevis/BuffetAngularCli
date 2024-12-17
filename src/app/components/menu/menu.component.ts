@@ -16,6 +16,8 @@ export class MenuComponent {
   menus: Menu [] = [];
   currentPage: number = 0;
   itemsPerPage: number = 1;
+  diasSemana: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
+
 
 
   constructor(public dialog: MatDialog, private menuService: MenuService) {
@@ -38,11 +40,15 @@ export class MenuComponent {
       this.currentPage++;
     }
   }
-  
+
   previousPage(): void {
     if (this.currentPage > 0) {
       this.currentPage--;
     }
+  }
+
+  cambiarPagina(dia: number) {
+    this.currentPage = dia;
   }
 
 
