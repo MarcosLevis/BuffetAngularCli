@@ -22,4 +22,8 @@ export class Menu {
       this.tipoItem = 'tipoMenu';
       this.tipoMenu =obj && obj.tipoMenu || '';
     }
+
+    esVegetariano(){
+      return this.tipoMenu == 'menuvegetariano'
+    }
   }

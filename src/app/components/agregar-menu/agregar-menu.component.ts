@@ -24,7 +24,9 @@ export class AgregarMenuComponent {
         platoPrincipal: [data?.platoPrincipal || '', Validators.required],
         bebida: [data?.bebida || '', Validators.required],
         postre: [data?.postre || '', Validators.required],
-        precio: [data?.postre || 0, [Validators.required,Validators.min(1), Validators.max(99999.9999)]],
+        precio: [data?.precio || 0, [Validators.required,Validators.min(1), Validators.max(99999.9999)]],
+        vegetariano: [data?.vegetariano || false, [Validators.required]],
+        dia: [data?.vegetariano || 0, [Validators.required]],
       });
     }
 

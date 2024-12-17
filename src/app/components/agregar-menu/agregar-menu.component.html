@@ -30,7 +30,7 @@
     <mat-form-field appearance="fill">
       <mat-label>Plato principal</mat-label>
       <input matInput formControlName="platoPrincipal" placeholder="Ingrese el plato principal" />
-      <mat-error *ngIf="menuForm.get('plato')?.hasError('required')">
+      <mat-error *ngIf="menuForm.get('platoPrincipal')?.hasError('required')">
         El plato principal es obligatorio
       </mat-error>
     </mat-form-field>
@@ -58,6 +58,28 @@
       <input matInput formControlName="precio"  type="number" placeholder="Ingrese el precio" />
       <mat-error *ngIf="menuForm.get('precio')?.hasError('required')">
         El precio es obligatorio
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>¿Es vegetariano?</mat-label>
+      <mat-select formControlName="vegetariano">
+        <mat-option [value]="true">Sí</mat-option>
+        <mat-option [value]="false">No</mat-option>
+      </mat-select>
+      <mat-error *ngIf="menuForm.get('vegetariano')?.hasError('required')">
+        La selección es obligatoria
+      </mat-error>
+    </mat-form-field>
+    
+    <!-- Select para los días de la semana -->
+    <mat-form-field appearance="fill">
+      <mat-label>Día</mat-label>
+      <mat-select formControlName="dia">
+        <mat-option *ngFor="let dia of data" [value]="dia.enumDia">{{ dia.enumDia }}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="menuForm.get('Dia')?.hasError('required')">
+        El día es obligatorio
       </mat-error>
     </mat-form-field>
 

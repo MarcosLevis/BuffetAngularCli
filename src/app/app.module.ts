@@ -19,6 +19,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './interceptores/TokenInterceptor';
+import { EstasSeguroComponent } from './components/estas-seguro/estas-seguro.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { TokenInterceptor } from './interceptores/TokenInterceptor';
     HomeComponent,
     RegistrarseComponent,
     IniciarSesionComponent,
-    AgregarMenuComponent
+    AgregarMenuComponent,
+    EstasSeguroComponent
   ],
   imports: [
     BrowserModule,
@@ -40,6 +43,7 @@ import { TokenInterceptor } from './interceptores/TokenInterceptor';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSelectModule,
     HttpClientModule
   ],
   providers: [

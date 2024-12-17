@@ -1,6 +1,7 @@
-<p>works</p>
-
-<div class="container">
+<div style="min-width: 100%;" class="buttons has-addons is-right">
+    <button class="button is-black is-small " style="margin: 10px;" (click)="openDialogAgregarMenu()">Agregar Menu</button>
+</div>
+<div class="container">    
     <div class="caja">
         <div class="carrusel">
             <p>carrusel</p>
@@ -9,23 +10,18 @@
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
                 <ul class="pagination-list">
                     <li *ngFor="let dia of diasSemana; let i = index">
-                        <a  (click)="cambiarPagina(i)" class="pagination-link">{{ dia }}</a>
-                      
-                        <!-- <a (click)="cambiarPagina(i)" class="pagination-link">{{ dia }}</a> -->
+                        <a  (click)="cambiarPagina(i)" class="pagination-link"  [ngClass]="{'is-current': i === diaSeleccionadoIndex}">{{ dia }}</a>
                     </li>
                   </ul>
-                <button class="button is-info is-small" [disabled]="currentPage === 0" (click)="previousPage()" >
-                  Anterior
-                </button>
-                <button class="button is-info is-small" [disabled]="(currentPage + 1) * itemsPerPage >= menus.length" (click)="nextPage()">
-                  Siguiente
-                </button>
               </nav>
         </div>
     </div>
     <div class="caja">
         <div class="menu-info"  *ngFor="let menu of getPaginatedMenus()">
-            <h1> {{menu.nombre}}</h1>
+            <div class="titulo">
+                <h1> {{menu.nombre}}</h1>
+                <p *ngIf="esVegetariano(menu)">vegetariano</p>
+            </div>
             <p><strong>Entrada:</strong> {{ menu.entrada }}</p>
             <p><strong>Plato Principal:</strong> {{ menu.platoPrincipal }}</p>
             <p><strong>Postre:</strong> {{ menu.postre }}</p>
@@ -33,13 +29,12 @@
             <p><strong>Precio:</strong> ${{ menu.precio }}</p>
             <div class="botones">
                 <button class="button is-primary is-small">Editar</button>
-                <button class="button is-primary  is-small">Desactivar</button>
+                <button class="button is-primary  is-small" (click)="openDialogEliminarMenu()">Desactivar</button>
             </div>
         </div>
     </div>      
     
 </div >
-<div style="min-width: 100%;" class="buttons has-addons is-right">
-    <button class="button is-black is-small " style="margin: 10px;" (click)="openDialogAgregarMenu()">Agregar Menu</button>
-</div>
+
+
 

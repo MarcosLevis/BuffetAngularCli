@@ -9,6 +9,7 @@ import { Usuario } from '../models/Usuario'
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
  
   private currentUser: Usuario | null = null;
@@ -22,6 +23,7 @@ export class AuthService {
     const url = this.API_URL_LOCAL + '/auth/login/'
 
     const credenciales = { email, password };
+    
     return this.http.post<Usuario>(this.API_URL_LOCAL, credenciales).pipe(
       tap((usuario) => {
         this.currentUser = usuario;
@@ -32,7 +34,7 @@ export class AuthService {
     );
   }
 
-  //ESTO ES SI QUEREMOS USAR LOCALSTORAGE
+  //ESTO ES  CUANDO USEMOS LOCALSTORAGE:
 
 
   // // Obtener el usuario actual desde el almacenamiento
