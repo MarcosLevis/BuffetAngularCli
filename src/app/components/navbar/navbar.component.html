@@ -13,7 +13,7 @@
     </div>
   
     <div id="navbarBasicExample" class="navbar-menu">
-      <div *ngIf="logeado" class="navbar-start">
+      <div *ngIf="isLoged()" class="navbar-start">
         <a class="navbar-item" (click)="navigateMenu()">
             Menu
         </a>
@@ -32,11 +32,7 @@
   
       <div  class="navbar-end">
         <!-- este switch es para cambiar de logeado a deslogeado ahora que no esta hecha la logica y poder probar el navbar -->
-        <div class="navbar-item">
-          <a (click)="switch()">switch</a>
-        </div>
-
-        <div *ngIf="!logeado" class="navbar-item">
+        <div *ngIf="!isLoged()" class="navbar-item">
           <div class="buttons">
             <a class="button is-primary" (click)="openDialogRegistrarse()">
               Registrarse
@@ -46,13 +42,13 @@
             </a>
           </div>
         </div>
-        <div *ngIf="logeado" class="navbar-item has-dropdown is-hoverable">
+        <div *ngIf="isLoged()" class="navbar-item has-dropdown is-hoverable">
           <a class="material-icons" style="color: black; align-self: center;">account_circle</a>
           <div class="navbar-dropdown  is-right">
             <a class="navbar-item">
               Perfil
             </a>
-            <a class="navbar-item ">
+            <a class="navbar-item" (click)="logOut()">
               Cerrar Sesión
             </a>
           </div>   

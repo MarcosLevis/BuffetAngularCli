@@ -19,7 +19,7 @@ export class MenuService{
 
 
     getDias():Observable<Dia[]>{
-        const url = this.API_URL_LOCAL + '/dias/';
+        const url = this.API_URL_LOCAL + '/dias/'
         return this.http.get<Dia[]>(url).pipe(map(res => res));  
     }
 
