@@ -12,52 +12,89 @@ import { Usuario } from '../models/Usuario'
 export class AuthService {
  
   private currentUser: Usuario | null = null;
-  API_URL_LOCAL = environment.API_URL;
+  private token: string | null = null;
+  url_login = environment.API_URL + '/auth/login/';
 
   constructor(private http: HttpClient, private router: Router) {}
 
-
   login(email: string, password: string): Observable<boolean> {
 
-    const url = this.API_URL_LOCAL + '/auth/login/'
-
     const credenciales = { email, password };
-    return this.http.post<Usuario>(this.API_URL_LOCAL, credenciales).pipe(
-      tap((usuario) => {
-        this.currentUser = usuario;
-        localStorage.setItem('usuario', JSON.stringify(usuario));
+    return this.http.post<loginResponse>(this.url_login, credenciales).pipe(
+      tap((loginResponse) => {
+        console.log(loginResponse.getToken(),loginResponse.getToken());
+        this.currentUser = loginResponse.getUsuario();
+        this.token = loginResponse.getToken();
+        localStorage.setItem('usuario', JSON.stringify(this.currentUser));
+        localStorage.setItem('token', JSON.stringify(this.token));
       }),
       map(() => true),
       catchError(() => of(false)) // Devuelve `false` si ocurre un error
     );
   }
 
-  //ESTO ES SI QUEREMOS USAR LOCALSTORAGE
+  // Obtener el usuario actual y si no lo tiene, lo busca en el local storage
+  getCurrentUser(): Usuario | null {
+    try{
+      if (!this.currentUser) {
+        const storedUser = localStorage.getItem('usuario');
+        this.currentUser = storedUser ? JSON.parse(storedUser) : null;
+      }
+    }
+    catch(error){
+      console.log("Error al recuperar el usuario actal: " + error);
+    }
+    finally{
+      return this.currentUser;
+    }
+  }
+
+  isAdministrador(rol: string){
+    return this.getCurrentUser()?.rol?.tipoRol === "administrador";
+  }
+
+  isResponsableTurno(rol: string){
+    return this.getCurrentUser()?.rol?.tipoRol ==="responsable-turno";
+  }
+
+  isCliente(rol: string){
+    return this.getCurrentUser()?.rol?.tipoRol === "cliente";
+  }
+
+  hasRole(rol: string): boolean {
+    return (this.getCurrentUser()?.rol?.tipoRol === rol || this.getCurrentUser()?.rol?.nombre === rol);
+  }
+
+  isAuthenticated(): boolean {
+    return !!this.token && !!this.getCurrentUser();
+    //se convierte a false si es distinto de cero, null, undefined y vacío (es decir, si NO es "falsy")
+    // Luego el siguiente not lo niega para obtener el resultado lógico esperado
+  }
 
 
-  // // Obtener el usuario actual desde el almacenamiento
-  // getCurrentUser(): Usuario | null {
-  //   if (!this.currentUser) {
-  //     const storedUser = localStorage.getItem('usuario');
-  //     this.currentUser = storedUser ? JSON.parse(storedUser) : null;
-  //   }
-  //   return this.currentUser;
-  // }
+  logout(): void {
+    this.currentUser = null;
+    this.token = null;
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('token');
+    this.router.navigate(['home']);
+  }
+}
 
-  // // Verifica si el usuario tiene un rol específico
-  // hasRole(rol: string): boolean {
-  //   return this.getCurrentUser()?.rol == rol;
-  // }
+class loginResponse{
+  private token:string;
+  private usuario:Usuario;
 
-  // // Verifica si el usuario está autenticado
-  // isAuthenticated(): boolean {
-  //   return !!this.getCurrentUser();
-  // }
+  constructor(token:string, usuario:Usuario){
+    this.token = token;
+    this.usuario = usuario;
+  }
 
-  // // Cerrar sesión
-  // logout(): void {
-  //   this.currentUser = null;
-  //   localStorage.removeItem('usuario');
-  //   this.router.navigate(['/home']);
-  // }
+  public getToken():string {
+    return this.token;
+  }
+
+  public getUsuario():Usuario {
+    return this.usuario;
+  }
 }
