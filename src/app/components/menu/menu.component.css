@@ -1,13 +1,12 @@
 :host{
     min-width: 100%;
-    background-color: rgb(255, 177, 177);
 }
 
 .container{
     display: flex;    
     align-items: center;
     justify-content: space-evenly;
-    background-color: red;
+   
     min-width: 100%;
 }
 .caja{
@@ -23,9 +22,23 @@
 }
 
 .menu-info{
-    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
     min-width: 40%;
 }
+
+.menu-info .titulo{
+    align-self: center;
+    display:flex;
+    align-items: center;
+}
+
+.pagination-link.is-current {
+    background-color: #3273dc; 
+    color: #fff; 
+    border-color: #3273dc;
+  }
+
 
 .botones{
     display: flex;

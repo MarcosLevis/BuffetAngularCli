@@ -9,6 +9,7 @@ import { Usuario } from '../models/Usuario'
 @Injectable({
   providedIn: 'root',
 })
+
 export class AuthService {
  
   private currentUser: Usuario | null = null;

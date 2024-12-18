@@ -6,8 +6,9 @@ import { Injectable } from "@angular/core";
 export class TokenInterceptor implements HttpInterceptor {
 
     constructor(){}
-
-    private tokenPrueba: string =  `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjb3NAZ21haWwuY29tIiwiZXhwIjoxNzM0NTM0NTQ3fQ.OUEBtQpV_KSS2x5Uq44pc2WzVv_n1NDYCUAQH2F9FgE`;
+    
+    //Esto existe hasta que se cree el login con el local storage
+    private tokenPrueba: string =  `eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJtYXJjb3NAZ21haWwuY29tIiwiZXhwIjoxNzM0NTYyNTUwfQ.2ULPlYtQTLLcPuU0YgQzpWU2Vj60VfSjXRBdELE3qBc`;
 
     intercept(req: HttpRequest<any>, next: HttpHandler) {
 
