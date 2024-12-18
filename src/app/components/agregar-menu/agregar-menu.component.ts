@@ -37,7 +37,7 @@ export class AgregarMenuComponent {
         console.log('El formulario no es válido');
       }
     }
-  
+    
     onCancelar(): void {
       this.dialogRef.close(null); // Cerrar sin devolver nada
     }

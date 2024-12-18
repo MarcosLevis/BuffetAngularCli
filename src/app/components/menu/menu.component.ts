@@ -47,6 +47,10 @@ export class MenuComponent {
     this.diaSeleccionadoIndex = dia;
   }
 
+
+  ///ESTO SEGURAMENTE SE PUEDE REFACTORIZAR (sacando los if else) JEJE UWU
+  // Crea un nuevo menu en un dia determinado. 
+  //Si ese tipo menu ya existe en ese dia particular, pregunta si esta seguro que quiera reemplazar ese tipo menu en ese dia determinado
   openDialogAgregarMenu(): void {
       const dialogRef = this.dialog.open(AgregarMenuComponent, {
       width: '450px',
@@ -58,15 +62,34 @@ export class MenuComponent {
         const menu = new Menu(result)
         menu.tipoMenu = result.vegetariano ? "menuvegetariano" : "menuestandar";
         const dia = this.encontrarDiaPorNombre(result.dia);
-        console.log('Antes de ser mandado', menu)
-        this.menuService.createMenu(menu, dia).subscribe(data => {
-          console.log('Restpuesta ', data);
-        });
-       
+
+        if ((result.vegetariano && dia.menuVegetariano != null) || (!result.vegetariano && dia.menuEstandar!= null) ){
+          const dialogRef = this.dialog.open(EstasSeguroComponent, {
+            width: '450px',
+            data:{
+              titulo: 'Reemplazar Menú',
+              contenido: `<p>Ya existe un <strong>${menu.tipoMenu}</strong> en el dia ${dia.enumDia}<p>
+                        <p>Esta seguro/a que quiere reemplazarlo?</p>`,
+              // tipoMenu: menu.tipoMenu,
+              // dia: dia.enumDia,
+            }
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if(result){
+              this.menuService.createMenu(menu, dia).subscribe(data => {
+                console.log('Restpuesta ', data);
+              });
+            }
+          });         
+        }else{
+          this.menuService.createMenu(menu, dia).subscribe(data => {
+            console.log('Restpuesta ', data);
+          });
+        }       
       } else {
         console.log('El usuario canceló el diálogo.');
       }
-    });
+    });    
   }
 
   openDialogEliminarMenu(): void {
