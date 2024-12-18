@@ -42,9 +42,16 @@ export class MenuService{
         return this.http.get<Menu[]>(url).pipe(map(res => res));   
     }
 
-    eliminarMenu(id: number){
-        const url = this.API_URL_LOCAL + '/menus/{id}';
-        return this.http.delete<Menu>(url).pipe(map(res => res));   
+    eliminarMenu(menu: Menu, dia: Dia):Observable<Dia> {
+
+        const url = `${this.API_URL_LOCAL}/dias/${dia.id}`;
+        if (menu.esVegetariano()){
+            dia.menuVegetariano = undefined;
+        }else{
+            dia.menuEstandar = undefined;
+        }
+        console.log(dia)
+        return this.http.put<Dia>(url, dia).pipe(map(res => res));   
     }
 
 }

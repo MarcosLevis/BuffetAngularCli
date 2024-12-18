@@ -40,7 +40,7 @@
                     <p><strong>Precio:</strong> ${{ dia.menuVegetariano.precio }}</p>
                     <div class="botones">
                         <button class="button is-primary is-small">Editar</button>
-                        <button class="button is-primary  is-small" (click)="openDialogEliminarMenu()">Desactivar</button>
+                        <button class="button is-primary  is-small" (click)="openDialogEliminarMenu(dia.menuVegetariano.tipoMenu, dia.enumDia)">Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
                     <p><strong>Precio:</strong> ${{ dia.menuEstandar.precio }}</p>
                     <div class="botones">
                         <button class="button is-primary is-small">Editar</button>
-                        <button class="button is-primary  is-small" (click)="openDialogEliminarMenu()">Desactivar</button>
+                        <button class="button is-primary  is-small" (click)="openDialogEliminarMenu(dia.menuEstandar.tipoMenu, dia.enumDia)">Eliminar</button>
                     </div>
                 </div>
             </div>

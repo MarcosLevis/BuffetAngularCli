@@ -26,26 +26,12 @@ export class MenuComponent {
   constructor(public dialog: MatDialog, private menuService: MenuService) {}
   
   ngOnInit(){
-    // this.menuService.getMenus().subscribe(data => {
-    //   this.menus = data;
-    //   console.log(this.menus);
-    // })
-
-    this.menuService.getDias().subscribe(data => {
+this.menuService.getDias().subscribe(data => {
       this.dias = data.sort((a, b) => a.id - b.id);
     })
   }
 
-  getPaginatedMenus(): any[] {
-    const start = this.currentPage * this.itemsPerPage;
-    return this.dias.slice(start, start + this.itemsPerPage);
-  }  
 
-  cambiarPagina(dia: number) {
-    this.currentPage = dia;
-    this.verVegeta = false;
-    this.diaSeleccionadoIndex = dia;
-  }
 
 
   ///ESTO SEGURAMENTE SE PUEDE REFACTORIZAR (sacando los if else) JEJE UWU
@@ -70,8 +56,6 @@ export class MenuComponent {
               titulo: 'Reemplazar Menú',
               contenido: `<p>Ya existe un <strong>${menu.tipoMenu}</strong> en el dia ${dia.enumDia}<p>
                         <p>Esta seguro/a que quiere reemplazarlo?</p>`,
-              // tipoMenu: menu.tipoMenu,
-              // dia: dia.enumDia,
             }
           });
           dialogRef.afterClosed().subscribe(result => {
@@ -92,10 +76,14 @@ export class MenuComponent {
     });    
   }
 
-  openDialogEliminarMenu(): void {
+  openDialogEliminarMenu(tipo: string, dia: string): void {
     const dialogRef = this.dialog.open(EstasSeguroComponent, {
-    width: '450px',
-  });
+      width: '450px',
+      data:{
+        titulo: 'Eliminar Menú',
+        contenido: `<p>Esta seguro que quiere eliminar el <strong>${tipo}</strong> del dia ${dia}<p>`,
+      }
+    });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {  
@@ -104,6 +92,17 @@ export class MenuComponent {
         console.log('El usuario canceló el diálogo de eliminar.');
       }
     });
+  }
+
+  getPaginatedMenus(): any[] {
+    const start = this.currentPage * this.itemsPerPage;
+    return this.dias.slice(start, start + this.itemsPerPage);
+  }  
+
+  cambiarPagina(dia: number) {
+    this.currentPage = dia;
+    this.verVegeta = false;
+    this.diaSeleccionadoIndex = dia;
   }
 
   verOpcionVegetariana(){
