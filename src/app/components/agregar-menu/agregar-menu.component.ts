@@ -19,15 +19,16 @@ export class AgregarMenuComponent {
       // Inicializar el formulario con datos predefinidos (si existen)
       this.menuForm = this.fb.group({
         // foto: [null], // Inicializamos con null porque es un archivo
-        nombre: [data?.nombre || '', Validators.required],
-        entrada: [data?.entrada || '', Validators.required],
-        platoPrincipal: [data?.platoPrincipal || '', Validators.required],
-        bebida: [data?.bebida || '', Validators.required],
-        postre: [data?.postre || '', Validators.required],
-        precio: [data?.precio || 0, [Validators.required,Validators.min(1), Validators.max(99999.9999)]],
+        nombre: [data.menu?.nombre || '', Validators.required],
+        entrada: [data.menu?.entrada || '', Validators.required],
+        platoPrincipal: [data.menu?.platoPrincipal || '', Validators.required],
+        bebida: [data.menu?.bebida || '', Validators.required],
+        postre: [data.menu?.postre || '', Validators.required],
+        precio: [data.menu?.precio || 0, [Validators.required,Validators.min(1), Validators.max(99999.9999)]],
         vegetariano: [data?.vegetariano || false, [Validators.required]],
-        dia: [data?.vegetariano || 0, [Validators.required]],
+        dia: [data?.dia || '', [Validators.required]],
       });
+      console.log(data.dias)
     }
 
     onAgregarMenu(): void {

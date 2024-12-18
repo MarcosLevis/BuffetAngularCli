@@ -3,8 +3,8 @@ import { Menu } from "./Menu";
 export class Dia {
   public id: number;
   public enumDia: string;
-  public menuVegetariano?: Menu ;
-  public menuEstandar?: Menu;
+  public menuVegetariano?: Menu | null;
+  public menuEstandar?: Menu | null;
 
   constructor(obj?: any)
   {

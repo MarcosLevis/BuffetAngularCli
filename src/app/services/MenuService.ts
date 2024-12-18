@@ -23,7 +23,10 @@ export class MenuService{
         return this.http.get<Dia[]>(url).pipe(map(res => res));  
     }
 
-
+    getMenus():Observable<Menu[]>{
+        const url = this.API_URL_LOCAL + '/menus/';
+        return this.http.get<Menu[]>(url).pipe(map(res => res));   
+    }
 
     createMenu(menu: Menu, dia: Dia):Observable<Dia> {
 
@@ -37,18 +40,25 @@ export class MenuService{
         return this.http.put<Dia>(url, dia).pipe(map(res => res));   
     }
 
-    getMenus():Observable<Menu[]>{
-        const url = this.API_URL_LOCAL + '/menus/';
-        return this.http.get<Menu[]>(url).pipe(map(res => res));   
+    deleteMenu(menu: string, dia: Dia):Observable<Dia> {
+
+        const url = `${this.API_URL_LOCAL}/dias/${dia.id}`;
+        if (menu == "menuvegetariano"){
+            dia.menuVegetariano = null;
+        }else{
+            dia.menuEstandar = null;
+        }
+        console.log(dia)
+        return this.http.put<Dia>(url, dia).pipe(map(res => res));   
     }
 
-    eliminarMenu(menu: Menu, dia: Dia):Observable<Dia> {
+    editMenu(menu: Menu, dia: Dia):Observable<Dia> {
 
         const url = `${this.API_URL_LOCAL}/dias/${dia.id}`;
         if (menu.esVegetariano()){
-            dia.menuVegetariano = undefined;
+            dia.menuVegetariano = menu;
         }else{
-            dia.menuEstandar = undefined;
+            dia.menuEstandar = menu;
         }
         console.log(dia)
         return this.http.put<Dia>(url, dia).pipe(map(res => res));   

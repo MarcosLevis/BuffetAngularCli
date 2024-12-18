@@ -26,21 +26,23 @@ export class MenuComponent {
   constructor(public dialog: MatDialog, private menuService: MenuService) {}
   
   ngOnInit(){
-this.menuService.getDias().subscribe(data => {
+    this.menuService.getDias().subscribe(data => {
       this.dias = data.sort((a, b) => a.id - b.id);
     })
   }
 
-
-
-
-  ///ESTO SEGURAMENTE SE PUEDE REFACTORIZAR (sacando los if else) JEJE UWU
-  // Crea un nuevo menu en un dia determinado. 
-  //Si ese tipo menu ya existe en ese dia particular, pregunta si esta seguro que quiera reemplazar ese tipo menu en ese dia determinado
-  openDialogAgregarMenu(): void {
+  /// ESTO SEGURAMENTE SE PUEDE REFACTORIZAR (sacando los if else y hacerlo mas bonito y entendible) JEJE UWU
+  /// Crea un nuevo menu en un dia determinado. 
+  /// Si ese tipo menu ya existe en ese dia particular, pregunta si esta seguro que quiera reemplazar ese tipo menu en ese dia determinado y al confirmar lo reemplaza
+  /// el menu anterior queda registrado en la tabla menu pero no asociado al dia determinado
+  openDialogCreateMenu(): void {
       const dialogRef = this.dialog.open(AgregarMenuComponent, {
       width: '450px',
-      data: this.dias,
+      data: {
+        titulo: 'Agregar Menú',
+        dias: this.dias,
+        boton: 'Agregar'
+      }
     });
   
     dialogRef.afterClosed().subscribe(result => {
@@ -54,8 +56,8 @@ this.menuService.getDias().subscribe(data => {
             width: '450px',
             data:{
               titulo: 'Reemplazar Menú',
-              contenido: `<p>Ya existe un <strong>${menu.tipoMenu}</strong> en el dia ${dia.enumDia}<p>
-                        <p>Esta seguro/a que quiere reemplazarlo?</p>`,
+              contenido: `<p>Ya existe un <strong>${menu.tipoMenu}</strong> en el día <strong>${dia.enumDia}</strong><p>
+                        <p>¿Está seguro/a que quiere reemplazarlo?</p>`,
             }
           });
           dialogRef.afterClosed().subscribe(result => {
@@ -76,22 +78,82 @@ this.menuService.getDias().subscribe(data => {
     });    
   }
 
-  openDialogEliminarMenu(tipo: string, dia: string): void {
+
+  /// Instancia un modal que preguna si estas seguro de querer eliminar un menu
+  /// Al confirma llama al servicio que edita el Dia poniendole en null el menu correspondiente. 
+  /// El objeto menu queda guardado en la tabla Menu pero sin estar relacionado con el dia
+  openDialogDeleteMenu(tipo: string, dia: Dia): void {
     const dialogRef = this.dialog.open(EstasSeguroComponent, {
       width: '450px',
       data:{
         titulo: 'Eliminar Menú',
-        contenido: `<p>Esta seguro que quiere eliminar el <strong>${tipo}</strong> del dia ${dia}<p>`,
+        contenido: `<p>¿Está seguro/a que quiere eliminar el <strong>${tipo}</strong> del día <strong>${dia.enumDia}</strong><p>`,
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {  
-        console.log('Menu fue eliminado')
-      } else {
-        console.log('El usuario canceló el diálogo de eliminar.');
+      if (result){  
+        this.menuService.deleteMenu(tipo,dia).subscribe(data =>{
+          console.log('Menu fue eliminado ' + data)
+        })        
+      } 
+      else{
+        console.log('El usuario/a canceló el diálogo de eliminar.');
       }
     });
+  }
+
+
+  ///Abre un formulario con los datos preestablecidos del Menu a editar
+  ///En caso
+  openDialogEditMenu(menu: Menu, dia: Dia): void{
+    const menu1 = new Menu(menu) //esto lo hago para que sea una instancia de menu y pueda responder directamente a la funcion menu1.esVegetariano()
+    const dialogRef = this.dialog.open(AgregarMenuComponent, {
+      width: '450px',
+      data: {
+        titulo: 'Editar Menú',
+        dias: this.dias,
+        dia: dia.enumDia,
+        menu: menu1,
+        boton: 'Editar',
+        vegetariano: menu1.esVegetariano(),
+        editar: true
+      }
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      if (result){
+        const menu = new Menu(result)
+        menu.tipoMenu = result.vegetariano ? "menuvegetariano" : "menuestandar";
+        const dia = this.encontrarDiaPorNombre(result.dia);
+
+        if ((result.vegetariano && dia.menuVegetariano != null) || (!result.vegetariano && dia.menuEstandar!= null) ){
+          const dialogRef = this.dialog.open(EstasSeguroComponent, {
+            width: '450px',
+            data:{
+              
+              contenido: `<p>¿Está seguro/a que quiere editar el <strong>${menu.tipoMenu}</strong> en el día <strong>${dia.enumDia}</strong>?<p>`,
+            }
+          });
+          dialogRef.afterClosed().subscribe(result => {
+            if(result){
+              this.menuService.editMenu(menu, dia).subscribe(data => {
+                console.log('Restpuesta ', data);
+              });
+            }
+          });         
+        }
+        else{
+          this.menuService.createMenu(menu, dia).subscribe(data => {
+            console.log('Restpuesta ', data);
+          });
+        }       
+      } 
+      else
+      {
+        console.log('El usuario canceló el diálogo.');
+      }
+    });    
   }
 
   getPaginatedMenus(): any[] {
