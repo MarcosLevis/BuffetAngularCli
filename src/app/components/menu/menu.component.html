@@ -1,38 +1,70 @@
 <div style="min-width: 100%;" class="buttons has-addons is-right">
     <button class="button is-black is-small " style="margin: 10px;" (click)="openDialogAgregarMenu()">Agregar Menu</button>
 </div>
-<div class="container">    
+<div class="container"> 
+
     <div class="caja">
+        <div class="cambiar-opcion">
+            <button *ngIf="!verVegeta" class="button is-black is-small " style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opcion vegetariana</button>
+            <button *ngIf="verVegeta" class="button is-black is-small " style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opcion estandar</button>
+        </div>   
         <div class="carrusel">
-            <p>carrusel</p>
+            <p>foto</p>
         </div>
         <div>
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
                 <ul class="pagination-list">
-                    <li *ngFor="let dia of diasSemana; let i = index">
-                        <a  (click)="cambiarPagina(i)" class="pagination-link"  [ngClass]="{'is-current': i === diaSeleccionadoIndex}">{{ dia }}</a>
+                    <li *ngFor="let dia of dias; let i = index">
+                        <a  (click)="cambiarPagina(i)" class="pagination-link"  [ngClass]="{'is-current': i === diaSeleccionadoIndex}">{{ dia.enumDia }}</a>
                     </li>
                   </ul>
               </nav>
         </div>
     </div>
-    <div class="caja">
-        <div class="menu-info"  *ngFor="let menu of getPaginatedMenus()">
-            <div class="titulo">
-                <h1> {{menu.nombre}}</h1>
-                <p *ngIf="esVegetariano(menu)">vegetariano</p>
+   <div class="caja">
+        <div class="menu-info"  *ngFor="let dia of getPaginatedMenus()">
+
+            <div *ngIf="verVegeta">
+                <div *ngIf="dia.menuVegetariano == null && verVegeta ">
+                    <p>No hay menu vegetariano cargado</p>
+                </div>
+                <div *ngIf="dia.menuVegetariano != null ">                
+                    <div class="titulo">
+                        <h1> {{dia.menuVegetariano.nombre}}</h1>
+                        <p>vegetariano</p>
+                    </div>
+                    <p><strong>Entrada:</strong> {{ dia.menuVegetariano.entrada }}</p>
+                    <p><strong>Plato Principal:</strong> {{ dia.menuVegetariano.platoPrincipal }}</p>
+                    <p><strong>Postre:</strong> {{ dia.menuVegetariano.postre }}</p>
+                    <p><strong>Bebida:</strong> {{ dia.menuVegetariano.bebida }}</p>
+                    <p><strong>Precio:</strong> ${{ dia.menuVegetariano.precio }}</p>
+                    <div class="botones">
+                        <button class="button is-primary is-small">Editar</button>
+                        <button class="button is-primary  is-small" (click)="openDialogEliminarMenu()">Desactivar</button>
+                    </div>
+                </div>
             </div>
-            <p><strong>Entrada:</strong> {{ menu.entrada }}</p>
-            <p><strong>Plato Principal:</strong> {{ menu.platoPrincipal }}</p>
-            <p><strong>Postre:</strong> {{ menu.postre }}</p>
-            <p><strong>Bebida:</strong> {{ menu.bebida }}</p>
-            <p><strong>Precio:</strong> ${{ menu.precio }}</p>
-            <div class="botones">
-                <button class="button is-primary is-small">Editar</button>
-                <button class="button is-primary  is-small" (click)="openDialogEliminarMenu()">Desactivar</button>
+            <div *ngIf="!verVegeta">
+                <div *ngIf="dia.menuEstandar == null && !verVegeta ">
+                    <p>No hay menu estandar cargado</p>
+                </div>
+                <div *ngIf="dia.menuEstandar != null ">                
+                    <div class="titulo">
+                        <h1> {{dia.menuEstandar.nombre}}</h1>
+                    </div>
+                    <p><strong>Entrada:</strong> {{ dia.menuEstandar.entrada }}</p>
+                    <p><strong>Plato Principal:</strong> {{ dia.menuEstandar.platoPrincipal }}</p>
+                    <p><strong>Postre:</strong> {{ dia.menuEstandar.postre }}</p>
+                    <p><strong>Bebida:</strong> {{ dia.menuEstandar.bebida }}</p>
+                    <p><strong>Precio:</strong> ${{ dia.menuEstandar.precio }}</p>
+                    <div class="botones">
+                        <button class="button is-primary is-small">Editar</button>
+                        <button class="button is-primary  is-small" (click)="openDialogEliminarMenu()">Desactivar</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>      
+    </div>  
     
 </div >
 

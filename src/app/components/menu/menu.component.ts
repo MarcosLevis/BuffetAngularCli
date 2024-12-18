@@ -16,40 +16,36 @@ export class MenuComponent {
 
   menus: Menu [] = [];
   dias: Dia [] = [];
+  verVegeta: boolean = false;
 
   currentPage: number = 0;
   itemsPerPage: number = 1;
 
-  diasSemana: string[] = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes'];
   diaSeleccionadoIndex: number = 0;
 
   constructor(public dialog: MatDialog, private menuService: MenuService) {}
   
   ngOnInit(){
-    this.menuService.getMenus().subscribe(data => {
-      this.menus = data;
-      console.log(this.menus);
-    })
+    // this.menuService.getMenus().subscribe(data => {
+    //   this.menus = data;
+    //   console.log(this.menus);
+    // })
 
     this.menuService.getDias().subscribe(data => {
-      this.dias = data;
-      console.log(this.dias);
+      this.dias = data.sort((a, b) => a.id - b.id);
     })
   }
 
   getPaginatedMenus(): any[] {
     const start = this.currentPage * this.itemsPerPage;
-    return this.menus.slice(start, start + this.itemsPerPage);
+    return this.dias.slice(start, start + this.itemsPerPage);
   }  
 
   cambiarPagina(dia: number) {
     this.currentPage = dia;
+    this.verVegeta = false;
     this.diaSeleccionadoIndex = dia;
   }
-  esVegetariano(menu: Menu):boolean{
-    return menu.tipoMenu == 'menuvegetariano'
-  }
-
 
   openDialogAgregarMenu(): void {
       const dialogRef = this.dialog.open(AgregarMenuComponent, {
@@ -85,6 +81,10 @@ export class MenuComponent {
         console.log('El usuario canceló el diálogo de eliminar.');
       }
     });
+  }
+
+  verOpcionVegetariana(){
+    this.verVegeta = !this.verVegeta
   }
 
   encontrarDiaPorNombre(diaBuscado: string): Dia{
