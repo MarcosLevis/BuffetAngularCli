@@ -76,15 +76,15 @@ export class AuthService {
     }
   }
 
-  isAdministrador(rol: string){
+  isAdministrador():boolean{
     return this.getCurrentUser()?.rol?.tipoRol === "administrador";
   }
 
-  isResponsableTurno(rol: string){
+  isResponsableTurno():boolean{
     return this.getCurrentUser()?.rol?.tipoRol ==="responsable-turno";
   }
 
-  isCliente(rol: string){
+  isCliente():boolean{
     return this.getCurrentUser()?.rol?.tipoRol === "cliente";
   }
 

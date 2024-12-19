@@ -1,4 +1,5 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar" role="navigation" aria-label="main navigation" style="border-bottom: solid 0.05px rgb(224, 224, 224);
+">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
         <img src="assets/buffet.png" alt="Logo" width="30" height="30">
@@ -24,7 +25,7 @@
         <a class="navbar-item">
             Sugerencias
         </a>
-        <a class="navbar-item">
+        <a class="navbar-item" *ngIf="isAdministrador()">
             Responsables
         </a>       
 
@@ -43,7 +44,7 @@
           </div>
         </div>
         <div *ngIf="isLoged()" class="navbar-item has-dropdown is-hoverable">
-          <a class="material-icons" style="color: black; align-self: center;">account_circle</a>
+          <a class="material-icons" style="color: black; align-self: center; margin-right: 14px;">account_circle</a>
           <div class="navbar-dropdown  is-right">
             <a class="navbar-item">
               Perfil

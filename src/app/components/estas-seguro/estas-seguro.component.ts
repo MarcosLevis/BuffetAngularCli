@@ -11,16 +11,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 })
 export class EstasSeguroComponent {
 
-
-
-
-  constructor(
-      public dialogRef: MatDialogRef<EstasSeguroComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: any,
-      private sanitizer: DomSanitizer
-  ) {
-  }
-
+  constructor(public dialogRef: MatDialogRef<EstasSeguroComponent>, @Inject(MAT_DIALOG_DATA) public data: any, private sanitizer: DomSanitizer) {}
 
     get sanitizedContent(): SafeHtml {
       return this.sanitizer.bypassSecurityTrustHtml(this.data.contenido);
@@ -29,9 +20,6 @@ export class EstasSeguroComponent {
     retornar(confirmar: boolean){
       this.dialogRef.close(confirmar);
     }
-
-
-    
 }
 
 

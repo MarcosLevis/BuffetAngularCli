@@ -5,6 +5,7 @@ import { Menu} from 'src/app/models/Menu';
 import { MenuService } from 'src/app/services/MenuService';
 import { EstasSeguroComponent } from '../estas-seguro/estas-seguro.component';
 import { Dia } from '../../models/Dia';
+import { AuthService } from 'src/app/services/AuthService';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class MenuComponent {
 
   diaSeleccionadoIndex: number = 0;
 
-  constructor(public dialog: MatDialog, private menuService: MenuService) {}
+  constructor(public dialog: MatDialog, private menuService: MenuService, private authService: AuthService) {}
   
   ngOnInit(){
     this.menuService.getDias().subscribe(data => {
@@ -87,14 +88,14 @@ export class MenuComponent {
       width: '450px',
       data:{
         titulo: 'Eliminar Menú',
-        contenido: `<p>¿Está seguro/a que quiere eliminar el <strong>${tipo}</strong> del día <strong>${dia.enumDia}</strong><p>`,
+        contenido: `<p>¿Está seguro/a que quiere eliminar el <strong>${tipo}</strong> del día <strong>${dia.enumDia}</strong>?<p>`,
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result){  
         this.menuService.deleteMenu(tipo,dia).subscribe(data =>{
-          console.log('Menu fue eliminado ' + data)
+          console.log('Menú fue eliminado ' + data)
         })        
       } 
       else{
@@ -156,6 +157,10 @@ export class MenuComponent {
     });    
   }
 
+  isAdministrador():boolean{
+    return this.authService.isAdministrador();
+  }
+
   getPaginatedMenus(): any[] {
     const start = this.currentPage * this.itemsPerPage;
     return this.dias.slice(start, start + this.itemsPerPage);
@@ -163,7 +168,6 @@ export class MenuComponent {
 
   cambiarPagina(dia: number) {
     this.currentPage = dia;
-    this.verVegeta = false;
     this.diaSeleccionadoIndex = dia;
   }
 

@@ -26,6 +26,17 @@ mat-dialog-title {
     border-radius: 4px;
   }
 
+  .error-message {
+    color: rgba(255, 0, 0, 0.671);
+    font-size: 12px;
+    margin-top: 5px;
+    display: none; /* Oculto por defecto */
+  }
+
+  input:invalid + .error-message {
+    display: block; /* Muestra el mensaje si el input no es válido */
+  }
+
   button {
     padding: 10px;
     font-size: 12px;

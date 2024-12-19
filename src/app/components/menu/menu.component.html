@@ -1,15 +1,15 @@
-<div style="min-width: 100%;" class="buttons has-addons is-right">
-    <button class="button is-black is-small " style="margin: 10px;" (click)="openDialogCreateMenu()">Agregar Menu</button>
+<div *ngIf="isAdministrador()" style="min-width: 100%;" class="buttons has-addons is-right">
+    <button class="button is-primary is-small " style="margin: 10px;" (click)="openDialogCreateMenu()">Agregar Menú</button>
 </div>
 <div class="container"> 
 
     <div class="caja">
         <div class="cambiar-opcion">
-            <button *ngIf="!verVegeta" class="button is-black is-small " style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opcion vegetariana</button>
-            <button *ngIf="verVegeta" class="button is-black is-small " style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opcion estandar</button>
+            <button *ngIf="!verVegeta" class="button is-small" style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opción vegetariana</button>
+            <button *ngIf="verVegeta" class="button is-small" style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opción estándar</button>
         </div>   
         <div class="carrusel">
-            <p>foto</p>
+            <img src='assets/almuerzo.jpg' alt="Foto de menú" >
         </div>
         <div>
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
@@ -26,12 +26,12 @@
 
             <div *ngIf="verVegeta">
                 <div *ngIf="dia.menuVegetariano == null && verVegeta ">
-                    <p>No hay menu vegetariano cargado</p>
+                    <p>No hay menú vegetariano cargado</p>
                 </div>
                 <div *ngIf="dia.menuVegetariano != null ">                
                     <div class="titulo">
                         <h1> {{dia.menuVegetariano.nombre}}</h1>
-                        <p>vegetariano</p>
+                        <p style="margin: 10px;">vegetariano</p>
                     </div>
                     <p><strong>Entrada:</strong> {{ dia.menuVegetariano.entrada }}</p>
                     <p><strong>Plato Principal:</strong> {{ dia.menuVegetariano.platoPrincipal }}</p>
@@ -39,14 +39,14 @@
                     <p><strong>Bebida:</strong> {{ dia.menuVegetariano.bebida }}</p>
                     <p><strong>Precio:</strong> ${{ dia.menuVegetariano.precio }}</p>
                     <div class="botones">
-                        <button class="button is-primary is-small" (click)="openDialogEditMenu(dia.menuVegetariano, dia)">Editar</button>
-                        <button class="button is-primary  is-small" (click)="openDialogDeleteMenu(dia.menuVegetariano.tipoMenu, dia)">Eliminar</button>
+                        <button *ngIf="isAdministrador()" class="button is-primary is-small" (click)="openDialogEditMenu(dia.menuVegetariano, dia)">Editar</button>
+                        <button *ngIf="isAdministrador()" class="button is-primary  is-small" (click)="openDialogDeleteMenu(dia.menuVegetariano.tipoMenu, dia)">Eliminar</button>
                     </div>
                 </div>
             </div>
             <div *ngIf="!verVegeta">
                 <div *ngIf="dia.menuEstandar == null && !verVegeta ">
-                    <p>No hay menu estandar cargado</p>
+                    <p>No hay menú estándar cargado</p>
                 </div>
                 <div *ngIf="dia.menuEstandar != null ">                
                     <div class="titulo">
@@ -58,8 +58,8 @@
                     <p><strong>Bebida:</strong> {{ dia.menuEstandar.bebida }}</p>
                     <p><strong>Precio:</strong> ${{ dia.menuEstandar.precio }}</p>
                     <div class="botones">
-                        <button class="button is-primary is-small" (click)="openDialogEditMenu(dia.menuEstandar, dia)">Editar</button>
-                        <button class="button is-primary  is-small" (click)="openDialogDeleteMenu(dia.menuEstandar.tipoMenu, dia)">Eliminar</button>
+                        <button *ngIf="isAdministrador()" class="button is-primary is-small" (click)="openDialogEditMenu(dia.menuEstandar, dia)">Editar</button>
+                        <button *ngIf="isAdministrador()" class="button is-primary  is-small" (click)="openDialogDeleteMenu(dia.menuEstandar.tipoMenu, dia)">Eliminar</button>
                     </div>
                 </div>
             </div>

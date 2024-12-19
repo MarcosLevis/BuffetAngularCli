@@ -1,11 +1,11 @@
 <h1 mat-dialog-title>Alerta</h1>
 <div mat-dialog-content [innerHTML]="sanitizedContent">
 </div>    
-<div mat-dialog-actions>
-    <button class="button is-primary is-small" (click)="retornar(false)">
+<div mat-dialog-actions class="actions">
+    <button class="button is-secondary is-small is-left" (click)="retornar(false)">
         Cancelar
     </button>
-    <button class="button is-primary is-small" (click)="retornar(true)">
+    <button class="button is-primary is-small is-right" (click)="retornar(true)">
         Confirmar
     </button>
 </div>
