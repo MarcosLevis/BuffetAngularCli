@@ -4,7 +4,6 @@ import { RegistrarseComponent } from '../registrarse/registrarse.component';
 import { IniciarSesionComponent } from '../iniciar-sesion/iniciar-sesion.component';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/AuthService';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -21,24 +20,13 @@ export class NavbarComponent {
 
   ngOnInit(){}
 
-
   navigateMenu() {
     this.router.navigate(['menu'])
   }
 
   openDialogRegistrarse(): void {
+
     const dialogRef = this.dialog.open(RegistrarseComponent, {
-      width: '450px', // Tamaño del diálogo
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('El popup se cerró con el siguiente resultado: ', result);
-    });
-  }
-
-
-  openDialogIniciarSesion(): void {
-    const dialogRef = this.dialog.open(IniciarSesionComponent, {
       width: '450px', // Tamaño del diálogo
     });
 
@@ -48,6 +36,18 @@ export class NavbarComponent {
     });
   }
 
+  openDialogIniciarSesion(): void {
+
+    const dialogRef = this.dialog.open(IniciarSesionComponent, {
+      width: '450px', // Tamaño del diálogo
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('El popup se cerró con el siguiente resultado: ', result);
+      this.router.navigate(['home'])
+    });
+
+  }
 
   isLoged():boolean{
     return this.authService.isAuthenticated();

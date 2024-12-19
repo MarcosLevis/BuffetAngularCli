@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/AuthService';
-import { AgregarMenuComponent } from '../agregar-menu/agregar-menu.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -16,7 +14,7 @@ export class IniciarSesionComponent {
 
   loginForm: FormGroup;
   
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<IniciarSesionComponent>,private router: Router, private authService: AuthService,private snackbar: MatSnackBar) {
+  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<IniciarSesionComponent>, private authService: AuthService,private snackbar: MatSnackBar) {
     this.loginForm = this.fb.group({
       email: new FormControl('', [Validators.required]),  // Add validation here if needed
       password: new FormControl('', [Validators.required])  // Add validation here if needed

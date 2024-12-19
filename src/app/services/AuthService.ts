@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import {  map } from 'rxjs/operators';
 import { Usuario } from '../models/Usuario'
 import { LoginResponse } from '../models/LoginResponse'
-
 @Injectable({
   providedIn: 'root',
 })
@@ -14,15 +13,20 @@ export class AuthService {
  
   private currentUser: Usuario | null = null;
   private token: string | null = null;
-
-  url_login = '/api/auth/login';
+  urlbase = '/api'
 
   constructor(private http: HttpClient, private router: Router) {}
 
-
+  registro(usuario: Usuario): Observable<Usuario>{
+    const url = this.urlbase + '/usuarios/';
+    console.log('url en servicel', url)
+    return this.http.post<Usuario>(url,usuario).pipe(map(res => res));   
+  }
+  
   login(email: string, password: string): Observable<LoginResponse> {
     const credenciales = { email, password };
-    return this.http.post<LoginResponse>(this.url_login, credenciales).pipe(
+    const url = this.urlbase + '/auth/login';
+    return this.http.post<LoginResponse>(url, credenciales).pipe(
       map((res: LoginResponse) => {
         localStorage.setItem('accessToken', res.token);
         localStorage.setItem('usuario', JSON.stringify(res.usuario));
@@ -34,8 +38,13 @@ export class AuthService {
     )
   }
 
-
-
+  logout(): void {
+    this.currentUser = null;
+    this.token = null;
+    localStorage.removeItem('usuario');
+    localStorage.removeItem('token');
+    this.router.navigate(['home']);
+  }
 
   getCurrentUser(): Usuario | null {
     try{
@@ -51,7 +60,6 @@ export class AuthService {
       return this.currentUser;
     }
   }
-
 
   getCurrentToken(): string | null {
     try{
@@ -88,16 +96,6 @@ export class AuthService {
     return !!this.getCurrentToken() && !!this.getCurrentUser();
     //se convierte a false si es distinto de cero, null, undefined y vacío (es decir, si NO es "falsy")
     // Luego el siguiente not lo niega para obtener el resultado lógico esperado
-  }
-
-
-
-  logout(): void {
-    this.currentUser = null;
-    this.token = null;
-    localStorage.removeItem('usuario');
-    localStorage.removeItem('token');
-    this.router.navigate(['home']);
   }
 }
 
