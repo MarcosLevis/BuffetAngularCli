@@ -1,6 +1,5 @@
 import { HttpClient } from "@angular/common/http";
-import { Menu } from "../models/Menu"
-import { environment } from "../environment/environment.development";
+import { Menu } from "../models/Menu";
 import { Observable, map } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Dia } from "../models/Dia";
