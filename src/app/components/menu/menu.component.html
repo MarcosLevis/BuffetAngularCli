@@ -7,10 +7,29 @@
         <div class="cambiar-opcion">
             <button *ngIf="!verVegeta" class="button is-small" style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opción vegetariana</button>
             <button *ngIf="verVegeta" class="button is-small" style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opción estándar</button>
-        </div>   
+        </div>  
+               
         <div class="carrusel">
             <img src='assets/almuerzo.jpg' alt="Foto de menú" >
         </div>
+      
+   
+        <!-- <div *ngFor="let dia of getPaginatedMenus()" >
+            <div *ngIf="dia.menuVegetariano != null && verVegeta " class="carrusel" >
+                <img *ngIf="dia.menuVegetariano.base64" [src]="dia.menuVegetariano.base64" alt="Foto de Menú" style="max-width: 100%; height: auto;">
+            </div>
+            <div *ngIf="dia.menuEstandar != null && !verVegeta " class="carrusel" >
+                <img *ngIf="dia.menuEstandar.base64" [src]="getSanitizedImage(dia.menuEstandar.base64)" alt="Foto de Menú" style="max-width: 100%; height: auto;">
+            </div>
+
+            <div *ngIf="dia.menuEstandar != null && !verVegeta " class="carrusel" >
+                <object *ngIf="dia.menuEstandar.base64" [data]="dia.menuEstandar.base64" type="image/*" width="300" height="300">
+                    <p>La imagen no se puede cargar.</p>
+                </object>
+            </div>
+
+        </div> -->
+
         <div>
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
                 <ul class="pagination-list">

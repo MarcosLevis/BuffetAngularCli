@@ -2,11 +2,19 @@
 <div mat-dialog-content>
   <form [formGroup]="menuForm">
     <!-- Foto -->
-    <!-- <mat-form-field appearance="fill">
-      <mat-label >Foto</mat-label>
-      <input matInput formControlName="foto" id="foto" accept="image/*" />
-      (change)="menuForm.get('foto')?.setValue($event.target.files[0])"
-    </mat-form-field> -->
+    <!-- <div>
+      <label for="fileInput">Cargar Imagen</label>
+      <input 
+        id="fileInput" 
+        type="file"        
+        (change)="onFileSelected($event)" 
+        accept="image/*" 
+        class="file-input" 
+      />
+      <mat-error *ngIf="imagenError">
+        {{ imagenError }}
+      </mat-error>
+    </div> -->
 
     <!-- Nombre -->
     <mat-form-field appearance="fill">

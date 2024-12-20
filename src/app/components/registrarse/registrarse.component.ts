@@ -60,18 +60,5 @@ export class RegistrarseComponent {
        verticalPosition: 'bottom',
      });
    }
-
-   normalizarDatos(datos: any): any {
-    const normalizado: any = {};
-    Object.keys(datos).forEach(key => {
-      if (typeof datos[key] === 'object' && datos[key] !== null) {
-        normalizado[key] = datos[key].value || ''; // Si es un objeto, tomar el valor de `value`
-      } else {
-        normalizado[key] = datos[key]; // Si es un valor simple, usarlo directamente
-      }
-    });
-    return normalizado;
-  }
-
 }
 

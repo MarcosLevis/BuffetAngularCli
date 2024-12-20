@@ -9,6 +9,7 @@ export class Menu {
     public postre: string;
     public bebida: string;
     public tipoMenu: string;
+    public base64: string;
 
     constructor(obj?: any)
     {
@@ -21,6 +22,7 @@ export class Menu {
       this.bebida = obj && obj.bebida || '';
       this.tipoItem = 'tipoMenu';
       this.tipoMenu =obj && obj.tipoMenu || '';
+      this.base64 =obj && obj.base64 || '';
     }
 
     esVegetariano(){

@@ -6,6 +6,7 @@ import { MenuService } from 'src/app/services/MenuService';
 import { EstasSeguroComponent } from '../estas-seguro/estas-seguro.component';
 import { Dia } from '../../models/Dia';
 import { AuthService } from 'src/app/services/AuthService';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class MenuComponent {
 
   diaSeleccionadoIndex: number = 0;
 
-  constructor(public dialog: MatDialog, private menuService: MenuService, private authService: AuthService) {}
+  constructor(public dialog: MatDialog, private menuService: MenuService, private authService: AuthService, private sanitizer: DomSanitizer) {}
   
   ngOnInit(){
     this.menuService.getDias().subscribe(data => {
@@ -48,10 +49,11 @@ export class MenuComponent {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const menu = new Menu(result)
+        const menu = new Menu(result.objeto)
+        menu.base64 = "'"+ result.base64+"'"
         menu.tipoMenu = result.vegetariano ? "menuvegetariano" : "menuestandar";
-        const dia = this.encontrarDiaPorNombre(result.dia);
-
+        const dia = this.encontrarDiaPorNombre(result.objeto.dia);
+        console.log('Dia', dia)
         if ((result.vegetariano && dia.menuVegetariano != null) || (!result.vegetariano && dia.menuEstandar!= null) ){
           const dialogRef = this.dialog.open(EstasSeguroComponent, {
             width: '450px',
@@ -174,12 +176,39 @@ export class MenuComponent {
   verOpcionVegetariana(){
     this.verVegeta = !this.verVegeta
   }
+  
+  //recive la imagen en 64 y la santiza por seguridad
+  public getSanitizedImage(imageBase64: string): SafeUrl {
+    //imageBase64 = imageBase64.replace(/^data:image\/[a-z]+;base64,/, ""); /// hice esto porque creia que le faltaba un espacio
+    return this.sanitizer.bypassSecurityTrustUrl(imageBase64);
+
+  }
+
+
+  //recive la imagen en 64 y la convierte en un bytecode
+  // public getBytecode(imageBase64: string): SafeUrl {
+  //   const byteCharacters = atob(imageBase64.split(',')[1]);
+  //   const byteArrays = [];
+  //   for (let offset = 0; offset < byteCharacters.length; offset += 1024) {
+  //     const byteArray = new Array(1024);
+  //     for (let i = 0; i < 1024 && offset + i < byteCharacters.length; i++) {
+  //       byteArray[i] = byteCharacters[offset + i].charCodeAt(0);
+  //     }
+  //     byteArrays.push(new Uint8Array(byteArray));
+  //   }
+  //   const blob = new Blob(byteArrays, { type: 'image/png' });
+  //   return URL.createObjectURL(blob);
+  // }
+
+  
 
   encontrarDiaPorNombre(diaBuscado: string): Dia{
+    console.log('Dia buscado', diaBuscado)
     let dia = this.dias.find(dia => dia.enumDia === diaBuscado);
     if(!dia){
       dia = new Dia()
     }
+    console.log('dia por nombre',dia)
     return dia
   }
 
