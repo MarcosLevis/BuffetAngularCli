@@ -27,7 +27,7 @@ export class Usuario {
     this.sugerencias = obj && obj.sugerencias || [];
     this.turnos = obj && obj.turnos || [];
     this.compras = obj && obj.compras || [];
-    this.imagen = obj && obj.dni || '';
+    this.imagen = obj && obj.imagen || '';
 }
 }
 
