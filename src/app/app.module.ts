@@ -10,6 +10,7 @@ import { IniciarSesionComponent } from './components/iniciar-sesion/iniciar-sesi
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AgregarMenuComponent } from './components/agregar-menu/agregar-menu.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 //Angular Material:
@@ -46,7 +47,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatInputModule,
     MatSelectModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgbModule
   ],
   providers: [
     { provide:HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi:true }

@@ -1,8 +1,7 @@
-<nav class="navbar" role="navigation" aria-label="main navigation" style="border-bottom: solid 0.05px rgb(224, 224, 224);
-">
+<nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <img src="assets/buffet.png" alt="Logo" width="30" height="30">
+        <img src="assets/buffet_white.png" alt="Logo" class="logo">
       </a>
   
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -18,7 +17,6 @@
         <a class="navbar-item" (click)="navigateMenu()">
             Menu
         </a>
-  
         <a class="navbar-item">
             Comidas
         </a>
@@ -35,11 +33,11 @@
         <!-- este switch es para cambiar de logeado a deslogeado ahora que no esta hecha la logica y poder probar el navbar -->
         <div *ngIf="!isLoged()" class="navbar-item">
           <div class="buttons">
-            <a class="button is-primary" (click)="openDialogRegistrarse()">
-              Registrarse
-            </a>
-            <a class="button is-light" (click)="openDialogIniciarSesion()">
+            <a type="button" class="btn btn-light" (click)="openDialogIniciarSesion()">
               Iniciar Sesion
+            </a>
+            <a type="button" class="btn btn-secondary" (click)="openDialogRegistrarse()">
+              Registrarse
             </a>
           </div>
         </div>

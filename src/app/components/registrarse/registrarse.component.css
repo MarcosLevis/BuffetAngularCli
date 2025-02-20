@@ -1,22 +1,23 @@
-
 .mat-dialog-title {
     text-align: center;
     font-size: 1.5rem;
-    margin-bottom: 20px;
-  }
-    form {
-        display: flex;
-        flex-direction: column;
-    }
-  
-  .form-group {
-    margin-bottom: 15px;
   }
   
-  label {
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title-form{
+    font-size: large;
+    font-weight: bold;
+  }
+  
+  .form-label {
     font-size: 12px;
     font-weight: bold;
     margin-bottom: 5px;
+    margin-top: 10px;
   }
   
   input {
@@ -27,7 +28,7 @@
     border-radius: 4px;
   }
 
-  button {
+  /* button {
     padding: 10px;
     font-size: 12px;
     width: 100%;
@@ -40,8 +41,43 @@
   
   button:hover {
     background-color: #45a049;
-  }
+  } */
   
+.images{
+  display: flex;
+  align-items: center;
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+.images img {
+  width: 80%; /* Las imágenes se ajustarán al tamaño máximo del contenedor */
+  height: auto; /* Mantiene la relación de aspecto de las imágenes */
+  border-radius: 20px;
+}
+
+.file-input-container {
+  position: relative;
+  display: inline-block;
+}
+
+.hide {
+  display: none; /* Ocultamos el input para mostrar solo el label con la imagen */
+}
+
+.file-label {
+  cursor: pointer;
+}
+
+.btn.btn-dark {
+  margin-top: 15px;
+}
+/*.file-label img {
+  width: 50px; 
+  height: auto;
+}
+*/
+
 /*
 
 .close-btn {

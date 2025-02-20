@@ -1,0 +1,13 @@
+.logo{
+    height: 50px;
+    min-height: auto;
+    max-height: auto;
+    width: auto;
+}
+
+.navbar {
+    border-bottom: solid 0.05px rgb(224, 224, 224);
+    justify-content: space-between;
+    padding: 0 20px;
+    height: 8%;
+}

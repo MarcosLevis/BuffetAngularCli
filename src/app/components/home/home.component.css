@@ -1,6 +1,35 @@
-div{
+/* div{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+} */
+
+.flex-parent{
+    display: flex;
+    column-gap: 8%;
+    align-items: flex-start;
+    margin-inline-start: 20px;
+    margin-inline-end: 20px;
+}
+
+.flex-child{
+    flex: 2 1 55%;  /* flex-grow | flex-shrink | flex-basis */
+}
+
+.big-image{
+    flex: 1 1 auto;   /* flex-grow | flex-shrink | flex-basis */
+    width: auto;
+    border-radius: 20px;
+}
+
+.bold{
+    font-size: xx-large;
+    font-weight: bold;
+    padding-bottom: 7%;
+}
+
+.bold-text{
+    font-size: x-large;
+    line-height: normal;
 }
