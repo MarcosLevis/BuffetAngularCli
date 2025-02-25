@@ -55,7 +55,6 @@ export class NavbarComponent {
   isAdministrador():boolean{
     return this.authService.isAdministrador();
   }
-
   logOut(){
     this.authService.logout();
   }

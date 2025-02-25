@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from 'src/app/services/AuthService';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-iniciar-sesion',
@@ -14,7 +15,7 @@ export class IniciarSesionComponent {
 
   loginForm: FormGroup;
   
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<IniciarSesionComponent>, private authService: AuthService,private snackbar: MatSnackBar) {
+  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<IniciarSesionComponent>, private authService: AuthService,private snackbar: MatSnackBar, private router: Router) {
     this.loginForm = this.fb.group({
       email: new FormControl('', [Validators.required]),  // Add validation here if needed
       password: new FormControl('', [Validators.required])  // Add validation here if needed
@@ -26,7 +27,8 @@ export class IniciarSesionComponent {
       this.authService.login(this.loginForm.value.email,this.loginForm.value.password).subscribe({
         next: (data) => {
           console.log('Login exitoso:', data);
-          this.dialogRef.close(true)
+          this.dialogRef.close(true);
+          this.router.navigate(['menu']);//anda?
         },
         error: (err) => {
           console.error('Error en el login:', err);

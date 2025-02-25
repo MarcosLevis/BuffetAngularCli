@@ -25,6 +25,7 @@ export class AuthService {
   
   login(email: string, password: string): Observable<LoginResponse> {
     const credenciales = { email, password };
+    console.log(this.urlbase);
     const url = this.urlbase + '/auth/login';
     return this.http.post<LoginResponse>(url, credenciales).pipe(
       map((res: LoginResponse) => {
