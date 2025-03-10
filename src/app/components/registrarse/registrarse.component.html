@@ -6,13 +6,13 @@
 
       <div class="images">
         <div class="file-input-container">
-          <input class="hide" type="file" id="foto" accept="image/*"/>
+          <input class="hide" type="file" id="foto" accept="image/*" (change)="seleccionarImagen($event)"/>
           <label for="foto" class="file-label">
             <img src="assets/agregar.png" alt="Subir foto"/>
           </label>
         </div>
-        <button><img src="assets/perro.jpg"></button> <!-- on click tengo que hacer que la imagen sea la del perro -->
-        <button><img src="assets/gato.jpg"></button> <!-- on click tengo que hacer que la imagen sea la del gato -->
+        <button type="button" (click)="setImagenBase64('assets/perro.jpg')"><img src="assets/perro.jpg"></button>
+        <button type="button" (click)="setImagenBase64('assets/gato.jpg')"><img src="assets/gato.jpg"></button> 
       </div>
 
       <!-- DNI -->
