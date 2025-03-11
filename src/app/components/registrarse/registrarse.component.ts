@@ -30,9 +30,8 @@ export class RegistrarseComponent {
 
   onSubmit() {
     if (this.registroForm.valid) {
-      console.log('ENTRÉ' + this.imagenBase64);//cambiar
-      if(this.imagenBase64 != '')
-        this.mostrarError("La imagen es obligatoria");
+      if(this.imagenBase64 == '')
+        this.mostrarMensaje("La imagen es obligatoria");
 
       const usuario = new Usuario(this.registroForm.value)
       usuario.rol = {    
@@ -49,17 +48,17 @@ export class RegistrarseComponent {
         },
         error: (err) => {
           console.error('Error en el registro:', err);
-          this.mostrarError('Datos inválidos. Por favor, intente nuevamente.');
+          this.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
         }
       })
     }
     else {
       console.log('Formulario de registro inválido');
-      this.mostrarError('Datos inválidos. Por favor, intente nuevamente.');
+      this.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
     }
   }
 
-  mostrarError(mensaje: string): void {
+  mostrarMensaje(mensaje: string): void {
     this.snackbar.open(mensaje, 'Cerrar', {
        duration: 5000,
        horizontalPosition: 'center',
