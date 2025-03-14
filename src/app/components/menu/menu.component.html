@@ -1,6 +1,9 @@
 <div *ngIf="isAdministrador()" style="min-width: 100%;" class="buttons has-addons is-right">
     <button class="button is-primary is-small " style="margin: 10px;" (click)="openDialogCreateMenu()">Agregar Menú</button>
 </div>
+<button type="button" (click)="openDialog(PopupSugerirComponent)">
+    ¿Tenés sugerencias? Compartilas acá
+</button>
 <div class="container"> 
 
     <div class="caja">

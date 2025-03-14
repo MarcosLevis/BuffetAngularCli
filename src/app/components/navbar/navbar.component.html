@@ -14,18 +14,18 @@
   
     <div id="navbarBasicExample" class="navbar-menu">
       <div *ngIf="isLoged()" class="navbar-start">
-        <a class="navbar-item" (click)="navigateMenu()">
+        <button class="navbar-item" (click)="navigateMenu()">
             Menu
-        </a>
-        <a class="navbar-item">
+        </button>
+        <button class="navbar-item" (click)="navigateComidas()">
             Comidas
-        </a>
-        <a class="navbar-item">
+        </button>
+        <button class="navbar-item" (click)="navigateSugerencias()" *ngIf="isCliente()">
             Sugerencias
-        </a>
-        <a class="navbar-item" *ngIf="isAdministrador()">
+        </button>
+        <button class="navbar-item" *ngIf="isAdministrador()">
             Responsables
-        </a>       
+        </button>       
 
       </div>
   
@@ -33,23 +33,23 @@
         <!-- este switch es para cambiar de logeado a deslogeado ahora que no esta hecha la logica y poder probar el navbar -->
         <div *ngIf="!isLoged()" class="navbar-item">
           <div class="buttons">
-            <a type="button" class="btn btn-light" (click)="openDialogIniciarSesion()">
+            <button type="button" class="btn btn-light" (click)="openDialog(IniciarSesionComponent,'home')">
               Iniciar Sesion
-            </a>
-            <a type="button" class="btn btn-secondary" (click)="openDialogRegistrarse()">
+            </button>
+            <button type="button" class="btn btn-secondary" (click)="openDialog(RegistrarseComponent,'home')">
               Registrarse
-            </a>
+            </button>
           </div>
         </div>
         <div *ngIf="isLoged()" class="navbar-item has-dropdown is-hoverable">
-          <a class="material-icons" style="color: black; align-self: center; margin-right: 14px;">account_circle</a>
+          <div class="material-icons" style="color: white; align-self: center; margin-right: 14px;">account_circle</div>
           <div class="navbar-dropdown  is-right">
-            <a class="navbar-item">
+            <button class="navbar-item" (click)="navigatePerfil()">
               Perfil
-            </a>
-            <a class="navbar-item" (click)="logOut()">
+            </button>
+            <button class="navbar-item" (click)="logOut()">
               Cerrar Sesión
-            </a>
+            </button>
           </div>   
 
         </div>

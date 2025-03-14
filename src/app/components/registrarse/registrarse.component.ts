@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Usuario } from 'src/app/models/Usuario';
 import { AuthService } from 'src/app/services/AuthService';
-
+import { MensajeService } from 'src/app/services/MensajeService';
 
 
 @Component({
@@ -17,8 +16,8 @@ export class RegistrarseComponent {
   registroForm: FormGroup;
   imagenBase64: string;
 
-  constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<RegistrarseComponent>, private authService: AuthService,private snackbar: MatSnackBar){
-    this.registroForm = this.fb.group({
+  constructor(fb: FormBuilder, public dialogRef: MatDialogRef<RegistrarseComponent>, private authService: AuthService, private mensajeService: MensajeService){
+    this.registroForm = fb.group({
       dni: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]), // Exactamente 8 dígitos
       nombre:  new FormControl('', [Validators.required, Validators.minLength(2)]), // Mínimo 2 caracteres
       apellido:  new FormControl('', [Validators.required, Validators.minLength(2)]), // Mínimo 2 caracteres
@@ -31,7 +30,7 @@ export class RegistrarseComponent {
   onSubmit() {
     if (this.registroForm.valid) {
       if(this.imagenBase64 == '')
-        this.mostrarMensaje("La imagen es obligatoria");
+        this.mensajeService.mostrarMensaje("La imagen es obligatoria");
 
       const usuario = new Usuario(this.registroForm.value)
       usuario.rol = {    
@@ -48,23 +47,15 @@ export class RegistrarseComponent {
         },
         error: (err) => {
           console.error('Error en el registro:', err);
-          this.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
+          this.mensajeService.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
         }
       })
     }
     else {
       console.log('Formulario de registro inválido');
-      this.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
+      this.mensajeService.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
     }
   }
-
-  mostrarMensaje(mensaje: string): void {
-    this.snackbar.open(mensaje, 'Cerrar', {
-       duration: 5000,
-       horizontalPosition: 'center',
-       verticalPosition: 'bottom',
-     });
-   }
 
   seleccionarImagen(event: Event): void {
     const imagen = event.target as HTMLInputElement;

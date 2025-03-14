@@ -7,6 +7,8 @@ import { EstasSeguroComponent } from '../estas-seguro/estas-seguro.component';
 import { Dia } from '../../models/Dia';
 import { AuthService } from 'src/app/services/AuthService';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { PopupSugerirComponent } from '../popup-sugerir/popup-sugerir.component';
 
 
 @Component({
@@ -24,8 +26,9 @@ export class MenuComponent {
   itemsPerPage: number = 1;
 
   diaSeleccionadoIndex: number = 0;
+  PopupSugerirComponent = PopupSugerirComponent;
 
-  constructor(public dialog: MatDialog, private menuService: MenuService, private authService: AuthService, private sanitizer: DomSanitizer) {}
+  constructor(private dialog: MatDialog, private menuService: MenuService, private authService: AuthService, private sanitizer: DomSanitizer, private router: Router) {}
   
   ngOnInit(){
     this.menuService.getDias().subscribe(data => {
@@ -157,6 +160,20 @@ export class MenuComponent {
         console.log('El usuario canceló el diálogo.');
       }
     });    
+  }
+  
+  openDialog(componente: any, redireccionar : string | undefined = undefined): void {
+    
+    console.log(componente);
+    const dialogRef = this.dialog.open(componente, {
+      width: '450px', // Tamaño del diálogo
+    });
+    
+    if(redireccionar){
+      dialogRef.afterClosed().subscribe(() => {
+        this.router.navigate([redireccionar])
+      });
+    }
   }
 
   isAdministrador():boolean{

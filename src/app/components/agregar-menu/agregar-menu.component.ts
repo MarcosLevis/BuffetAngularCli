@@ -15,7 +15,7 @@ export class AgregarMenuComponent {
 
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<AgregarMenuComponent>,
+    private dialogRef: MatDialogRef<AgregarMenuComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
       // Inicializar el formulario con datos predefinidos (si existen)

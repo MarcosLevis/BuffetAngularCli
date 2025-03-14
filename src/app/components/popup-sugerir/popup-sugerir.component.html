@@ -1,0 +1,32 @@
+<div mat-dialog-content>
+    <form [formGroup]="sugerenciaForm" (ngSubmit)="onSubmit()">
+      
+      <h1 class="title-form">¡Comparte tu sugerencia!</h1>
+
+      <!-- Tipo de sugerencia -->
+      <div class="form-group">
+        <label class="form-label" for="tipo">Tipo de sugerencia:</label>
+        <mat-select id="tipo" formControlName="tipo">
+          <mat-option value="Alimentos">Alimentos</mat-option>
+          <mat-option value="Atención">Atención</mat-option>
+          <mat-option value="Precios">Precios</mat-option>
+          <mat-option value="Infraestructura">Infraestructura</mat-option>
+        </mat-select>
+      </div>
+
+      <!-- Campo de texto para la sugerencia -->
+      <div class="form-group">
+        <textarea class="form-control" rows="4" placeholder="Escribe tu sugerencia aquí..." formControlName="mensaje" required></textarea>
+      </div>
+
+      <!-- Botón para enviar -->
+      <button type="submit" class="btn btn-dark">Sugerir</button>
+ 
+    </form>
+</div>
+
+<!-- Botón para cerrar el modal -->
+<button mat-icon-button class="close-btn" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+</button>
+

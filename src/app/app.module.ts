@@ -23,6 +23,8 @@ import { TokenInterceptor } from './interceptores/TokenInterceptor';
 import { EstasSeguroComponent } from './components/estas-seguro/estas-seguro.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { PopupSugerirComponent } from './components/popup-sugerir/popup-sugerir.component';
 
 
 @NgModule({
@@ -32,9 +34,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MenuComponent,
     HomeComponent,
     RegistrarseComponent,
+    PerfilComponent,
     IniciarSesionComponent,
     AgregarMenuComponent,
-    EstasSeguroComponent
+    EstasSeguroComponent,
+    PopupSugerirComponent
   ],
   imports: [
     BrowserModule,

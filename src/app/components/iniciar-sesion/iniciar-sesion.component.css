@@ -37,7 +37,7 @@ mat-dialog-title {
     display: block; /* Muestra el mensaje si el input no es válido */
   }
 
-  button {
+  /* button {
     padding: 10px;
     font-size: 12px;
     width: 100%;
@@ -50,4 +50,4 @@ mat-dialog-title {
   
   button:hover {
     background-color: #45a049;
-  }
+  } */

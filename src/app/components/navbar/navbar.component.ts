@@ -15,6 +15,8 @@ export class NavbarComponent {
 
   //loegeado es una variable momentanea para probar la vista
   logeado: boolean = false;
+  IniciarSesionComponent = IniciarSesionComponent;
+  RegistrarseComponent = RegistrarseComponent;
 
   constructor(public dialog: MatDialog, private router: Router,private authService: AuthService) {}
 
@@ -24,37 +26,41 @@ export class NavbarComponent {
     this.router.navigate(['menu'])
   }
 
-  openDialogRegistrarse(): void {
-
-    const dialogRef = this.dialog.open(RegistrarseComponent, {
-      width: '450px', // Tamaño del diálogo
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('El popup se cerró con el siguiente resultado: ', result);
-      this.router.navigate(['home'])
-    });
+  navigatePerfil() {
+    this.router.navigate(['perfil']);
   }
 
-  openDialogIniciarSesion(): void {
+  navigateSugerencias() {
+    this.router.navigate(['sugerencias']);
+  }
 
-    const dialogRef = this.dialog.open(IniciarSesionComponent, {
+  navigateComidas() {
+    this.router.navigate(['comidas']);
+  }
+
+  openDialog(componente: any, redireccionar : string): void {
+    const dialogRef = this.dialog.open(componente, {
       width: '450px', // Tamaño del diálogo
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('El popup se cerró con el siguiente resultado: ', result);
-      this.router.navigate(['home'])
+      this.router.navigate([redireccionar])
     });
-
   }
 
   isLoged():boolean{
     return this.authService.isAuthenticated();
   }
+  
   isAdministrador():boolean{
     return this.authService.isAdministrador();
   }
+
+  isCliente():boolean{
+    return this.authService.isCliente();
+  }
+
   logOut(){
     this.authService.logout();
   }

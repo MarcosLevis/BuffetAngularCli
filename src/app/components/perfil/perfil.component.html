@@ -1,0 +1,58 @@
+<div class="container">
+    <h1 class="bold">Perfil</h1>
+
+    <!-- Imagen de perfil -->
+    <div class="profile-section">
+        <div class="field">
+            <label>Foto</label>
+            <img [src]="'data:image/png;base64,'+usuario?.imagen" alt="Foto de perfil" class="profile-pic" id="profile-pic">
+            <input 
+                *ngIf="estaEditando" 
+                type="file" 
+                (change)="cambiarFoto($event)" 
+                class="form-control mt-2"
+                accept="image/*"
+            />
+        </div>
+    </div>
+
+    <!-- Formulario Reactivo -->
+    <form [formGroup]="perfilForm" (ngSubmit)="onSubmit()">
+        <div class="info-section">
+            <div class="field">
+                <label>DNI</label>
+                <input type="text" class="form-control" formControlName="dni" [readonly]="!estaEditando">
+            </div>
+
+            <div class="field">
+                <label>Mail</label>
+                <input type="email" class="form-control" formControlName="email" [readonly]="!estaEditando">
+            </div>
+
+            <div class="field">
+                <label>Nombres</label>
+                <input type="text" class="form-control" formControlName="nombre" [readonly]="!estaEditando">
+            </div>
+
+            <div class="field">
+                <label>Apellidos</label>
+                <input type="text" class="form-control" formControlName="apellido" [readonly]="!estaEditando">
+            </div>
+        </div>
+
+    <!-- Botón para alternar entre Editar y Guardar -->
+    <button type="button" class="btn btn-dark mt-3" (click)="cambio()" *ngIf="!estaEditando">
+        Editar datos
+    </button>
+
+    <button class="btn btn-dark mt-3" *ngIf="estaEditando">
+        Guardar
+    </button>
+
+    <button type="button" class="btn btn-secondary mt-3" *ngIf="estaEditando" (click)="cancelar()">
+        Cancelar
+    </button>
+
+    </form>
+
+</div>
