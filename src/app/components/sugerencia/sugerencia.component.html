@@ -1,0 +1,23 @@
+<h2 class="mb-4">Sugerencias</h2>
+<div class="table-responsive">
+    <table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+        <th>Fecha</th>
+        <th>Autor/a</th>
+        <th>Categoría</th>
+        <th>Sugerencia</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let sugerencia of sugerencias">
+        <td>{{ sugerencia.fecha }}</td>
+        <td>{{ sugerencia.usuarioNombre }}</td>
+        <td>{{ sugerencia.categoria }}</td>
+        <td>{{ sugerencia.texto }}</td>
+        </tr>
+    </tbody>
+    </table>
+</div>
+
+  

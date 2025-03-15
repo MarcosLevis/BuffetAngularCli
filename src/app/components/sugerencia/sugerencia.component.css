@@ -1,0 +1,51 @@
+/* Asegurar que el contenedor ocupe todo el ancho */
+.container-lg {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+  }
+  
+  /* Asegurar que la tabla use todo el ancho */
+  .table-responsive {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  /* Estilos generales */
+  body {
+    background-color: #ebeff2;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Estilos de la cabecera de la tabla */
+  .table-dark {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Filas alternas con color */
+  .table tbody tr:nth-child(even) {
+    background-color: #f8f9fa;
+  }
+  
+  /* Celdas */
+  .table th, .table td {
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap; /* Evita saltos de línea en celdas */
+  }
+  
+  /* Scroll horizontal en pantallas pequeñas */
+  @media (max-width: 768px) {
+    .table-responsive {
+      overflow-x: auto;
+    }
+  }
+  

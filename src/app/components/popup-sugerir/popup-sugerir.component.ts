@@ -1,6 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MensajeService } from 'src/app/services/MensajeService';
+import { SugerenciaService } from 'src/app/services/SugerenciaService';
+import { CategoriaSugerencia, Sugerencia } from 'src/app/models/Sugerencia';
+import { AuthService } from 'src/app/services/AuthService';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/models/Usuario';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-popup-sugerir',
@@ -11,17 +17,45 @@ export class PopupSugerirComponent {
 
   sugerenciaForm: FormGroup;
 
-  constructor (private router: Router, fb: FormBuilder){
+  constructor (private mensajeService: MensajeService, private sugerenciaService: SugerenciaService,
+    private authService: AuthService, private router: Router, private dialogRef: MatDialogRef<PopupSugerirComponent>, fb: FormBuilder){
     this.sugerenciaForm = fb.group({
-          dni: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]), // Exactamente 8 dígitos
-          nombre:  new FormControl('', [Validators.required, Validators.minLength(2)]), // Mínimo 2 caracteres
-          apellido:  new FormControl('', [Validators.required, Validators.minLength(2)]), // Mínimo 2 caracteres
-          email:  new FormControl('', [Validators.required, Validators.email]), // Formato válido de correo electrónico
-          password:  new FormControl('', [Validators.required]),
-        });
+      tipo: ['Alimentos'],
+      texto:  new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(256)])
+    });
   }
 
   onSubmit(){
-    
+    if(this.sugerenciaForm.valid){
+      const usuario: Usuario | null = this.authService.getCurrentUser();
+      if(usuario === null){
+        this.router.navigate(['home']);
+        return;
+      }
+
+      const categoriaSeleccionada: CategoriaSugerencia = (this.sugerenciaForm.value.tipo as string) as CategoriaSugerencia;
+
+      const sugerencia: Sugerencia = {
+        id : null,
+        texto : this.sugerenciaForm.value.texto,
+        fecha: new Date(),
+        usuarioId: usuario.id,
+        usuarioNombre: null,
+        categoria: categoriaSeleccionada
+      }
+
+      this.sugerenciaService.createSugerencia(sugerencia, usuario).subscribe({
+        next: (data) => {
+          this.mensajeService.mostrarMensaje("Sugerencia creada con éxito");
+          this.dialogRef.close();
+        },
+        error: (err) => {
+          this.mensajeService.mostrarMensaje('Ocurrió un error. Por favor, intente nuevamente.');
+        }
+      });
+    }
+    else{
+      this.mensajeService.mostrarMensaje('Ocurrió un error EN EL ELSE. Por favor, intente nuevamente.');
+    }
   }
 }
