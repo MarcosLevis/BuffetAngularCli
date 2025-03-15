@@ -1,0 +1,47 @@
+.mat-dialog-title {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-group{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 10px;
+    width: 80%
+  }
+
+  .form-control{
+    margin-bottom: 10px;
+  }
+
+  .title-form{
+    font-size: large;
+    font-weight: bold;
+    display: flex;
+  }
+  
+  .form-label {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    margin-right: 5px;
+    margin-left: 5px;
+    width: fit-content;
+  }
+  
+
+.mat-select {
+    width: 50%;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
