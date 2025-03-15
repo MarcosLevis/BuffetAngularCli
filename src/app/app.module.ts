@@ -23,9 +23,12 @@ import { TokenInterceptor } from './interceptores/TokenInterceptor';
 import { EstasSeguroComponent } from './components/estas-seguro/estas-seguro.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatTableModule } from '@angular/material/table';
+
+//Modelos
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { PopupSugerirComponent } from './components/popup-sugerir/popup-sugerir.component';
-
+import { SugerenciaComponent } from './components/sugerencia/sugerencia.component';
 
 @NgModule({
   declarations: [
@@ -38,11 +41,13 @@ import { PopupSugerirComponent } from './components/popup-sugerir/popup-sugerir.
     IniciarSesionComponent,
     AgregarMenuComponent,
     EstasSeguroComponent,
-    PopupSugerirComponent
+    PopupSugerirComponent,
+    SugerenciaComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatTableModule,
     BrowserAnimationsModule,
     MatDialogModule,
     MatIconModule,
