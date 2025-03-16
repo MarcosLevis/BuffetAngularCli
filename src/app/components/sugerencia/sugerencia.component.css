@@ -1,51 +1,39 @@
-/* Asegurar que el contenedor ocupe todo el ancho */
-.container-lg {
-    width: 100%;
-    max-width: 100%;
-    padding: 20px;
-  }
-  
-  /* Asegurar que la tabla use todo el ancho */
-  .table-responsive {
-    width: 100%;
-    max-width: 100%;
-    overflow-x: auto;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  /* Estilos generales */
-  body {
-    background-color: #ebeff2;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Estilos de la cabecera de la tabla */
-  .table-dark {
-    background-color: black;
-    color: white;
-    font-weight: bold;
-  }
-  
-  /* Filas alternas con color */
-  .table tbody tr:nth-child(even) {
-    background-color: #f8f9fa;
-  }
-  
-  /* Celdas */
-  .table th, .table td {
-    padding: 10px;
-    text-align: left;
-    white-space: nowrap; /* Evita saltos de línea en celdas */
-  }
-  
-  /* Scroll horizontal en pantallas pequeñas */
-  @media (max-width: 768px) {
-    .table-responsive {
-      overflow-x: auto;
-    }
-  }
-  
+.table-responsive {
+  overflow-y: auto;
+  min-height: 40vh; /* Evita que sea demasiado pequeña */
+  max-height: 75vh; /* Evita que ocupe toda la pantalla */
+  width: 100%;
+}
+
+.table th:nth-child(4), .table td:nth-child(4) {
+  min-width: 975px; /* Ajusta este valor según lo que necesites */
+  text-align: left; /* Alineación del texto a la izquierda si es necesario */
+}
+
+.expanded-content {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-top: 1px solid #ccc;
+  font-style: italic;
+  width: auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.titulo{
+  font-weight: bold;
+}
+
+.filtros{
+  display: flex; 
+  flex-direction: row;
+  gap: 10px;
+  max-width: fit-content;
+  justify-content: flex-start;
+}
+.encabezados {
+  display: flex;
+  flex-direction: column; /* Los elementos estarán en una columna */
+  align-items: flex-start; /* Alinea todo el contenido a la izquierda */
+}

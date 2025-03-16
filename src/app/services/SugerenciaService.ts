@@ -29,6 +29,11 @@ export class SugerenciaService {
     return this.http.get<Sugerencia[]>(url).pipe(map(res => res));
   }
 
+  getSugerenciasDeUnaFecha(fecha: String, max: number = 0): Observable<Sugerencia[]>{
+    const url = this.urlbase + '/sugerencias/de-una-fecha/' + fecha + '/' + max;
+    return this.http.get<Sugerencia[]>(url).pipe(map(res => res));
+  }
+
   getSugerencias(): Observable<Sugerencia[]>{
     const url = this.urlbase + '/sugerencias/';
     return this.http.get<Sugerencia[]>(url).pipe(map(res => res));

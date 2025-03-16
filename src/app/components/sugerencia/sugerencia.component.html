@@ -1,23 +1,52 @@
-<h2 class="mb-4">Sugerencias</h2>
-<div class="table-responsive">
-    <table class="table table-bordered">
-    <thead class="table-dark">
+<div class="encabezados">
+    <h1 class="titulo">Sugerencias</h1>
+    <div class="filtros">
+        <button class="btn btn-secondary mb-2" (click)="getSugerencias(true)">Recientes</button>
+        <button class="btn btn-secondary mb-2" (click)="getSugerencias(false)">Antiguas</button>
+        <input type="date" class="btn btn-secondary mb-2" (change)="getSugerenciasFecha($event)" max="{{fechaMaxima}}">
+    </div>
+</div>
+<div class="table-container">
+  <div class="table-responsive">
+    <table class="table table-bordered" *ngIf="sugerencias.length > 0">
+      <thead class="table-dark">
         <tr>
-        <th>Fecha</th>
-        <th>Autor/a</th>
-        <th>Categoría</th>
-        <th>Sugerencia</th>
+          <th>Fecha</th>
+          <th>Autor/a</th>
+          <th>Categoría</th>
+          <th>Sugerencia</th>
+          <th>Detalles</th>
         </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let sugerencia of sugerencias">
-        <td>{{ sugerencia.fecha }}</td>
-        <td>{{ sugerencia.usuarioNombre }}</td>
-        <td>{{ sugerencia.categoria }}</td>
-        <td>{{ sugerencia.texto }}</td>
-        </tr>
-    </tbody>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let sugerencia of sugerencias | slice:0:18; trackBy: trackById">
+          <tr>
+            <td>{{ sugerencia.fecha | date:'dd-MM-yyyy' }}</td>
+            <td>{{ sugerencia.usuarioNombre }}</td>
+            <td>{{ sugerencia.categoria }}</td>
+            <td>
+              <span *ngIf="sugerencia.texto.length <= 120">{{ sugerencia.texto }}</span>
+              <span *ngIf="sugerencia.texto.length > 120">{{ sugerencia.texto.slice(0,120) + "..." }}</span>
+            </td>
+            <td class="text-center">
+              <button mat-icon-button (click)="toggleExpand(sugerencia); $event.stopPropagation()">
+                <mat-icon>{{ expandedElement === sugerencia ? 'expand_less' : 'expand_more' }}</mat-icon>
+              </button>
+            </td>
+          </tr>
+
+          <tr *ngIf="expandedElement === sugerencia">
+            <td colspan="5" class="expanded-content">
+              <p>{{ getTextSlice(sugerencia, 0, 130) }}</p>
+              <p *ngIf="sugerencia.texto.length > 130">{{ getTextSlice(sugerencia, 130, 256) }}</p>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
     </table>
+    <div *ngIf="sugerencias.length == 0">
+        <p>¡No hay sugerencias aún!</p>
+    </div>
+  </div>
 </div>
 
-  
