@@ -1,6 +1,7 @@
 .mat-dialog-title {
     text-align: center;
     font-size: 1.5rem;
+    width: 450px;
   }
   
   form {

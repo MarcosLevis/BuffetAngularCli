@@ -9,6 +9,7 @@ import { AuthService } from 'src/app/services/AuthService';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { PopupSugerirComponent } from '../popup-sugerir/popup-sugerir.component';
+import { PopupEstasSeguroComponent } from '../popup-estas-seguro/popup-estas-seguro.component';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class MenuComponent {
 
   diaSeleccionadoIndex: number = 0;
   PopupSugerirComponent = PopupSugerirComponent;
+  PopupEstasSeguroComponent = PopupEstasSeguroComponent;
 
   constructor(private dialog: MatDialog, private menuService: MenuService, private authService: AuthService, private sanitizer: DomSanitizer, private router: Router) {}
   
@@ -162,18 +164,30 @@ export class MenuComponent {
     });    
   }
   
-  openDialog(componente: any, redireccionar : string | undefined = undefined): void {
+  openDialog(componente: any, width: string, redireccionar : string | undefined = undefined): void {
     
-    console.log(componente);
     const dialogRef = this.dialog.open(componente, {
-      width: '450px', // Tamaño del diálogo
+      width: width + 'px', // Tamaño del diálogo
     });
     
-    if(redireccionar){
-      dialogRef.afterClosed().subscribe(() => {
-        this.router.navigate([redireccionar])
-      });
-    }
+    dialogRef.afterClosed().subscribe((result: boolean = false) => {
+      console.log('El diálogo se cerró con valor:', result);
+
+      // Aquí puedes manejar el valor booleano (result)
+      if (result) {
+        console.log('Usuario confirmó');
+        // Si el resultado es true, puedes hacer algo adicional (como redirigir)
+      } else {
+        console.log('Usuario canceló');
+        // Si el resultado es false, puedes hacer algo diferente si lo necesitas
+      }
+
+      // Si se ha especificado una redirección, se realiza después de cerrar el diálogo
+      if (redireccionar) {
+        this.router.navigate([redireccionar]);
+      }
+    });
+
   }
 
   isAdministrador():boolean{

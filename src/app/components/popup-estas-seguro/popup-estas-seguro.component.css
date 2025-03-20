@@ -1,0 +1,20 @@
+.dialog-container {
+    text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+  }
+
+  .message {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: black;
+    font-weight: bold;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
