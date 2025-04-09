@@ -16,6 +16,17 @@
       </mat-error>
     </div> -->
 
+    <!--el DILEMA es si llenar la BD con la foto base o permitir fotos nulas-->
+    <div class="images">
+      <div class="file-input-container">
+        <input class="hide" type="file" id="foto" accept="image/*" (change)="seleccionarImagen($event)"/>
+        <label for="foto" class="file-label">
+          <img src="assets/agregar.png" alt="Subir foto"/>
+        </label>
+      </div>
+      <button type="button" (click)="setImagenBase64('assets/menu_base.jpg')"><img src="assets/menu_base.jpg"></button>
+    </div>
+
     <!-- Nombre -->
     <mat-form-field appearance="fill">
       <mat-label>Nombre</mat-label>
