@@ -1,6 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
+import { ImagenService } from 'src/app/services/ImagenService';
+import { MensajeService } from 'src/app/services/MensajeService';
 
 @Component({
   selector: 'app-agregar-menu',
@@ -16,8 +19,9 @@ export class AgregarMenuComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AgregarMenuComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
+    private imagenService: ImagenService,
+    private mensajeService: MensajeService,
+    @Inject(MAT_DIALOG_DATA) public data: any) {
       // Inicializar el formulario con datos predefinidos (si existen)
       this.menuForm = this.fb.group({
         //foto: [data.menu.foto || null, Validators.required], // Inicializamos con null porque es un archivo
@@ -81,6 +85,27 @@ export class AgregarMenuComponent {
       }
     }
 
+    seleccionarImagenLocal(path: string){
+      this.imagenService.seleccionarImagenLocal(path).subscribe({
+        next: (data) => {
+          this.base64Image = data;
+        },
+        error: (err) => {
+          this.imagenError = 'Error al seleccionar la imagen local';
+        }
+      });
+    }
 
+    seleccionarImagen(event: Event){
+      this.imagenService.seleccionarImagen(event).subscribe({
+        next: (data) => {
+          this.base64Image = data;
+        },
+        error: (err) => {
+          this.imagenError = 'Error al seleccionar la imagen';
+        }
+      });
+    }
+    
 }
 

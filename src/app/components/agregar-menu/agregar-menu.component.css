@@ -33,12 +33,49 @@
     border: 1px solid #ccc;
     border-radius: 4px;
   }
-
-  button:hover {
-    background-color: #45a049;
-  }
   
   .btn {
     width: auto;
   }
 
+  .images{
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  .images img {
+    border-radius: 20px;
+    padding: 5px;
+  }
+
+  .images button {
+    width: 50%;
+    height: inherit;
+    border-radius: 20px;
+  }
+
+  .images button:hover {
+    background-color: rgb(42, 165, 42);
+  }
+  
+  .file-input-container {
+    position: relative;
+    display: inline-block;
+    width: 48%;
+    height: 90%;
+    margin-right: 10px;
+  }
+
+  .file-input-container img {
+    height: 200px;
+    width: 100%;
+  }
+
+  .file-input-container img:hover {
+    background-color: rgb(42, 165, 42);
+  }
+
+  .hide {
+    display: none; /* Ocultamos el input para mostrar solo el label con la imagen */
+  }

@@ -16,7 +16,7 @@
       </mat-error>
     </div> -->
 
-    <!--el DILEMA es si llenar la BD con la foto base o permitir fotos nulas-->
+    <!--el DILEMA es si llenar la BD con la foto base o permitir fotos nulas: por ahora lleno con duplicados-->
     <div class="images">
       <div class="file-input-container">
         <input class="hide" type="file" id="foto" accept="image/*" (change)="seleccionarImagen($event)"/>
@@ -24,7 +24,7 @@
           <img src="assets/agregar.png" alt="Subir foto"/>
         </label>
       </div>
-      <button type="button" (click)="setImagenBase64('assets/menu_base.jpg')"><img src="assets/menu_base.jpg"></button>
+      <button type="button" (click)="seleccionarImagenLocal('assets/menu_base.jpg')"><img src="assets/menu_base.png" alt="Foto genérica"></button>
     </div>
 
     <!-- Nombre -->
