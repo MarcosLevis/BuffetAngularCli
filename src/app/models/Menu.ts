@@ -13,7 +13,7 @@ export class Menu {
 
     constructor(obj?: any)
     {
-      this.id = obj && obj.id || '';
+      this.id = obj && obj.id || null;
       this.precio = obj && obj.precio || '';
       this.nombre =obj && obj.nombre || '';
       this.entrada = obj && obj.entrada || '';

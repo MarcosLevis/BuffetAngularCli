@@ -39,6 +39,11 @@
   width: 80%; /* Las imágenes se ajustarán al tamaño máximo del contenedor */
   height: auto; /* Mantiene la relación de aspecto de las imágenes */
   border-radius: 20px;
+  padding: 3px;
+}
+
+.images img:hover{
+  background-color: rgb(42, 165, 42);
 }
 
 .file-input-container {
