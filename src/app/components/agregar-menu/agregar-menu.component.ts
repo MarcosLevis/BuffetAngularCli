@@ -7,6 +7,7 @@ import { MensajeService } from 'src/app/services/MensajeService';
 import { MenuService } from 'src/app/services/MenuService';
 import { Menu } from 'src/app/models/Menu';
 
+
 @Component({
   selector: 'app-agregar-menu',
   templateUrl: './agregar-menu.component.html',
@@ -109,6 +110,7 @@ export class AgregarMenuComponent {
       this.imagenService.seleccionarImagenLocal(path).subscribe({
         next: (data) => {
           this.imagenBase64 = data;
+
         },
         error: (err) => {
           this.imagenError = 'Error al seleccionar la imagen local';
@@ -121,6 +123,7 @@ export class AgregarMenuComponent {
         next: (data) => {
           this.imagenBase64 = data;
         },
+
         error: (err) => {
           this.imagenError = 'Error al seleccionar la imagen';
         }
