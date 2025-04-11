@@ -26,4 +26,24 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
-//cambiar en todo lo que hay que cambiar
+NOTAS:
+
+    cambiar console logs, comentarios y cosas hardcodeadas (guard)
+
+    arreglar token interceptor para que solo lo haga con los endpoints necesarios
+
+    1 - Listado de menúes
+    2 - Listado de comidas
+    3 - Listado de responsables
+    4 - Pop up menú
+    5 - Pop up responsable
+    6 - Pop up turno
+    7 - Listado compras
+    8 - Pop up QR compra del usuario
+    9 - Pagos de los usuarios
+
+    10 - DTOs en el back para ocultar IDs (chequear los previos)
+
+DOING:
+    - agregar un menú, probar que ande
+    - listar sugerencias

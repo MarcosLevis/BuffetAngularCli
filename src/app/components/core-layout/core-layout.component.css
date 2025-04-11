@@ -1,16 +1,3 @@
-/* .core-layout {
-    display: flex;
-    flex-direction: column;
-    height: 80vh; Asegura que el layout ocupe el alto de la pantalla
-  }
-  
-.main-content {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-} */
-
 .main-content {
   display: flex;
   flex-direction: column;
@@ -18,5 +5,5 @@
   justify-content: flex-start;
   width: 100%;
   min-height: 100vh; /* Usar toda la altura de la pantalla */
-  padding: 40px 10%; /* Añadir más espacio alrededor */
+  padding: 20px 1.5%; /* Añadir más espacio alrededor, antes era 40px 10% */
 }
