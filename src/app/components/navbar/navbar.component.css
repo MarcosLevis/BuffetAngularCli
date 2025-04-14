@@ -11,3 +11,14 @@
     padding: 0 20px;
     height: 8%;
 }
+
+.navbar-start {
+    font-size: large;
+}
+
+.material-icons {
+    color: white;
+    align-self: center;
+    margin-right: 14px;
+    font-size: 40px;
+}

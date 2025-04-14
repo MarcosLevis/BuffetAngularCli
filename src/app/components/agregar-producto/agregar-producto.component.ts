@@ -6,9 +6,9 @@ import { MensajeService } from 'src/app/services/MensajeService';
 import { ProductoService } from 'src/app/services/ProductoService';
 
 @Component({
-  selector: 'app-agregar-comida',
-  templateUrl: './agregar-comida.component.html',
-  styleUrls: ['./agregar-comida.component.css']
+  selector: 'app-agregar-producto',
+  templateUrl: './agregar-producto.component.html',
+  styleUrls: ['./agregar-producto.component.css']
 })
 export class AgregarProductoComponent {
   productoForm: FormGroup;

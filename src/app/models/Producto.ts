@@ -9,8 +9,8 @@ export class Producto {
     {
       this.id = obj && obj.id || null;
       this.precio = obj && obj.precio || '';
-      this.nombre =obj && obj.nombre || '';
-      this.tipoItem = 'tipoProducto'; //???
+      this.nombre = obj && obj.nombre || '';
+      this.tipoItem = obj && obj.tipoItem || 'producto'; 
     }
 
   }

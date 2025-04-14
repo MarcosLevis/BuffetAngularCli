@@ -1,20 +1,16 @@
-<div  style="min-width: 100%;" class="buttons has-addons is-right">
+<div style="min-width: 100%;" class="buttons has-addons is-right">
     <button type="button" class="popup" (click)="openDialog(PopupSugerirComponent,'450')"> <!--//cambiarponer NGIF para el cliente-->
         ¿Tenés sugerencias? Compartilas acá
     </button>
     <button class="btn btn-dark" style="margin: 10px;" (click)="openDialogCreateMenu()">Agregar Menú</button>
 </div>
 
-
-<button type="button" class="popup" (click)="openDialog(PopupEstasSeguroComponent,'300')"> <!--//cambiarponer NGIF para el cliente-->
-    Pop up Estas Seguro Component
-</button>
 <div class="container"> 
 
     <div class="caja">
         <div class="cambiar-opcion">
-            <button *ngIf="!verVegeta" class="button is-small" style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opción vegetariana</button>
-            <button *ngIf="verVegeta" class="button is-small" style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opción estándar</button>
+            <button *ngIf="!verVegeta" class="button" style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opción vegetariana</button>
+            <button *ngIf="verVegeta" class="button" style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opción estándar</button>
         </div>  
                
         <div class="carrusel">
@@ -38,11 +34,11 @@
 
         </div> -->
 
-        <div>
+        <div class="dias">
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
                 <ul class="pagination-list">
                     <li *ngFor="let dia of dias; let i = index">
-                        <a  (click)="cambiarPagina(i)" class="pagination-link"  [ngClass]="{'is-current': i === diaSeleccionadoIndex}">{{ dia.enumDia }}</a>
+                        <button (click)="cambiarPagina(i)" class="pagination-link" [ngClass]="{'is-current': i === diaSeleccionadoIndex}">{{ dia.enumDia }}</button>
                     </li>
                   </ul>
               </nav>
@@ -66,8 +62,8 @@
                     <p><strong>Bebida:</strong> {{ dia.menuVegetariano.bebida }}</p>
                     <p><strong>Precio:</strong> ${{ dia.menuVegetariano.precio }}</p>
                     <div class="botones">
-                        <button *ngIf="isAdministrador()" class="button is-primary is-small" (click)="openDialogEditMenu(dia.menuVegetariano, dia)">Editar</button>
-                        <button *ngIf="isAdministrador()" class="button is-primary  is-small" (click)="openDialogDeleteMenu(dia.menuVegetariano.tipoMenu, dia)">Eliminar</button>
+                        <button *ngIf="isAdministrador()" class="button is-black is-normal" (click)="openDialogEditMenu(dia.menuVegetariano, dia)">Editar</button>
+                        <button *ngIf="isAdministrador()" class="button is-black  is-normal" (click)="openDialogDeleteMenu(dia.menuVegetariano.tipoMenu, dia)">Eliminar</button>
                     </div>
                 </div>
             </div>
@@ -85,8 +81,8 @@
                     <p><strong>Bebida:</strong> {{ dia.menuEstandar.bebida }}</p>
                     <p><strong>Precio:</strong> ${{ dia.menuEstandar.precio }}</p>
                     <div class="botones">
-                        <button *ngIf="isAdministrador()" class="button is-primary is-small" (click)="openDialogEditMenu(dia.menuEstandar, dia)">Editar</button>
-                        <button *ngIf="isAdministrador()" class="button is-primary  is-small" (click)="openDialogDeleteMenu(dia.menuEstandar.tipoMenu, dia)">Eliminar</button>
+                        <button *ngIf="isAdministrador()" class="button is-black is-normal" (click)="openDialogEditMenu(dia.menuEstandar, dia)">Editar</button>
+                        <button *ngIf="isAdministrador()" class="button is-black  is-normal" (click)="openDialogDeleteMenu(dia.menuEstandar.tipoMenu, dia)">Eliminar</button>
                     </div>
                 </div>
             </div>
