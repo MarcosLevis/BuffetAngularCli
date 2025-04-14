@@ -1,0 +1,33 @@
+.mat-dialog-title {
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title-form{
+    font-size: large;
+    font-weight: bold;
+  }
+  
+  .form-label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+  
+  input {
+    padding: 5px;
+    font-size: 12px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+.btn.btn-dark {
+  margin-top: 15px;
+}

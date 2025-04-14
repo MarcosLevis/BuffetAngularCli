@@ -32,17 +32,18 @@ NOTAS:
 
     arreglar token interceptor para que solo lo haga con los endpoints necesarios
 
-    1 - Listado de menúes
-    2 - Listado de comidas
+    1 - Listado de menúes (ajustar)
+    2 - Listado de productos
     3 - Listado de responsables
-    4 - Pop up menú
+    4 - Pop up menú (probar con datos)
     5 - Pop up responsable
     6 - Pop up turno
     7 - Listado compras
     8 - Pop up QR compra del usuario
     9 - Pagos de los usuarios
+   10 - Pop up productos (EN PROCESO)
 
-    10 - DTOs en el back para ocultar IDs (chequear los previos)
+    11 - DTOs en el back para ocultar IDs (chequear los previos)
 
 DOING:
     - agregar un menú, probar que ande

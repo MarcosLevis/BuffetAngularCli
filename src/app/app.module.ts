@@ -30,6 +30,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { PopupSugerirComponent } from './components/popup-sugerir/popup-sugerir.component';
 import { SugerenciaComponent } from './components/sugerencia/sugerencia.component';
 import { PopupEstasSeguroComponent } from './components/popup-estas-seguro/popup-estas-seguro.component';
+import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { PopupEstasSeguroComponent } from './components/popup-estas-seguro/popup
     EstasSeguroComponent,
     PopupSugerirComponent,
     SugerenciaComponent,
-    PopupEstasSeguroComponent
+    PopupEstasSeguroComponent,
+    AgregarProductoComponent
   ],
   imports: [
     BrowserModule,

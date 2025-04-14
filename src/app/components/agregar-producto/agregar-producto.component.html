@@ -1,0 +1,30 @@
+
+<div mat-dialog-content>
+    <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+      
+      <h1 class="title-form">Productos</h1>
+
+      <!-- Nombre -->
+      <div class="form-group">
+        <label class="form-label" for="nombre">Nombre</label>
+        <input type="text" id="nombre" placeholder="Ingrese el nombre" formControlName="nombre" required/>
+      </div>
+  
+      <!-- Precio -->
+      <div class="form-group">
+        <label class="form-label" for="precio">Precio</label>
+        <input type="number" step="0.1" id="precio" placeholder="Ingrese el precio" formControlName="precio" required/>
+      </div>
+        
+      <!-- Botón de registro -->
+      <button type="submit" class="btn btn-dark">Confirmar</button>
+ 
+    </form>
+
+</div>
+<!-- 
+<button mat-icon-button class="close-btn" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+</button> -->
+
+  
