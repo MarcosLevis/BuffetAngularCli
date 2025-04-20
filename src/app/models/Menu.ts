@@ -20,12 +20,12 @@ export class Menu {
       this.platoPrincipal = obj && obj.platoPrincipal || '';
       this.postre = obj && obj.postre || '';
       this.bebida = obj && obj.bebida || '';
-      this.tipoItem = 'tipoMenu';
+      this.tipoItem = 'menu'; //o tipoMenu
       this.tipoMenu =obj && obj.tipoMenu || '';
       this.base64 =obj && obj.base64 || '';
     }
 
     esVegetariano(){
-      return this.tipoMenu == 'menuvegetariano'
+      return this.tipoMenu === 'menuvegetariano'
     }
   }

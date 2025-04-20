@@ -1,8 +1,8 @@
 <div style="min-width: 100%;" class="buttons has-addons is-right">
-    <button type="button" class="popup" (click)="openDialog(PopupSugerirComponent,'450')"> <!--//cambiarponer NGIF para el cliente-->
+    <button *ngIf="esCliente()" type="button" class="popup" (click)="openDialog(PopupSugerirComponent,'450')"> <!--//cambiarponer NGIF para el cliente-->
         ¿Tenés sugerencias? Compartilas acá
     </button>
-    <button class="btn btn-dark" style="margin: 10px;" (click)="openDialogCreateMenu()">Agregar Menú</button>
+    <button *ngIf="esAdministrador()" class="btn btn-dark" style="margin: 10px;" (click)="openDialogCreateMenu()">Agregar Menú</button>
 </div>
 
 <div class="container"> 
@@ -17,7 +17,6 @@
             <img src='assets/almuerzo.jpg' alt="Foto de menú" > <!--FOTO-->
         </div>
       
-   
         <!-- <div *ngFor="let dia of getPaginatedMenus()" >
             <div *ngIf="dia.menuVegetariano != null && verVegeta " class="carrusel" >
                 <img *ngIf="dia.menuVegetariano.base64" [src]="dia.menuVegetariano.base64" alt="Foto de Menú" style="max-width: 100%; height: auto;">
@@ -54,7 +53,7 @@
                 <div *ngIf="dia.menuVegetariano != null ">                
                     <div class="titulo">
                         <h1> {{dia.menuVegetariano.nombre}}</h1>
-                        <p style="margin: 10px;">vegetariano</p>
+                        <h3 style="margin: 10px;">vegetariano</h3>
                     </div>
                     <p><strong>Entrada:</strong> {{ dia.menuVegetariano.entrada }}</p>
                     <p><strong>Plato Principal:</strong> {{ dia.menuVegetariano.platoPrincipal }}</p>

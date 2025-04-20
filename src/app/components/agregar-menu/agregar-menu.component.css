@@ -56,7 +56,7 @@
   }
 
   .images button:hover {
-    background-color: rgb(42, 165, 42);
+    background-color: black;
   }
   
   .file-input-container {
@@ -73,9 +73,13 @@
   }
 
   .file-input-container img:hover {
-    background-color: rgb(42, 165, 42);
+    background-color: black;
   }
 
   .hide {
     display: none; /* Ocultamos el input para mostrar solo el label con la imagen */
+  }
+
+  .strong{
+    color: black;
   }

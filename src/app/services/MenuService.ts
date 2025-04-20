@@ -30,7 +30,7 @@ export class MenuService{
         }else{
             dia.menuEstandar = menu;
         }
-        console.log(dia)
+        console.log('EL DIA TIENE:',dia)
         return this.http.put<Dia>(url, dia).pipe(map(res => res));   
     }
 

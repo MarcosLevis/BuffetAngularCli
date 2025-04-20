@@ -54,32 +54,10 @@ export class MenuComponent {
   
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        const menu = new Menu(result.objeto)
-        menu.base64 = "'"+ result.base64+"'"
-        menu.tipoMenu = result.vegetariano ? "menuvegetariano" : "menuestandar";
-        const dia = this.encontrarDiaPorNombre(result.objeto.dia);
-        console.log('Dia', dia)
-        if ((result.vegetariano && dia.menuVegetariano != null) || (!result.vegetariano && dia.menuEstandar!= null) ){
-          const dialogRef = this.dialog.open(EstasSeguroComponent, {
-            width: '450px',
-            data:{
-              titulo: 'Reemplazar Menú',
-              contenido: `<p>Ya existe un <strong>${menu.tipoMenu}</strong> en el día <strong>${dia.enumDia}</strong><p>
-                        <p>¿Está seguro/a que quiere reemplazarlo?</p>`,
-            }
-          });
-          dialogRef.afterClosed().subscribe(result => {
-            if(result){
-              this.menuService.createMenu(menu, dia).subscribe(data => {
-                console.log('Restpuesta ', data);
-              });
-            }
-          });         
-        }else{
-          this.menuService.createMenu(menu, dia).subscribe(data => {
-            console.log('Restpuesta ', data);
-          });
-        }       
+        //ver que pasa con el listado de menues y que se muestre el nuevo, ya sea 100% nuevo o uno que reemplaza a uno viejo
+        const diaRecibido = new Dia(result.dia);
+        const posicion = this.dias.findIndex(dia => dia.enumDia === diaRecibido.enumDia);
+        this.dias[posicion] = diaRecibido;
       } else {
         console.log('El usuario canceló el diálogo.');
       }
@@ -95,7 +73,7 @@ export class MenuComponent {
       width: '450px',
       data:{
         titulo: 'Eliminar Menú',
-        contenido: `<p>¿Está seguro/a que quiere eliminar el <strong>${tipo}</strong> del día <strong>${dia.enumDia}</strong>?<p>`,
+        contenido: `<p>¿Está seguro/a que quiere eliminar el ${tipo} del día <strong>${dia.enumDia}</strong>?<p>`,
       }
     });
 
@@ -115,24 +93,24 @@ export class MenuComponent {
   ///Abre un formulario con los datos preestablecidos del Menu a editar
   ///En caso
   openDialogEditMenu(menu: Menu, dia: Dia): void{
-    const menu1 = new Menu(menu) //esto lo hago para que sea una instancia de menu y pueda responder directamente a la funcion menu1.esVegetariano()
+    //const menu1 = new Menu(menu); //esto lo hago para que sea una instancia de menu y pueda responder directamente a la funcion menu1.esVegetariano()
     const dialogRef = this.dialog.open(AgregarMenuComponent, {
       width: '450px',
       data: {
         titulo: 'Editar Menú',
         dias: this.dias,
         dia: dia.enumDia,
-        menu: menu1,
+        menu: menu,
         boton: 'Editar',
-        vegetariano: menu1.esVegetariano(),
+        vegetariano: menu.esVegetariano(),
         editar: true
       }
     });
   
     dialogRef.afterClosed().subscribe(result => {
       if (result){
-        const menu = new Menu(result)
-        menu.tipoMenu = result.vegetariano ? "menuvegetariano" : "menuestandar";
+        const menu = new Menu(result);
+        menu.tipoMenu = result.vegetariano ? 'menuvegetariano' : 'menuestandar';
         const dia = this.encontrarDiaPorNombre(result.dia);
 
         if ((result.vegetariano && dia.menuVegetariano != null) || (!result.vegetariano && dia.menuEstandar!= null) ){
@@ -243,5 +221,8 @@ export class MenuComponent {
     return dia
   }
 
+  public esCliente(): boolean { return this.authService.isCliente(); }
+  public esAdministrador(): boolean { return this.authService.isAdministrador(); }
+  public esResponsable(): boolean { return this.authService.isResponsableTurno(); }
 }
 

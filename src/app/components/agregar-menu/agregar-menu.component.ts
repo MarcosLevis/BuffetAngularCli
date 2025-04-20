@@ -1,11 +1,13 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { ImagenService } from 'src/app/services/ImagenService';
 import { MensajeService } from 'src/app/services/MensajeService';
 import { MenuService } from 'src/app/services/MenuService';
 import { Menu } from 'src/app/models/Menu';
+import { Dia } from 'src/app/models/Dia';
+import { EstasSeguroComponent } from '../estas-seguro/estas-seguro.component';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -25,7 +27,7 @@ export class AgregarMenuComponent {
     private menuService: MenuService,
     private imagenService: ImagenService,
     private mensajeService: MensajeService,
-    @Inject(MAT_DIALOG_DATA) public data: any) {
+    @Inject(MAT_DIALOG_DATA) public data: any, private dialog : MatDialog) {
       // Inicializar el formulario con datos predefinidos (si existen)
       this.menuForm = this.fb.group({
         //foto: [data.menu.foto || null, Validators.required], // Inicializamos con null porque es un archivo
@@ -36,25 +38,46 @@ export class AgregarMenuComponent {
         postre: [data.menu?.postre || '', Validators.required],
         precio: [data.menu?.precio || 0, [Validators.required,Validators.min(1), Validators.max(99999.9999)]],
         vegetariano: [data?.vegetariano || false, [Validators.required]],
-        dia: [data?.dia || '', [Validators.required]],
+        dia: ['', [Validators.required]],
       });
-      console.log(data.dias)
+      console.log(data.dias);
     }
 
-    agregarMenu(): void {
-      const result = {base64: this.imagenBase64, objeto: this.menuForm.value};
-      let mensaje;
-      console.log('Resultado', result)
+    async agregarMenu(): Promise<void> {
       if (this.menuForm.valid) {
         const menu = this.armarMenu();
-        const dia = this.menuForm.get('dia') || this.data.dias[0];
-        this.menuService.createMenu(menu,dia);
-        mensaje = 'Se creó el menú con éxito';
-        this.dialogRef.close(result); // Devolver los valores del formulario
+        const dia = this.menuForm.get('dia')?.value;
+        const confirmacion = await this.confirmar(menu,dia);
+        if(confirmacion){
+          this.menuService.createMenu(menu, dia).subscribe({
+            next: () => {
+              this.mensajeService.mostrarMensaje('Se creó el menú con éxito');
+            },
+            error: () => {
+              this.mensajeService.mostrarMensaje('Ocurrió un error al crear el menú');
+            }
+          });
+        }
       } else {
-        mensaje = 'El formulario no es válido';
+        this.mensajeService.mostrarMensaje('El formulario no es válido');
       }
-      this.mensajeService.mostrarMensaje(mensaje);
+      this.dialogRef.close('');
+    }
+
+    async confirmar(menu: Menu, dia: Dia): Promise<boolean> {
+      if ((menu.esVegetariano() && dia.menuVegetariano != null) || (!menu.esVegetariano() && dia.menuEstandar != null) ){
+        const dialogRef = this.dialog.open(EstasSeguroComponent, {
+          width: '450px',
+          data:{
+            titulo: 'Reemplazar Menú',
+            contenido: `<p>Ya existe un <strong>menu ${menu.esVegetariano() ? 'vegetariano' : 'estándar'}</strong> en el día <strong>${dia.enumDia}</strong><p>
+                      <p>¿Está seguro/a que quiere reemplazarlo?</p>`,
+          }
+        });
+        const result = await firstValueFrom(dialogRef.afterClosed());
+        return result === true;
+      }
+      return true;
     }
 
     armarMenu(): Menu {
@@ -66,8 +89,8 @@ export class AgregarMenuComponent {
         bebida: this.menuForm.get('bebida')?.value,
         postre: this.menuForm.get('postre')?.value,
         precio: this.menuForm.get('precio')?.value,
-        tipoItem: this.menuForm.get('tipoItem')?.value,
-        tipoMenu: this.menuForm.get('tipoMenu')?.value,
+        tipoItem: 'menu',
+        tipoMenu: (this.menuForm.get('vegetariano')?.value) ? 'menuvegetariano' : 'menuestandar',
         base64: this.imagenBase64
       });
     }
@@ -107,10 +130,10 @@ export class AgregarMenuComponent {
     }
 
     seleccionarImagenLocal(path: string){
+      console.log('SELECCIONASTE:',path);
       this.imagenService.seleccionarImagenLocal(path).subscribe({
         next: (data) => {
           this.imagenBase64 = data;
-
         },
         error: (err) => {
           this.imagenError = 'Error al seleccionar la imagen local';

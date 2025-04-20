@@ -1,5 +1,18 @@
-.actions{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
+.strong {
+    color: black;
+}
+
+.mat-dialog-content strong{
+    color: black !important;
+}
+
+.container{
+    align-items: center;
+    align-self: center;
+}
+
+.btn {
+    width: 95%;
+    justify-content: center;
+    margin-bottom: 10px;
 }
