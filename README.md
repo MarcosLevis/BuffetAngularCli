@@ -32,7 +32,7 @@ NOTAS:
 
     arreglar token interceptor para que solo lo haga con los endpoints necesarios
 
-    1 - Listado de menúes (sólo falta que se vea la foto)
+    1 - Listado de menúes (no se guarda la foto ni se trae en la BD)
     2 - Listado de productos
     3 - Listado de responsables
     4 - Pop up menú (fijarme si andan las fotos una vez que se vean)
@@ -46,5 +46,5 @@ NOTAS:
     11 - DTOs en el back para ocultar IDs (chequear los previos)
 
 DOING:
-    - fotos de los menues
+    - fotos de los menues --> que se persistan al guardar y editar
     - listar sugerencias

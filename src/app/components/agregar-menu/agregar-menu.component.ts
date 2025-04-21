@@ -38,9 +38,8 @@ export class AgregarMenuComponent {
         postre: [data.menu?.postre || '', Validators.required],
         precio: [data.menu?.precio || 0, [Validators.required,Validators.min(1), Validators.max(99999.9999)]],
         vegetariano: [data?.vegetariano || false, [Validators.required]],
-        dia: ['', [Validators.required]],
+        dia: [data?.dia || data.dias[0], [Validators.required]],
       });
-      console.log(data.dias);
     }
 
     async agregarMenu(): Promise<void> {
@@ -51,10 +50,10 @@ export class AgregarMenuComponent {
         if(confirmacion){
           this.menuService.createMenu(menu, dia).subscribe({
             next: () => {
-              this.mensajeService.mostrarMensaje('Se creó el menú con éxito');
+              this.mensajeService.mostrarMensaje(`Se ${this.data.editar ? 'editó' : 'creó'} el menú con éxito`);
             },
             error: () => {
-              this.mensajeService.mostrarMensaje('Ocurrió un error al crear el menú');
+              this.mensajeService.mostrarMensaje(`Ocurrió un error al ${this.data.editar ? 'editar' : 'crear'} el menú`);
             }
           });
         }
@@ -65,13 +64,20 @@ export class AgregarMenuComponent {
     }
 
     async confirmar(menu: Menu, dia: Dia): Promise<boolean> {
+      let mensaje;
+      if(this.data.editar){
+        mensaje = `¿Está seguro/a de que quiere editar el <strong>menú ${menu.esVegetariano() ? 'vegetariano' : 'estándar'}</strong> del día <strong>${dia.enumDia}</strong>?</p>`;
+      }
+      else{
+        mensaje = `<p>Ya existe un <strong>menú ${menu.esVegetariano() ? 'vegetariano' : 'estándar'}</strong> en el día <strong>${dia.enumDia}</strong><p>
+                      <p>¿Está seguro/a que quiere reemplazarlo?</p>`
+      }
       if ((menu.esVegetariano() && dia.menuVegetariano != null) || (!menu.esVegetariano() && dia.menuEstandar != null) ){
         const dialogRef = this.dialog.open(EstasSeguroComponent, {
           width: '450px',
           data:{
-            titulo: 'Reemplazar Menú',
-            contenido: `<p>Ya existe un <strong>menu ${menu.esVegetariano() ? 'vegetariano' : 'estándar'}</strong> en el día <strong>${dia.enumDia}</strong><p>
-                      <p>¿Está seguro/a que quiere reemplazarlo?</p>`,
+            titulo: this.data.editar ? 'Editar Menú'  : 'Reemplazar Menú',
+            contenido: mensaje,
           }
         });
         const result = await firstValueFrom(dialogRef.afterClosed());

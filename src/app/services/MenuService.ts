@@ -30,7 +30,6 @@ export class MenuService{
         }else{
             dia.menuEstandar = menu;
         }
-        console.log('EL DIA TIENE:',dia)
         return this.http.put<Dia>(url, dia).pipe(map(res => res));   
     }
 
@@ -41,19 +40,10 @@ export class MenuService{
         }else{
             dia.menuEstandar = null;
         }
-        console.log(dia)
         return this.http.put<Dia>(url, dia).pipe(map(res => res));   
     }
 
     editMenu(menu: Menu, dia: Dia):Observable<Dia> {
-
-        const url = `${this.API_URL_LOCAL}/dias/${dia.id}`;
-        if (menu.esVegetariano()){
-            dia.menuVegetariano = menu;
-        }else{
-            dia.menuEstandar = menu;
-        }
-        console.log(dia)
-        return this.http.put<Dia>(url, dia).pipe(map(res => res));   
+        return this.createMenu(menu,dia); 
     }
 }

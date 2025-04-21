@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AgregarMenuComponent } from '../agregar-menu/agregar-menu.component';
 import { Menu} from 'src/app/models/Menu';
 import { MenuService } from 'src/app/services/MenuService';
@@ -10,6 +10,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { PopupSugerirComponent } from '../popup-sugerir/popup-sugerir.component';
 import { PopupEstasSeguroComponent } from '../popup-estas-seguro/popup-estas-seguro.component';
+import { MensajeService } from 'src/app/services/MensajeService';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class MenuComponent {
   PopupSugerirComponent = PopupSugerirComponent;
   PopupEstasSeguroComponent = PopupEstasSeguroComponent;
 
-  constructor(private dialog: MatDialog, private menuService: MenuService, private authService: AuthService, private sanitizer: DomSanitizer, private router: Router) {}
+  constructor(private dialog: MatDialog, private menuService: MenuService, private authService: AuthService, private sanitizer: DomSanitizer, private router: Router, private mensajeService: MensajeService) {}
   
   ngOnInit(){
     this.menuService.getDias().subscribe(data => {
@@ -38,10 +39,9 @@ export class MenuComponent {
     })
   }
 
-  /// ESTO SEGURAMENTE SE PUEDE REFACTORIZAR (sacando los if else y hacerlo mas bonito y entendible) JEJE UWU
   /// Crea un nuevo menu en un dia determinado. 
   /// Si ese tipo menu ya existe en ese dia particular, pregunta si esta seguro que quiera reemplazar ese tipo menu en ese dia determinado y al confirmar lo reemplaza
-  /// el menu anterior queda registrado en la tabla menu pero no asociado al dia determinado
+  /// el menu anterior queda registrado en la tabla menu pero no asociado al dia determinado (para estadísticas)
   openDialogCreateMenu(): void {
       const dialogRef = this.dialog.open(AgregarMenuComponent, {
       width: '450px',
@@ -51,19 +51,48 @@ export class MenuComponent {
         boton: 'Agregar'
       }
     });
-  
+    this.actualizarDia(dialogRef);
+  }
+
+  private actualizarDia(dialogRef: MatDialogRef<AgregarMenuComponent>): void {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        //ver que pasa con el listado de menues y que se muestre el nuevo, ya sea 100% nuevo o uno que reemplaza a uno viejo
         const diaRecibido = new Dia(result.dia);
         const posicion = this.dias.findIndex(dia => dia.enumDia === diaRecibido.enumDia);
         this.dias[posicion] = diaRecibido;
-      } else {
-        console.log('El usuario canceló el diálogo.');
       }
-    });    
+    });
   }
 
+  //Abre un formulario con los datos preestablecidos del Menu a editar
+  openDialogEditMenu(menu: Menu, dia: Dia): void{
+  const menu_local = new Menu(menu); //esto lo hago para que sea una instancia de menu y pueda responder directamente a la funcion menu1.esVegetariano()
+    const dialogRef = this.dialog.open(AgregarMenuComponent, {
+      width: '450px',
+      data: {
+        titulo: 'Editar Menú',
+        dias: this.dias,
+        dia: dia,
+        menu: menu,
+        boton: 'Editar',
+        vegetariano: menu_local.esVegetariano(),
+        editar: true
+      }
+    });
+    this.actualizarDia(dialogRef);
+  }
+
+  /*GUARDO CSS UTIL
+  .caja:first-child {
+    flex: 0 0 60%;
+}
+
+.caja:last-child {
+    flex: 0 0 35%
+}
+
+
+  */
 
   /// Instancia un modal que preguna si estas seguro de querer eliminar un menu
   /// Al confirma llama al servicio que edita el Dia poniendole en null el menu correspondiente. 
@@ -73,73 +102,17 @@ export class MenuComponent {
       width: '450px',
       data:{
         titulo: 'Eliminar Menú',
-        contenido: `<p>¿Está seguro/a que quiere eliminar el ${tipo} del día <strong>${dia.enumDia}</strong>?<p>`,
+        contenido: `<p>¿Está seguro/a que quiere eliminar el menú <strong>${tipo}</strong> del día <strong>${dia.enumDia}</strong>?<p>`,
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result){  
         this.menuService.deleteMenu(tipo,dia).subscribe(data =>{
-          console.log('Menú fue eliminado ' + data)
+          this.mensajeService.mostrarMensaje('El menú fue eliminado con éxtio');
         })        
       } 
-      else{
-        console.log('El usuario/a canceló el diálogo de eliminar.');
-      }
     });
-  }
-
-
-  ///Abre un formulario con los datos preestablecidos del Menu a editar
-  ///En caso
-  openDialogEditMenu(menu: Menu, dia: Dia): void{
-    //const menu1 = new Menu(menu); //esto lo hago para que sea una instancia de menu y pueda responder directamente a la funcion menu1.esVegetariano()
-    const dialogRef = this.dialog.open(AgregarMenuComponent, {
-      width: '450px',
-      data: {
-        titulo: 'Editar Menú',
-        dias: this.dias,
-        dia: dia.enumDia,
-        menu: menu,
-        boton: 'Editar',
-        vegetariano: menu.esVegetariano(),
-        editar: true
-      }
-    });
-  
-    dialogRef.afterClosed().subscribe(result => {
-      if (result){
-        const menu = new Menu(result);
-        menu.tipoMenu = result.vegetariano ? 'menuvegetariano' : 'menuestandar';
-        const dia = this.encontrarDiaPorNombre(result.dia);
-
-        if ((result.vegetariano && dia.menuVegetariano != null) || (!result.vegetariano && dia.menuEstandar!= null) ){
-          const dialogRef = this.dialog.open(EstasSeguroComponent, {
-            width: '450px',
-            data:{
-              
-              contenido: `<p>¿Está seguro/a que quiere editar el <strong>${menu.tipoMenu}</strong> en el día <strong>${dia.enumDia}</strong>?<p>`,
-            }
-          });
-          dialogRef.afterClosed().subscribe(result => {
-            if(result){
-              this.menuService.editMenu(menu, dia).subscribe(data => {
-                console.log('Restpuesta ', data);
-              });
-            }
-          });         
-        }
-        else{
-          this.menuService.createMenu(menu, dia).subscribe(data => {
-            console.log('Restpuesta ', data);
-          });
-        }       
-      } 
-      else
-      {
-        console.log('El usuario canceló el diálogo.');
-      }
-    });    
   }
   
   openDialog(componente: any, width: string, redireccionar : string | undefined = undefined): void {
@@ -189,36 +162,16 @@ export class MenuComponent {
   //recive la imagen en 64 y la santiza por seguridad
   public getSanitizedImage(imageBase64: string): SafeUrl {
     //imageBase64 = imageBase64.replace(/^data:image\/[a-z]+;base64,/, ""); /// hice esto porque creia que le faltaba un espacio
-    return this.sanitizer.bypassSecurityTrustUrl(imageBase64);
+    return this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + imageBase64);
 
   }
 
-
-  //recive la imagen en 64 y la convierte en un bytecode
-  // public getBytecode(imageBase64: string): SafeUrl {
-  //   const byteCharacters = atob(imageBase64.split(',')[1]);
-  //   const byteArrays = [];
-  //   for (let offset = 0; offset < byteCharacters.length; offset += 1024) {
-  //     const byteArray = new Array(1024);
-  //     for (let i = 0; i < 1024 && offset + i < byteCharacters.length; i++) {
-  //       byteArray[i] = byteCharacters[offset + i].charCodeAt(0);
-  //     }
-  //     byteArrays.push(new Uint8Array(byteArray));
-  //   }
-  //   const blob = new Blob(byteArrays, { type: 'image/png' });
-  //   return URL.createObjectURL(blob);
-  // }
-
-  
-
   encontrarDiaPorNombre(diaBuscado: string): Dia{
-    console.log('Dia buscado', diaBuscado)
     let dia = this.dias.find(dia => dia.enumDia === diaBuscado);
     if(!dia){
-      dia = new Dia()
+      dia = new Dia();
     }
-    console.log('dia por nombre',dia)
-    return dia
+    return dia;
   }
 
   public esCliente(): boolean { return this.authService.isCliente(); }

@@ -12,26 +12,15 @@
             <button *ngIf="!verVegeta" class="button" style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opción vegetariana</button>
             <button *ngIf="verVegeta" class="button" style="margin: 10px;" (click)="verOpcionVegetariana()">Ver opción estándar</button>
         </div>  
-               
-        <div class="carrusel">
-            <img src='assets/almuerzo.jpg' alt="Foto de menú" > <!--FOTO-->
-        </div>
       
-        <!-- <div *ngFor="let dia of getPaginatedMenus()" >
+        <div *ngFor="let dia of getPaginatedMenus()" >
             <div *ngIf="dia.menuVegetariano != null && verVegeta " class="carrusel" >
-                <img *ngIf="dia.menuVegetariano.base64" [src]="dia.menuVegetariano.base64" alt="Foto de Menú" style="max-width: 100%; height: auto;">
+                <img *ngIf="dia.menuVegetariano.base64" type="image/*" [src]="getSanitizedImage(dia.menuVegetariano.base64)" alt="Foto de Menú">
             </div>
             <div *ngIf="dia.menuEstandar != null && !verVegeta " class="carrusel" >
-                <img *ngIf="dia.menuEstandar.base64" [src]="getSanitizedImage(dia.menuEstandar.base64)" alt="Foto de Menú" style="max-width: 100%; height: auto;">
+                <img *ngIf="dia.menuEstandar.base64" type="image/*" [src]="getSanitizedImage(dia.menuEstandar.base64)" alt="Foto de Menú">
             </div>
-
-            <div *ngIf="dia.menuEstandar != null && !verVegeta " class="carrusel" >
-                <object *ngIf="dia.menuEstandar.base64" [data]="dia.menuEstandar.base64" type="image/*" width="300" height="300">
-                    <p>La imagen no se puede cargar.</p>
-                </object>
-            </div>
-
-        </div> -->
+        </div>
 
         <div class="dias">
             <nav class="pagination is-centered" role="navigation" aria-label="pagination">
@@ -45,7 +34,6 @@
     </div>
    <div class="caja">
         <div class="menu-info"  *ngFor="let dia of getPaginatedMenus()">
-
             <div *ngIf="verVegeta">
                 <div *ngIf="dia.menuVegetariano == null && verVegeta ">
                     <p>No hay menú vegetariano cargado</p>

@@ -15,14 +15,14 @@ export class Menu {
     {
       this.id = obj && obj.id || null;
       this.precio = obj && obj.precio || '';
-      this.nombre =obj && obj.nombre || '';
+      this.nombre = obj && obj.nombre || '';
       this.entrada = obj && obj.entrada || '';
       this.platoPrincipal = obj && obj.platoPrincipal || '';
       this.postre = obj && obj.postre || '';
       this.bebida = obj && obj.bebida || '';
       this.tipoItem = 'menu'; //o tipoMenu
-      this.tipoMenu =obj && obj.tipoMenu || '';
-      this.base64 =obj && obj.base64 || '';
+      this.tipoMenu = obj && obj.tipoMenu || '';
+      this.base64 = obj && obj.base64 || '';
     }
 
     esVegetariano(){
