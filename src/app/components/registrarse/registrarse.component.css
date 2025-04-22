@@ -28,19 +28,24 @@
     border-radius: 4px;
   }
 
-.images{
-  display: flex;
-  align-items: center;
-  height: 100px;
-  margin-bottom: 10px;
-}
+  .images {
+    display: flex;
+    align-items: center;
+    gap: 2vw;
+    height: 120px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
 
-.images img {
-  width: 80%; /* Las imágenes se ajustarán al tamaño máximo del contenedor */
-  height: auto; /* Mantiene la relación de aspecto de las imágenes */
-  border-radius: 20px;
-  padding: 3px;
-}
+  .images img {
+    width: 40vw;
+    max-width: 100px;
+    height: 45vw;
+    max-height: 120px;
+    object-fit: cover;
+    border-radius: 20px;
+    padding: 3px;
+  }
 
 .images img:hover{
   background-color: black;

@@ -3,11 +3,12 @@
   <form [formGroup]="menuForm">
 
     <!--el DILEMA es si llenar la BD con la foto base o permitir fotos nulas: por ahora lleno con duplicados-->
+    <label>Imagen elegida:</label>
     <div class="images">
       <div class="file-input-container">
         <input class="hide" type="file" id="foto" accept="image/*" (change)="seleccionarImagen($event)"/>
-        <label for="foto" class="file-label">
-          <img src="assets/agregar.png" alt="Subir foto"/><!--cambiarlo para que tome la elegida-->
+        <label for="foto" class="file-label" value>
+          <img [src]="imagenBase64" alt="Subir foto"/><!--cambiarlo para que tome la elegida-->
         </label>
       </div>
       <button type="button" (click)="seleccionarImagenLocal('assets/menu_base.png')"><img src="assets/menu_base.png" alt="Foto genérica"></button>

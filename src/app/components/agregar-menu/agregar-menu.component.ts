@@ -28,9 +28,7 @@ export class AgregarMenuComponent {
     private imagenService: ImagenService,
     private mensajeService: MensajeService,
     @Inject(MAT_DIALOG_DATA) public data: any, private dialog : MatDialog) {
-      // Inicializar el formulario con datos predefinidos (si existen)
       this.menuForm = this.fb.group({
-        //foto: [data.menu.foto || null, Validators.required], // Inicializamos con null porque es un archivo
         nombre: [data.menu?.nombre || '', Validators.required],
         entrada: [data.menu?.entrada || '', Validators.required],
         platoPrincipal: [data.menu?.platoPrincipal || '', Validators.required],
@@ -40,6 +38,7 @@ export class AgregarMenuComponent {
         vegetariano: [data?.vegetariano || false, [Validators.required]],
         dia: [data?.dia || data.dias[0], [Validators.required]],
       });
+      this.seleccionarImagenLocal('assets/agregar.png');
     }
 
     async agregarMenu(): Promise<void> {
@@ -97,49 +96,15 @@ export class AgregarMenuComponent {
         precio: this.menuForm.get('precio')?.value,
         tipoItem: 'menu',
         tipoMenu: (this.menuForm.get('vegetariano')?.value) ? 'menuvegetariano' : 'menuestandar',
-        base64: this.imagenBase64
+        imagen: this.imagenBase64,
       });
-    }
-    
-
-    onFileChange(event: Event): void {
-      const input = event.target as HTMLInputElement;
-      if (input.files && input.files.length > 0) {
-        const file = input.files[0];
-        this.menuForm.get('foto')?.setValue(file);
-      }
-    }
-
-    onFileSelected(event: Event): void {
-      const file = (event.target as HTMLInputElement).files?.[0];
-  
-      if (file) {
-        if (file.size > 1 * 600 * 600) { // Limitar a 2MB
-          this.imagenError = 'El archivo debe ser menor a 2MB.';
-          this.imagenBase64 = null;
-          return;
-        }
-  
-        const reader = new FileReader();
-        reader.onload = () => {
-          this.imagenBase64 = reader.result as string;
-          this.imagenError = null;
-          //console.log('Base64:', this.base64Image); // El base64 se guarda en `base64Image`
-        };
-        reader.onerror = () => {
-          this.imagenError = 'Error al leer el archivo.';
-          this.imagenBase64 = null;
-        };
-  
-        reader.readAsDataURL(file); // Convierte a base64
-      }
     }
 
     seleccionarImagenLocal(path: string){
-      console.log('SELECCIONASTE:',path);
       this.imagenService.seleccionarImagenLocal(path).subscribe({
         next: (data) => {
           this.imagenBase64 = data;
+          this.menuForm.get('foto')?.setValue(data);
         },
         error: (err) => {
           this.imagenError = 'Error al seleccionar la imagen local';
@@ -151,6 +116,7 @@ export class AgregarMenuComponent {
       this.imagenService.seleccionarImagen(event).subscribe({
         next: (data) => {
           this.imagenBase64 = data;
+          this.menuForm.get('foto')?.setValue(data);
         },
 
         error: (err) => {

@@ -9,7 +9,7 @@ export class Menu {
     public postre: string;
     public bebida: string;
     public tipoMenu: string;
-    public base64: string;
+    public imagen: string; //base64
 
     constructor(obj?: any)
     {
@@ -20,9 +20,9 @@ export class Menu {
       this.platoPrincipal = obj && obj.platoPrincipal || '';
       this.postre = obj && obj.postre || '';
       this.bebida = obj && obj.bebida || '';
-      this.tipoItem = 'menu'; //o tipoMenu
+      this.tipoItem = 'menu';
       this.tipoMenu = obj && obj.tipoMenu || '';
-      this.base64 = obj && obj.base64 || '';
+      this.imagen = obj && obj.imagen || '';
     }
 
     esVegetariano(){

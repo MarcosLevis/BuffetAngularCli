@@ -3,16 +3,17 @@
     <form [formGroup]="registroForm" (ngSubmit)="onSubmit()">
       
       <h1 class="title-form">Registro</h1>
-
+      
+      <label>Imagen elegida:</label>
       <div class="images">
         <div class="file-input-container">
           <input class="hide" type="file" id="foto" accept="image/*" (change)="seleccionarImagen($event)"/>
           <label for="foto" class="file-label">
-            <img src="assets/agregar.png" alt="Subir foto"/><!--cambiarlo para que tome la elegida-->
+            <img [src]="imagenBase64" alt="Subir foto"/>
           </label>
         </div>
-        <button type="button" (click)="setImagenBase64('assets/perro.jpg')"><img src="assets/perro.jpg"></button>
-        <button type="button" (click)="setImagenBase64('assets/gato.jpg')"><img src="assets/gato.jpg"></button> 
+        <button type="button" (click)="seleccionarImagenLocal('assets/perro.jpg')"><img src="assets/perro.jpg"></button>
+        <button type="button" (click)="seleccionarImagenLocal('assets/gato.jpg')"><img src="assets/gato.jpg"></button> 
       </div>
 
       <!-- DNI -->

@@ -39,8 +39,6 @@ export class MenuComponent {
     })
   }
 
-  /// Crea un nuevo menu en un dia determinado. 
-  /// Si ese tipo menu ya existe en ese dia particular, pregunta si esta seguro que quiera reemplazar ese tipo menu en ese dia determinado y al confirmar lo reemplaza
   /// el menu anterior queda registrado en la tabla menu pero no asociado al dia determinado (para estadísticas)
   openDialogCreateMenu(): void {
       const dialogRef = this.dialog.open(AgregarMenuComponent, {
@@ -82,18 +80,6 @@ export class MenuComponent {
     this.actualizarDia(dialogRef);
   }
 
-  /*GUARDO CSS UTIL
-  .caja:first-child {
-    flex: 0 0 60%;
-}
-
-.caja:last-child {
-    flex: 0 0 35%
-}
-
-
-  */
-
   /// Instancia un modal que preguna si estas seguro de querer eliminar un menu
   /// Al confirma llama al servicio que edita el Dia poniendole en null el menu correspondiente. 
   /// El objeto menu queda guardado en la tabla Menu pero sin estar relacionado con el dia
@@ -115,30 +101,12 @@ export class MenuComponent {
     });
   }
   
-  openDialog(componente: any, width: string, redireccionar : string | undefined = undefined): void {
+  openDialogSugerir(): void {
     
-    const dialogRef = this.dialog.open(componente, {
-      width: width + 'px', // Tamaño del diálogo
+    const dialogRef = this.dialog.open(PopupSugerirComponent, {
+      width: '450px'
     });
-    
-    dialogRef.afterClosed().subscribe((result: boolean = false) => {
-      console.log('El diálogo se cerró con valor:', result);
-
-      // Aquí puedes manejar el valor booleano (result)
-      if (result) {
-        console.log('Usuario confirmó');
-        // Si el resultado es true, puedes hacer algo adicional (como redirigir)
-      } else {
-        console.log('Usuario canceló');
-        // Si el resultado es false, puedes hacer algo diferente si lo necesitas
-      }
-
-      // Si se ha especificado una redirección, se realiza después de cerrar el diálogo
-      if (redireccionar) {
-        this.router.navigate([redireccionar]);
-      }
-    });
-
+    dialogRef.afterClosed().subscribe();
   }
 
   isAdministrador():boolean{
@@ -159,10 +127,9 @@ export class MenuComponent {
     this.verVegeta = !this.verVegeta
   }
   
-  //recive la imagen en 64 y la santiza por seguridad
+  //recibe la imagen en 64 y la santiza por seguridad
   public getSanitizedImage(imageBase64: string): SafeUrl {
-    //imageBase64 = imageBase64.replace(/^data:image\/[a-z]+;base64,/, ""); /// hice esto porque creia que le faltaba un espacio
-    return this.sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + imageBase64);
+    return this.sanitizer.bypassSecurityTrustUrl(imageBase64);
 
   }
 

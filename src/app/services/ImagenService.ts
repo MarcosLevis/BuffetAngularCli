@@ -15,8 +15,7 @@ export class ImagenService {
         
         const lector = new FileReader();
         lector.onload = () => {
-          // Emitir solo la parte base64, sin el tipo
-          observer.next((lector.result as string).split(",")[1]);
+          observer.next((lector.result as string));
           observer.complete();
         };
         lector.onerror = (error) => {
@@ -30,8 +29,7 @@ export class ImagenService {
     });
   }
 
-  // Manejar la imagen predefinida, que se guardan en assets y devolver el base64
-  seleccionarImagenLocal(pathImagen: string): Observable<string> {//CAMBIAR NOMBRE A seleccionarImagenLocal
+  seleccionarImagenLocal(pathImagen: string): Observable<string> {
     return new Observable<string>((observer) => {
       const img = new Image();
       img.src = pathImagen; //assets/perro.png por ejemplo
@@ -44,9 +42,7 @@ export class ImagenService {
           canvas.width = img.width;
           canvas.height = img.height;
           contexto.drawImage(img, 0, 0);
-          
-          // Emitir solo la parte base64, sin el tipo
-          observer.next(canvas.toDataURL().split(',')[1]);
+          observer.next(canvas.toDataURL());
           observer.complete();
         } else {
           observer.error('Error al procesar la imagen');

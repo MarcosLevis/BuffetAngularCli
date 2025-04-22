@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MatDialogRef } from '@angular/material/dialog';
 import { Usuario } from 'src/app/models/Usuario';
 import { AuthService } from 'src/app/services/AuthService';
+import { ImagenService } from 'src/app/services/ImagenService';
 import { MensajeService } from 'src/app/services/MensajeService';
 
 
@@ -14,9 +15,9 @@ import { MensajeService } from 'src/app/services/MensajeService';
 export class RegistrarseComponent {
 
   registroForm: FormGroup;
-  imagenBase64: string;
+  imagenBase64: string = '';
 
-  constructor(fb: FormBuilder, public dialogRef: MatDialogRef<RegistrarseComponent>, private authService: AuthService, private mensajeService: MensajeService){
+  constructor(fb: FormBuilder, public dialogRef: MatDialogRef<RegistrarseComponent>, private authService: AuthService, private mensajeService: MensajeService, private imagenService: ImagenService){
     this.registroForm = fb.group({
       dni: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]), // Exactamente 8 dígitos
       nombre:  new FormControl('', [Validators.required, Validators.minLength(2)]), // Mínimo 2 caracteres
@@ -24,7 +25,7 @@ export class RegistrarseComponent {
       email:  new FormControl('', [Validators.required, Validators.email]), // Formato válido de correo electrónico
       password:  new FormControl('', [Validators.required]),
     });
-    this.imagenBase64 = '';
+    this.seleccionarImagenLocal("assets/agregar.png");
   }
 
   onSubmit() {
@@ -42,7 +43,6 @@ export class RegistrarseComponent {
 
       this.authService.registro(usuario).subscribe({
         next: (data) => {
-          console.log('Registro exitoso:', data);
           this.dialogRef.close(true)
         },
         error: (err) => {
@@ -52,42 +52,34 @@ export class RegistrarseComponent {
       })
     }
     else {
-      console.log('Formulario de registro inválido');
       this.mensajeService.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
     }
   }
 
-  seleccionarImagen(event: Event): void {
-    const imagen = event.target as HTMLInputElement;
-    if (imagen?.files?.length) {
-      const imagenSeleccionada = imagen.files[0];
-      
-      // FileReader convierte la imagen a base64
-      const lector = new FileReader();
-      lector.onload = () => {
-        this.imagenBase64 = (lector.result as string).split(",")[1];//le saco la parte que indica el tipo y que es un base64
-        console.log("BASE 64: " + this.imagenBase64.substring(0,20))//cambiar
-      };;
-      lector.readAsDataURL(imagenSeleccionada);
-      //pegarle a la api ?? si ya tengo el base64 entonces no
-    }
-  }
-
-  //manejar la selección de las imágenes predefinidas (perro, gato)
-  setImagenBase64(imagen: string): void {
-    const img = new Image();
-    img.src = imagen;
-
-    img.onload = () => {
-      const canvas = document.createElement('canvas');
-      const contexto = canvas.getContext('2d');
-      if (contexto) {
-        canvas.width = img.width;
-        canvas.height = img.height;
-        contexto.drawImage(img, 0, 0);
-        this.imagenBase64 = canvas.toDataURL().split(',')[1]; //solo la parte Base64
-        console.log("BASE 64 (Imagen predefinida): " + this.imagenBase64);//cambiar
+  seleccionarImagenLocal(path: string){
+    this.imagenService.seleccionarImagenLocal(path).subscribe({
+      next: (data) => {
+        this.imagenBase64 = data;
+        this.registroForm.get('foto')?.setValue(data);
+      },
+      error: (err) => {
+        this.mensajeService.mostrarMensaje('Error al seleccionar la imagen local');
       }
-    };
+    });
   }
+
+  seleccionarImagen(event: Event){
+    this.imagenService.seleccionarImagen(event).subscribe({
+      next: (data) => {
+        this.imagenBase64 = data;
+        this.registroForm.get('foto')?.setValue(data);
+      },
+
+      error: (err) => {
+        this.mensajeService.mostrarMensaje('Error al seleccionar la imagen');
+      }
+    });
+  }
+
+  //cambiar que se pasen a imagen service
 }

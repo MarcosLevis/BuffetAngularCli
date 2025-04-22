@@ -1,5 +1,5 @@
 <div style="min-width: 100%;" class="buttons has-addons is-right">
-    <button *ngIf="esCliente()" type="button" class="popup" (click)="openDialog(PopupSugerirComponent,'450')"> <!--//cambiarponer NGIF para el cliente-->
+    <button *ngIf="esCliente()" type="button" class="popup" (click)="openDialogSugerir()">
         ¿Tenés sugerencias? Compartilas acá
     </button>
     <button *ngIf="esAdministrador()" class="btn btn-dark" style="margin: 10px;" (click)="openDialogCreateMenu()">Agregar Menú</button>
@@ -15,10 +15,10 @@
       
         <div *ngFor="let dia of getPaginatedMenus()" >
             <div *ngIf="dia.menuVegetariano != null && verVegeta " class="carrusel" >
-                <img *ngIf="dia.menuVegetariano.base64" type="image/*" [src]="getSanitizedImage(dia.menuVegetariano.base64)" alt="Foto de Menú">
+                <img *ngIf="dia.menuVegetariano.imagen" type="image/*" [src]="getSanitizedImage(dia.menuVegetariano.imagen)" alt="Foto de Menú">
             </div>
             <div *ngIf="dia.menuEstandar != null && !verVegeta " class="carrusel" >
-                <img *ngIf="dia.menuEstandar.base64" type="image/*" [src]="getSanitizedImage(dia.menuEstandar.base64)" alt="Foto de Menú">
+                <img *ngIf="dia.menuEstandar.imagen" type="image/*" [src]="getSanitizedImage(dia.menuEstandar.imagen)" alt="Foto de Menú">
             </div>
         </div>
 
