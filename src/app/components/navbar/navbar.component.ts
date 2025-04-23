@@ -31,7 +31,7 @@ export class NavbarComponent {
   }
 
   navigateSugerencias() {
-    this.router.navigate(['sugerencias']);
+    this.router.navigate(['sugerencia']);
   }
 
   navigateComidas() {
@@ -59,6 +59,10 @@ export class NavbarComponent {
 
   isCliente():boolean{
     return this.authService.isCliente();
+  }
+  
+  isResponsableTurno():boolean{
+    return this.authService.isResponsableTurno();
   }
 
   logOut(){

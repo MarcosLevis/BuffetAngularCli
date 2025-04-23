@@ -33,14 +33,14 @@ export class PopupSugerirComponent {
         return;
       }
 
-      const categoriaSeleccionada: CategoriaSugerencia = (this.sugerenciaForm.value.tipo as string) as CategoriaSugerencia;
+      const categoriaSeleccionada: CategoriaSugerencia = this.sugerenciaForm.value;
 
       const sugerencia: Sugerencia = {
         id : null,
         texto : this.sugerenciaForm.value.texto,
         fecha: new Date(),
         usuarioId: usuario.id,
-        usuarioNombre: null,
+        nombreAutor: null,
         categoria: categoriaSeleccionada
       }
 

@@ -20,7 +20,7 @@
         <button class="navbar-item" (click)="navigateComidas()">
             Comidas
         </button>
-        <button class="navbar-item" (click)="navigateSugerencias()" *ngIf="isCliente()">
+        <button class="navbar-item" (click)="navigateSugerencias()" *ngIf="isResponsableTurno()">
             Sugerencias
         </button>
         <button class="navbar-item" *ngIf="isAdministrador()">

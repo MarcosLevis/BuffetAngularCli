@@ -22,7 +22,7 @@
         <ng-container *ngFor="let sugerencia of sugerencias | slice:0:18; trackBy: trackById">
           <tr>
             <td>{{ sugerencia.fecha | date:'dd-MM-yyyy' }}</td>
-            <td>{{ sugerencia.usuarioNombre }}</td>
+            <td>{{ sugerencia.nombreAutor }}</td>
             <td>{{ sugerencia.categoria }}</td>
             <td>
               <span *ngIf="sugerencia.texto.length <= 120">{{ sugerencia.texto }}</span>

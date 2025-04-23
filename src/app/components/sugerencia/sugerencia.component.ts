@@ -11,7 +11,7 @@ import { SugerenciaService } from 'src/app/services/SugerenciaService';
 })
 export class SugerenciaComponent {
 
-  displayedColumns: string[] = ['fecha', 'usuarioNombre', 'categoria', 'texto'];
+  displayedColumns: string[] = ['fecha', 'autor', 'categoria', 'texto'];
   sugerencias: Sugerencia[] = [];
   expandedElement: Sugerencia | null = null;
   fechaMaxima: String;

@@ -32,19 +32,15 @@ NOTAS:
 
     arreglar token interceptor para que solo lo haga con los endpoints necesarios
 
-    1 - Listado de menúes (no se guarda la foto ni se trae en la BD)
-    2 - Listado de productos
-    3 - Listado de responsables
-    4 - Pop up menú (fijarme si andan las fotos una vez que se vean)
-    5 - Pop up responsable
-    6 - Pop up turno
-    7 - Listado compras
-    8 - Pop up QR compra del usuario
-    9 - Pagos de los usuarios
-   10 - Pop up productos (EN PROCESO)
-
-    11 - DTOs en el back para ocultar IDs (chequear los previos)
+    1 - Listado de productos
+    2 - Listado de responsables
+    3 - Pop up responsable
+    4 - Pop up turno
+    5 - Listado compras
+    6 - Pop up QR compra del usuario
+    7 - Pagos de los usuarios
+    8 - Pop up productos (EN PROCESO)
+    9 - DTOs en el back para ocultar IDs (chequear los previos)
+    10 - Reemplazar formularios viejos (los que se ven distintos al mockup)
 
 DOING:
-    - fotos de los menues --> que se persistan al guardar y editar
-    - listar sugerencias

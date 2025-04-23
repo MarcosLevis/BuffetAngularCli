@@ -3,13 +3,13 @@ export interface Sugerencia {
     texto: string;
     fecha: Date;
     usuarioId: number | null;
-    usuarioNombre: string | null;
+    nombreAutor: string | null;
     categoria: CategoriaSugerencia
   }
 
   export enum CategoriaSugerencia {
-    Alimentos = 'Alimentos',
-    Atencion = 'Atencion',
-    Precios = 'Precios',
-    Infraestructura = 'Infraestructura'
+    Alimentos = 0,
+    Atencion = 1,
+    Precios = 2,
+    Infraestructura = 3
   }

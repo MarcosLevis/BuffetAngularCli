@@ -1,8 +1,11 @@
-<div style="min-width: 100%;" class="buttons has-addons is-right">
-    <button *ngIf="esCliente()" type="button" class="popup" (click)="openDialogSugerir()">
-        ¿Tenés sugerencias? Compartilas acá
-    </button>
-    <button *ngIf="esAdministrador()" class="btn btn-dark" style="margin: 10px;" (click)="openDialogCreateMenu()">Agregar Menú</button>
+<div class="primeros-elementos">
+    <h1 class="titulo">Menúes</h1>
+    <div class="buttons">
+        <button *ngIf="esCliente()" type="button" class="popup" (click)="openDialogSugerir()">
+            ¿Tenés sugerencias? Compartilas acá
+        </button>
+        <button *ngIf="esAdministrador()" class="btn btn-dark" style="margin: 10px;" (click)="openDialogCreateMenu()">Agregar Menú</button>
+    </div>
 </div>
 
 <div class="container"> 
