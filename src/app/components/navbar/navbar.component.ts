@@ -34,8 +34,8 @@ export class NavbarComponent {
     this.router.navigate(['sugerencia']);
   }
 
-  navigateComidas() {
-    this.router.navigate(['comidas']);
+  navigateProductos() {
+    this.router.navigate(['producto']);
   }
 
   openDialog(componente: any, redireccionar : string): void {

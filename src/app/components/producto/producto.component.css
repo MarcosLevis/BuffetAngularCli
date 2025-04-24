@@ -1,0 +1,38 @@
+.contenido .titulo {
+    font-size: xx-large;
+}
+
+.table-container {
+    width: 80%;
+    margin: 0 auto;
+  }
+  
+  .table-container .table {
+    width: 100%;
+    table-layout: fixed; /* Importante para que los anchos fijos funcionen */
+  }
+  
+  .table-container th:nth-child(1),
+  .table-container td:nth-child(1) {
+    width: 40%;
+  }
+  
+  .table-container th:nth-child(2),
+  .table-container td:nth-child(2) {
+    width: 40%;
+  }
+  
+  .table-container th:nth-child(3) {
+    width: 20%;
+  }
+  .table-container td:nth-child(3) {
+    width: 100%;
+  }
+  
+  .separadas {
+    display: flex;
+    justify-content: left;
+    gap: 30px;
+    align-items: flex-start;
+    background-color: white !important;
+  }

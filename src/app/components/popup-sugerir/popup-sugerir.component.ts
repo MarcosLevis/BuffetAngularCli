@@ -55,7 +55,7 @@ export class PopupSugerirComponent {
       });
     }
     else{
-      this.mensajeService.mostrarMensaje('Ocurrió un error EN EL ELSE. Por favor, intente nuevamente.');
+      this.mensajeService.mostrarMensaje('Ocurrió un error. Por favor, intente nuevamente.');
     }
   }
 }
