@@ -31,6 +31,7 @@ import { PopupSugerirComponent } from './components/popup-sugerir/popup-sugerir.
 import { SugerenciaComponent } from './components/sugerencia/sugerencia.component';
 import { PopupEstasSeguroComponent } from './components/popup-estas-seguro/popup-estas-seguro.component';
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
+import { ProductoComponent } from './components/producto/producto.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AgregarProductoComponent } from './components/agregar-producto/agregar-
     PopupSugerirComponent,
     SugerenciaComponent,
     PopupEstasSeguroComponent,
-    AgregarProductoComponent
+    AgregarProductoComponent,
+    ProductoComponent
   ],
   imports: [
     BrowserModule,

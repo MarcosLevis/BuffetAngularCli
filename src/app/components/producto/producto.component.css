@@ -2,14 +2,26 @@
     font-size: xx-large;
 }
 
+.table-responsive {
+  overflow-x: auto;   /* Habilita la barra de desplazamiento horizontal si es necesario */
+}
+
 .table-container {
     width: 80%;
     margin: 0 auto;
+    max-height: 70vh;  /* Ajusta este valor según el tamaño que prefieras */
+    overflow-y: auto;   /* Habilita la barra de desplazamiento vertical */
   }
   
   .table-container .table {
     width: 100%;
     table-layout: fixed; /* Importante para que los anchos fijos funcionen */
+  }
+
+  .table-container thead {
+    position: sticky;  /* Esto hace que el thead se quede fijo */
+    top: 0;            /* Lo coloca en la parte superior del contenedor cuando se hace scroll */
+    z-index: 1;
   }
   
   .table-container th:nth-child(1),
@@ -36,3 +48,9 @@
     align-items: flex-start;
     background-color: white !important;
   }
+
+.agregar-container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+}

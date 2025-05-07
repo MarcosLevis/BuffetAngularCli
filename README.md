@@ -39,8 +39,11 @@ NOTAS:
     5 - Listado compras
     6 - Pop up QR compra del usuario
     7 - Pagos de los usuarios
-    8 - Pop up productos (EN PROCESO)
-    9 - DTOs en el back para ocultar IDs (chequear los previos)
-    10 - Reemplazar formularios viejos (los que se ven distintos al mockup)
+    8 - DTOs en el back para ocultar IDs (chequear los previos)
+    9 - Reemplazar formularios viejos (los que se ven distintos al mockup)
+    ---Ver el tema del título en ls menúes
+    ---Chequear visibilidad
+    ---Hacer que quede la estética del componente "estas seguro" porque está duplicado (el posta es)
 
 DOING:
+    -Listado de productos: falta editar y borrar

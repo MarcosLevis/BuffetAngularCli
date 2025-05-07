@@ -21,28 +21,34 @@ export class AgregarProductoComponent {
   }
 
   onSubmit() {
-    let mensaje;
+    let mensaje: string;
+    let producto: ProductoDTO | undefined;
+  
     if (this.productoForm.valid) {
-      //ajustar la creación, DTO y clase común
-      const producto = new ProductoDTO(this.productoForm.value)
-
+      producto = new ProductoDTO(this.productoForm.value);
+  
       this.productoService.createProducto(producto).subscribe({
         next: (data) => {
-          mensaje = 'Producto creado con exito';
-          console.log(mensaje, data);
-          this.dialogRef.close(true)
+          mensaje = 'Producto creado con éxito';
+          producto = data;
+          this.dialogRef.close(producto);
         },
         error: (err) => {
-          console.error(':', err);
           mensaje = 'Ocurrió un error al crear el producto';
+          producto = undefined;
+        },
+        complete: () => {
+          this.mensajeService.mostrarMensaje(mensaje);
+          this.dialogRef.close(producto);
         }
       });
-    }
-    else {
+      
+    } else {
       mensaje = 'Datos inválidos. Por favor, intente nuevamente';
-      console.log(mensaje);
+      this.mensajeService.mostrarMensaje(mensaje);
     }
-    this.mensajeService.mostrarMensaje();
   }
+  
+  
 
 }
