@@ -16,10 +16,10 @@
             <td>$ {{ producto.precio }}</td>
             <td class="separadas">
               <button class="btn btn-dark">
-                <i class="bi bi-pencil-fill"></i>
+                <i class="bi bi-pencil-fill" (click)="openDialogAgregarProducto(producto)"></i><!--editar-->
               </button>
               <button class="btn btn-dark">
-                <i class="bi bi-trash-fill"></i>
+                <i class="bi bi-trash-fill" (click)="eliminarProducto(producto)"></i><!--borrar-->
               </button>
             </td>
           </tr>

@@ -82,7 +82,7 @@ export class AgregarMenuComponent {
         const result = await firstValueFrom(dialogRef.afterClosed());
         return result === true;
       }
-      return true;
+      return false;//chequear
     }
 
     armarMenu(): Menu {

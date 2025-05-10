@@ -5,6 +5,8 @@ import { Producto } from 'src/app/models/Producto';
 import { MensajeService } from 'src/app/services/MensajeService';
 import { ProductoService } from 'src/app/services/ProductoService';
 import { AgregarProductoComponent } from '../agregar-producto/agregar-producto.component';
+import { firstValueFrom } from 'rxjs';
+import { EstasSeguroComponent } from '../estas-seguro/estas-seguro.component';
 
 @Component({
   selector: 'app-producto',
@@ -31,14 +33,52 @@ export class ProductoComponent {
     return item.id;
   }
 
-  openDialogAgregarProducto(){
+  async eliminarProducto(producto: Producto){
+    const confirmacion: boolean = await this.confirmar(producto);
+    if(confirmacion){
+      let mensaje: string = '';
+      this.productoService.deleteProducto(producto).subscribe({
+        next: () => {
+          this.removerProducto(producto);
+          mensaje = 'Producto eliminado con éxito';
+        },
+        error: () => {
+          mensaje = 'Ocurrió un error al eliminar el producto'
+        },
+        complete: () => {
+          this.mensajeService.mostrarMensaje(mensaje);
+        }
+      });
+    }
+  }
+
+  async confirmar(producto: Producto){
+    let mensaje =`¿Está seguro/a de que quiere <strong>eliminar</strong> el producto <strong>${producto.nombre}</strong>?</p>`;
+    const dialogRef = this.dialog.open(EstasSeguroComponent, {
+      width: '450px',
+      data:{
+        titulo: 'Eliminar producto',
+        contenido: mensaje,
+      }
+    });
+    const result = await firstValueFrom(dialogRef.afterClosed());
+    return result === true;
+  }
+
+  openDialogAgregarProducto(productoEditar: Producto | undefined = undefined){
     const dialogRef = this.dialog.open(AgregarProductoComponent, {
-      width: '450px'
+      width: '450px',
+      data: { productoEditar: productoEditar }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result && result.nombre){
-        this.agregarOrdenado(result);
+        if(productoEditar){
+          this.actualizarProducto(result);
+        }
+        else{
+          this.agregarOrdenado(result);
+        }
       }
     });
   }
@@ -52,4 +92,17 @@ export class ProductoComponent {
     }
   }
 
+  private actualizarProducto(producto: Producto){
+    const index = this.productos.findIndex(p => p.id == producto.id);
+    if (index != -1) {
+      this.productos.splice(index, 1, producto);
+    }
+  }
+
+  private removerProducto(producto: Producto){
+    const index = this.productos.findIndex(p => p.id == producto.id);
+    if (index != -1) {
+      this.productos.splice(index, 1);
+    }
+  }
 }

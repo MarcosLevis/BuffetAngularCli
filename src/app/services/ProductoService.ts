@@ -35,7 +35,7 @@ export class ProductoService{
     }
 
     editProducto(producto: Producto):Observable<Producto> {
-        const url = `${this.API_URL_LOCAL}/productos/${producto.id}`;
+        const url = `${this.API_URL_LOCAL}/productos/`;
         console.log('editar producto: ',producto);
         return this.http.put<Producto>(url, producto).pipe(map(res => res));   
     }
