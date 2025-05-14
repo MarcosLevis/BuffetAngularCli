@@ -1,0 +1,79 @@
+<h1 class="titulo">Responsables</h1>
+<div class="ambas-tablas">
+  <div class="table-container">
+    <div class="table-responsive">
+      <table class="table table-bordered" *ngIf="responsables.length > 0">
+        <thead class="table-dark">
+          <tr>
+            <th>Persona</th>
+            <th>DNI</th>
+            <th>Turnos</th>
+            <th>Agregar turno</th>
+            <th>Borrar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let responsable of responsables; trackBy: trackById">
+            <tr>
+              <td>
+                <p>{{ getSlice(responsable.nombre,0,50) + ((responsable.nombre.length > 50) ? '...' : '')}}</p>
+              </td>
+              <td>{{ responsable.dni }}</td>
+              <td>
+                <!-- SELECT DE TODOS SUS TURNOS CON SCROLLBAR -->
+              </td>
+              <td>
+                <button class="btn btn-dark" (click)="agregarTurno(responsable)">
+                  <i class="bi bi-trash-plus"></i>
+                </button>
+              </td>
+              <td>
+                <button class="btn btn-dark" (click)="eliminarResponsable(responsable)">
+                  <i class="bi bi-trash-fill"></i>
+                </button>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+      <div *ngIf="responsables.length == 0">
+        <p>¡No hay responsables aún!</p>
+      </div>
+    </div>
+    <button class="btn btn-dark" (click)="agregarResponsable()">Agregar</button>
+  </div>
+
+  <!-- Tabla de turnos -->
+  <div class="table-responsive">
+    <table class="table table-bordered" *ngIf="productos.length > 0">
+      <thead class="table-dark">
+        <tr>
+          <th>Turno</th>
+          <th>Entrada</th>
+          <th>Salida</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let turno of turnos; trackBy: trackById">
+          <tr>
+            <td>
+              <p>{{ getSlice(turno.nombre,0,10) + ((turno.nombre.length > 10) ? '...' : '') }}</p>
+            </td>
+            <td>{{ turno.horaInicio }}</td>
+            <td>{{ turno.horaFin }}</td>
+            <td>
+              <button class="btn btn-dark" (click)="editarTurno(turno)">
+                <i class="bi bi-trash-fill"></i>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div *ngIf="turnos.length == 0">
+      <p>¡No hay turnos aún!</p>
+    </div>
+    <button class="btn btn-dark" (click)="agregarTurno()">Agregar</button>
+  </div>
+</div>

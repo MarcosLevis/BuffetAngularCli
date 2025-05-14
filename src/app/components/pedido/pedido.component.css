@@ -1,0 +1,26 @@
+.table-container{
+    max-height: 40vh;
+    max-width: 30vh;
+    min-width: 30vh;
+    overflow-y: auto;
+}
+
+.agregar-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+}
+
+.total{
+    background-color: rgb(168, 168, 168);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    padding: 10px;
+    padding-bottom: 0px;
+    height: auto;
+    margin-right: 20px;
+}

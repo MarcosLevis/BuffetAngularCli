@@ -1,0 +1,34 @@
+<h1 class="titulo">Tu pedido</h1>
+<div class="table-container">
+  <div class="table-responsive">
+    <table class="table table-bordered" *ngIf="pedidos.length > 0">
+      <thead class="table-dark">
+        <tr>
+          <th>Producto</th>
+          <th>Cantidad</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let pedido of pedidos; trackBy: trackById">
+          <tr>
+            <td>
+              <p>{{ getSlice(pedido.nombre,0,8) + ((pedido.nombre.length > 50) ? '...' : '')}}</p>
+            </td>
+            <td>{{ pedido.cantidad }}</td>
+            <td>${{ (pedido.precio * pedido.cantidad).toFixed(2)}}</td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+    <div *ngIf="pedidos.length == 0">
+      <p>¡No hay pedidos aún!</p>
+    </div>
+  </div>
+</div>
+<div class="agregar-container">
+    <div class="total">
+      <p class="colorido">$ {{ (getTotal()).toFixed(2) }}</p>
+    </div>
+    <button class="btn btn-dark" >Comprar</button><!--adaptar para comprar-->
+</div>

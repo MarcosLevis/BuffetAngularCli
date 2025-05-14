@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Producto } from 'src/app/models/Producto';
@@ -7,6 +7,8 @@ import { ProductoService } from 'src/app/services/ProductoService';
 import { AgregarProductoComponent } from '../agregar-producto/agregar-producto.component';
 import { firstValueFrom } from 'rxjs';
 import { EstasSeguroComponent } from '../estas-seguro/estas-seguro.component';
+import { AuthService } from 'src/app/services/AuthService';
+import { PedidoComponent } from '../pedido/pedido.component';
 
 @Component({
   selector: 'app-producto',
@@ -16,8 +18,11 @@ import { EstasSeguroComponent } from '../estas-seguro/estas-seguro.component';
 export class ProductoComponent {
   
   productos: Producto[] = [];
+  @ViewChild(PedidoComponent)pedido!: PedidoComponent;
+  public pedidoAgregado: boolean;
 
-  constructor(private mensajeService: MensajeService, private productoService: ProductoService, private router: Router, private dialog:MatDialog){
+  constructor(private mensajeService: MensajeService, private productoService: ProductoService, private router: Router, private dialog:MatDialog, public authService: AuthService){
+    this.pedidoAgregado = false;
     productoService.getProductosAlfabeticamente().subscribe({
       next: (data) => {
         this.productos = data;
@@ -27,6 +32,11 @@ export class ProductoComponent {
         this.router.navigate(['menu']);
       }
     });
+  }
+
+  ngAfterViewInit() {
+    // Aquí puedes asegurarte de que el componente hijo esté listo
+    console.log('Componente hijo listo:', this.pedido);
   }
 
   trackById(index: number, item: Producto): number | null {
@@ -104,5 +114,25 @@ export class ProductoComponent {
     if (index != -1) {
       this.productos.splice(index, 1);
     }
+  }
+
+  getSlice(texto: string, start: number, end: number): string {
+      return texto.slice(start, end);
+  }
+
+  agregarAlPedido(producto: Producto){
+    setTimeout(()=>{
+      this.pedido.agregarAlPedido(producto);
+    },1);
+  }
+
+  sacarDelPedido(producto: Producto){
+    setTimeout(()=>{
+      this.pedido.sacarDelPedido(producto);
+    },1);
+  }
+
+  public onProductoAgregado(exito: boolean) {
+    this.pedidoAgregado = exito;
   }
 }
