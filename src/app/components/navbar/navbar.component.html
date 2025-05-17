@@ -23,7 +23,7 @@
         <button class="navbar-item" (click)="navigateSugerencias()" *ngIf="isResponsableTurno()">
             Sugerencias
         </button>
-        <button class="navbar-item" *ngIf="isAdministrador()">
+        <button class="navbar-item" (click)="navigateResponsables()" *ngIf="isAdministrador()">
             Responsables
         </button>       
 

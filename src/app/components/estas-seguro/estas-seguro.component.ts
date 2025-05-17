@@ -1,6 +1,5 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-estas-seguro',
@@ -12,7 +11,7 @@ export class EstasSeguroComponent {
   constructor(public dialogRef: MatDialogRef<EstasSeguroComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     retornar(confirmar: boolean){
-      this.dialogRef.close(confirmar);
+      this.dialogRef.close(confirmar);//si se rompe es porque al usarlo falta agarrar la respuesta y hacer un result === true;
     }
 }
 

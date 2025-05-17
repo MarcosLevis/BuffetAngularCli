@@ -36,7 +36,6 @@ export class AgregarProductoComponent {
           next: (data) => {
             mensaje = 'Producto editado con éxito';
             producto = data;
-            this.dialogRef.close(producto);
           },
           error: () => {
             mensaje = 'Ocurrió un error al editar el producto';
@@ -55,7 +54,6 @@ export class AgregarProductoComponent {
           next: (data) => {
             mensaje = 'Producto creado con éxito';
             producto = data;
-            this.dialogRef.close(producto);
           },
           error: () => {
             mensaje = 'Ocurrió un error al crear el producto';

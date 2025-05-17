@@ -27,4 +27,14 @@ export class UsuarioService{
         const url = `${this.API_URL_LOCAL}/usuarios/${id}`;
         return this.http.get<Usuario>(url).pipe(map(res => res));  
     }
+
+    getUsuarios(nombreRol: string){
+        const url = `${this.API_URL_LOCAL}/usuarios/rol/${nombreRol}`;
+        return this.http.get<Usuario[]>(url).pipe(map(res => res));  
+    }
+
+    deleteUsuario(id: number){
+        const url = `${this.API_URL_LOCAL}/usuarios/${id}`;
+        return this.http.delete<Usuario>(url).pipe(map(res => res));  
+    }
 }

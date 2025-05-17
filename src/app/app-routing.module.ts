@@ -6,6 +6,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { SugerenciaComponent } from './components/sugerencia/sugerencia.component';
 import { ProductoComponent } from './components/producto/producto.component';
+import { ResponsableComponent } from './components/responsable/responsable.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
     { path: 'perfil', component: PerfilComponent},
     { path: 'sugerencia', component: SugerenciaComponent},
     { path: 'producto', component: ProductoComponent},
+    { path: 'responsable', component: ResponsableComponent},
     { path: '**', redirectTo: 'home'},
   ];
 

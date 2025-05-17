@@ -71,6 +71,7 @@ export class AgregarMenuComponent {
         mensaje = `<p>Ya existe un <strong>menú ${menu.esVegetariano() ? 'vegetariano' : 'estándar'}</strong> en el día <strong>${dia.enumDia}</strong><p>
                       <p>¿Está seguro/a que quiere reemplazarlo?</p>`
       }
+
       if ((menu.esVegetariano() && dia.menuVegetariano != null) || (!menu.esVegetariano() && dia.menuEstandar != null) ){
         const dialogRef = this.dialog.open(EstasSeguroComponent, {
           width: '450px',
@@ -79,8 +80,8 @@ export class AgregarMenuComponent {
             contenido: mensaje,
           }
         });
-        const result = await firstValueFrom(dialogRef.afterClosed());
-        return result === true;
+        return await firstValueFrom(dialogRef.afterClosed());
+        //return result === true;
       }
       return false;//chequear
     }

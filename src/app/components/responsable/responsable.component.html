@@ -1,14 +1,14 @@
-<h1 class="titulo">Responsables</h1>
 <div class="ambas-tablas">
   <div class="table-container">
     <div class="table-responsive">
+      <h1 class="titulo">Responsables</h1>
       <table class="table table-bordered" *ngIf="responsables.length > 0">
         <thead class="table-dark">
           <tr>
-            <th>Persona</th>
+            <th>Empleado</th>
             <th>DNI</th>
             <th>Turnos</th>
-            <th>Agregar turno</th>
+            <th>Asignar</th>
             <th>Borrar</th>
           </tr>
         </thead>
@@ -16,19 +16,24 @@
           <ng-container *ngFor="let responsable of responsables; trackBy: trackById">
             <tr>
               <td>
-                <p>{{ getSlice(responsable.nombre,0,50) + ((responsable.nombre.length > 50) ? '...' : '')}}</p>
+                {{ responsable.nombre.slice(0,50) + ((responsable.nombre.length > 50) ? '...' : '')}}
               </td>
               <td>{{ responsable.dni }}</td>
               <td>
-                <!-- SELECT DE TODOS SUS TURNOS CON SCROLLBAR -->
+                <select disabled *ngIf="responsable.turnos.length > 0">
+                  <option *ngFor="let turno of responsable.turnos">{{ turno.nombre }}</option>
+                </select>
+                <select *ngIf="responsable.turnos.length == 0">
+                  <option>Ninguno</option>
+                </select>
               </td>
               <td>
-                <button class="btn btn-dark" (click)="agregarTurno(responsable)">
-                  <i class="bi bi-trash-plus"></i>
+                <button class="btn btn-dark" (click)="openDialogAsignarTurno(responsable)">
+                  <i class="bi bi-plus"></i>
                 </button>
               </td>
               <td>
-                <button class="btn btn-dark" (click)="eliminarResponsable(responsable)">
+                <button class="btn btn-dark" (click)="openDialogEliminarResponsable(responsable)">
                   <i class="bi bi-trash-fill"></i>
                 </button>
               </td>
@@ -40,12 +45,13 @@
         <p>¡No hay responsables aún!</p>
       </div>
     </div>
-    <button class="btn btn-dark" (click)="agregarResponsable()">Agregar</button>
+    <button class="btn btn-dark" (click)="openDialogAgregarResponsable()">Agregar</button>
   </div>
 
   <!-- Tabla de turnos -->
   <div class="table-responsive">
-    <table class="table table-bordered" *ngIf="productos.length > 0">
+    <h1 class="titulo">Turnos</h1>
+    <table class="table table-bordered" *ngIf="turnos.length > 0">
       <thead class="table-dark">
         <tr>
           <th>Turno</th>
@@ -58,13 +64,13 @@
         <ng-container *ngFor="let turno of turnos; trackBy: trackById">
           <tr>
             <td>
-              <p>{{ getSlice(turno.nombre,0,10) + ((turno.nombre.length > 10) ? '...' : '') }}</p>
+              <p>{{ turno.nombre.slice(0,10) + ((turno.nombre.length > 10) ? '...' : '') }}</p>
             </td>
-            <td>{{ turno.horaInicio }}</td>
-            <td>{{ turno.horaFin }}</td>
+            <td>{{ turno.horaEntrada }}</td>
+            <td>{{ turno.horaSalida }}</td>
             <td>
-              <button class="btn btn-dark" (click)="editarTurno(turno)">
-                <i class="bi bi-trash-fill"></i>
+              <button class="btn btn-dark" (click)="openDialogEditarTurno(turno)">
+                <i class="bi bi-pencil-fill"></i>
               </button>
             </td>
           </tr>
@@ -74,6 +80,6 @@
     <div *ngIf="turnos.length == 0">
       <p>¡No hay turnos aún!</p>
     </div>
-    <button class="btn btn-dark" (click)="agregarTurno()">Agregar</button>
+    <button class="btn btn-dark" (click)="openDialogAgregarTurno()">Agregar</button>
   </div>
 </div>

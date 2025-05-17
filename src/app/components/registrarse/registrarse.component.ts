@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Usuario } from 'src/app/models/Usuario';
 import { AuthService } from 'src/app/services/AuthService';
 import { ImagenService } from 'src/app/services/ImagenService';
@@ -16,8 +16,9 @@ export class RegistrarseComponent {
 
   registroForm: FormGroup;
   imagenBase64: string = '';
+  rol: string;
 
-  constructor(fb: FormBuilder, public dialogRef: MatDialogRef<RegistrarseComponent>, private authService: AuthService, private mensajeService: MensajeService, private imagenService: ImagenService){
+  constructor(fb: FormBuilder, public dialogRef: MatDialogRef<RegistrarseComponent>, private authService: AuthService, private mensajeService: MensajeService, private imagenService: ImagenService, @Inject(MAT_DIALOG_DATA) public data: any){
     this.registroForm = fb.group({
       dni: new FormControl('', [Validators.required, Validators.pattern(/^\d{8}$/)]), // Exactamente 8 dígitos
       nombre:  new FormControl('', [Validators.required, Validators.minLength(2)]), // Mínimo 2 caracteres
@@ -26,6 +27,7 @@ export class RegistrarseComponent {
       password:  new FormControl('', [Validators.required]),
     });
     this.seleccionarImagenLocal("assets/agregar.png");
+    this.rol = data?.rol ?? 'cliente';
   }
 
   onSubmit() {
@@ -35,24 +37,25 @@ export class RegistrarseComponent {
 
       const usuario = new Usuario(this.registroForm.value)
       usuario.rol = {    
-        "nombre": "cliente",
-        "tipoRol": "cliente"
+        "nombre": this.rol,
+        "tipoRol": this.rol
       }
 
       usuario.imagen = this.imagenBase64;
 
       this.authService.registro(usuario).subscribe({
-        next: (data) => {
-          this.dialogRef.close(true)
+        next: (usuario) => {
+          this.dialogRef.close(usuario);
         },
-        error: (err) => {
-          console.error('Error en el registro:', err);
+        error: () => {
           this.mensajeService.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
         }
       })
     }
     else {
-      this.mensajeService.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
+      if(this.registroForm.touched && this.registroForm.dirty){
+        this.mensajeService.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
+      }
     }
   }
 
@@ -62,7 +65,7 @@ export class RegistrarseComponent {
         this.imagenBase64 = data;
         this.registroForm.get('foto')?.setValue(data);
       },
-      error: (err) => {
+      error: () => {
         this.mensajeService.mostrarMensaje('Error al seleccionar la imagen local');
       }
     });
@@ -75,11 +78,10 @@ export class RegistrarseComponent {
         this.registroForm.get('foto')?.setValue(data);
       },
 
-      error: (err) => {
+      error: () => {
         this.mensajeService.mostrarMensaje('Error al seleccionar la imagen');
       }
     });
   }
 
-  //cambiar que se pasen a imagen service
 }

@@ -32,18 +32,19 @@ NOTAS:
 
     arreglar token interceptor para que solo lo haga con los endpoints necesarios
 
-    1 - Listado de productos
-    2 - Listado de responsables
-    3 - Pop up responsable
-    4 - Pop up turno
-    5 - Listado compras
-    6 - Pop up QR compra del usuario
-    7 - Pagos de los usuarios
-    8 - DTOs en el back para ocultar IDs (chequear los previos)
-    9 - Reemplazar formularios viejos (los que se ven distintos al mockup)
+    1 - Listado de responsables
+    2 - Pop up responsable
+    3 - Pop up turno
+    4 - Listado compras
+    5 - Pop up QR compra del usuario (requiere envío por mail)
+    6 - Pagos de los usuarios
+    ---DTOs en el back para ocultar IDs (chequear los previos)
+    8 - Reemplazar formularios viejos (los que se ven distintos al mockup)
     ---Ver el tema del título en ls menúes
     ---Chequear visibilidad
     ---Hacer que quede la estética del componente "estas seguro" porque está duplicado (el posta es)
 
 DOING:
-    -Listado de productos: falta editar y borrar
+    - listado de responsables
+        --alta y mod de turno en 1 componente
+        --asignacion de un turno a un wachin

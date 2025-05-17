@@ -37,14 +37,17 @@ export class NavbarComponent {
   navigateProductos() {
     this.router.navigate(['producto']);
   }
+  
+  navigateResponsables() {
+    this.router.navigate(['responsable']);
+  }
 
   openDialog(componente: any, redireccionar : string): void {
     const dialogRef = this.dialog.open(componente, {
       width: '450px', // Tamaño del diálogo
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('El popup se cerró con el siguiente resultado: ', result);
+    dialogRef.afterClosed().subscribe(() => {
       this.router.navigate([redireccionar])
     });
   }

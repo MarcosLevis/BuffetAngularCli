@@ -1,0 +1,6 @@
+.ambas-tablas{
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    gap:4rem;
+    width: 100%;
+}

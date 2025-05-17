@@ -46,7 +46,7 @@ export class ProductoComponent {
   async eliminarProducto(producto: Producto){
     const confirmacion: boolean = await this.confirmar(producto);
     if(confirmacion){
-      let mensaje: string = '';
+      let mensaje: string;
       this.productoService.deleteProducto(producto).subscribe({
         next: () => {
           this.removerProducto(producto);
@@ -71,8 +71,7 @@ export class ProductoComponent {
         contenido: mensaje,
       }
     });
-    const result = await firstValueFrom(dialogRef.afterClosed());
-    return result === true;
+    return await firstValueFrom(dialogRef.afterClosed());
   }
 
   openDialogAgregarProducto(productoEditar: Producto | undefined = undefined){

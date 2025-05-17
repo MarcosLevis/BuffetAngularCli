@@ -32,6 +32,9 @@ import { SugerenciaComponent } from './components/sugerencia/sugerencia.componen
 import { PopupEstasSeguroComponent } from './components/popup-estas-seguro/popup-estas-seguro.component';
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 import { ProductoComponent } from './components/producto/producto.component';
+import { PedidoComponent } from './components/pedido/pedido.component';
+import { ResponsableComponent } from './components/responsable/responsable.component';
+import { AgregarTurnoComponent } from './components/agregar-turno/agregar-turno.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,10 @@ import { ProductoComponent } from './components/producto/producto.component';
     SugerenciaComponent,
     PopupEstasSeguroComponent,
     AgregarProductoComponent,
-    ProductoComponent
+    ProductoComponent,
+    PedidoComponent,
+    ResponsableComponent,
+    AgregarTurnoComponent
   ],
   imports: [
     BrowserModule,

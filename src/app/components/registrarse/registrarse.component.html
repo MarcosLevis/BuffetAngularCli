@@ -46,7 +46,7 @@
         <input type="password" id="password" placeholder="Ingrese su contraseña" formControlName="password" required />
       </div>
         
-      <button type="submit" class="btn btn-dark">Registrarse</button>
+      <button type="submit" class="btn btn-dark">{{(rol == 'cliente') ? 'Registrarse' : 'Registrar'}}</button>
  
     </form>
 

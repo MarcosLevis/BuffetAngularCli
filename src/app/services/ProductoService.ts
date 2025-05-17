@@ -24,19 +24,16 @@ export class ProductoService{
 
     createProducto(productoDTO: ProductoDTO):Observable<Producto> {
         const url = `${this.API_URL_LOCAL}/productos/`;
-        console.log('crear producto: ',productoDTO);
         return this.http.post<Producto>(url,productoDTO).pipe(map(res => res));//hacer que espere el DTO
     }
 
     deleteProducto(producto: Producto):Observable<Producto> {
         const url = `${this.API_URL_LOCAL}/productos/${producto.id}`;
-        console.log('borrar producto: ',producto);
         return this.http.delete<Producto>(url);
     }
 
     editProducto(producto: Producto):Observable<Producto> {
         const url = `${this.API_URL_LOCAL}/productos/`;
-        console.log('editar producto: ',producto);
         return this.http.put<Producto>(url, producto).pipe(map(res => res));   
     }
 }
