@@ -20,7 +20,7 @@
               </td>
               <td>{{ responsable.dni }}</td>
               <td>
-                <select disabled *ngIf="responsable.turnos.length > 0">
+                <select *ngIf="responsable.turnos.length > 0">
                   <option *ngFor="let turno of responsable.turnos">{{ turno.nombre }}</option>
                 </select>
                 <select *ngIf="responsable.turnos.length == 0">
@@ -30,6 +30,9 @@
               <td>
                 <button class="btn btn-dark" (click)="openDialogAsignarTurno(responsable)">
                   <i class="bi bi-plus"></i>
+                </button>
+                <button class="btn btn-dark" (click)="openDialogSacarTurno(responsable)">
+                  <i class="bi bi-dash"></i>
                 </button>
               </td>
               <td>

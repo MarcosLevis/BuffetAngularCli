@@ -1,0 +1,24 @@
+form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title-form{
+    font-size: large;
+    font-weight: bold;
+  }
+  
+  .form-label {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 10px;
+  }
+
+  .btn{
+    margin-top: 10px;
+  }
+
+  .form-control{
+    appearance: menulist;
+  }

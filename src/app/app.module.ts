@@ -35,6 +35,7 @@ import { ProductoComponent } from './components/producto/producto.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { ResponsableComponent } from './components/responsable/responsable.component';
 import { AgregarTurnoComponent } from './components/agregar-turno/agregar-turno.component';
+import { AsignarTurnoComponent } from './components/asignar-turno/asignar-turno.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { AgregarTurnoComponent } from './components/agregar-turno/agregar-turno.
     ProductoComponent,
     PedidoComponent,
     ResponsableComponent,
-    AgregarTurnoComponent
+    AgregarTurnoComponent,
+    AsignarTurnoComponent
   ],
   imports: [
     BrowserModule,

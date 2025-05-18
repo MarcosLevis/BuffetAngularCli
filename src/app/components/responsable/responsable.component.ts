@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { firstValueFrom } from 'rxjs';
 import { RegistrarseComponent } from '../registrarse/registrarse.component';
 import { AgregarTurnoComponent } from '../agregar-turno/agregar-turno.component';
+import { AsignarTurnoComponent } from '../asignar-turno/asignar-turno.component';
 
 @Component({
   selector: 'app-responsable',
@@ -94,8 +95,44 @@ export class ResponsableComponent {
     this.mensajeService.mostrarMensaje(mensaje);
   }
 
-  openDialogAsignarTurno(responsable: UsuarioDTO){
-    //ventana para asignar turno que lo busca antes local
+  async openDialogAsignarTurno(responsable: UsuarioDTO){
+    if(responsable.turnos.length == this.turnos.length){
+      this.mensajeService.mostrarMensaje(`${responsable.nombre} ya cuenta con todos los turnos existentes`);
+      return;
+    }
+    const dialogRef = this.dialog.open(AsignarTurnoComponent, {
+      width: '450px',
+      data:{
+        asignar: true,
+        usuarioId: responsable.id,
+        turnos: this.turnos.filter(t => !responsable.turnos.map(t => t.id).includes(t.id))
+      }
+    });
+    const responsableAtualizado = await firstValueFrom(dialogRef.afterClosed());
+    if(!!responsableAtualizado){
+      const index = this.responsables.findIndex(r => r.id == responsableAtualizado.id);
+      this.responsables[index] = responsableAtualizado;
+    }
+  }
+
+  async openDialogSacarTurno(responsable: UsuarioDTO){
+    if(responsable.turnos.length == 0){
+      this.mensajeService.mostrarMensaje(`${responsable.nombre} no cuenta con turnos`);
+      return;
+    }
+    const dialogRef = this.dialog.open(AsignarTurnoComponent, {
+      width: '450px',
+      data:{
+        asignar: false,
+        usuarioId: responsable.id,
+        turnos: responsable.turnos
+      }
+    });
+    const responsableAtualizado = await firstValueFrom(dialogRef.afterClosed());
+    if(!!responsableAtualizado){
+      const index = responsable.turnos.findIndex(t => t.id == t.id);
+      responsable.turnos.splice(index,1);
+    }
   }
 
   async openDialogEliminarResponsable(responsable: UsuarioDTO){

@@ -33,6 +33,16 @@ export class UsuarioService{
         return this.http.get<Usuario[]>(url).pipe(map(res => res));  
     }
 
+    asignTurno(usuarioId: number, turnoId: number){
+        const url = `${this.API_URL_LOCAL}/usuarios/asignar-turno/${usuarioId}/${turnoId}`;
+        return this.http.put<Usuario>(url,null).pipe(map(res => res));
+    }
+
+    removeTurno(usuarioId: number, turnoId: number){
+        const url = `${this.API_URL_LOCAL}/usuarios/sacar-turno/${usuarioId}/${turnoId}`;
+        return this.http.put<Usuario>(url,null).pipe(map(res => res));
+    }
+
     deleteUsuario(id: number){
         const url = `${this.API_URL_LOCAL}/usuarios/${id}`;
         return this.http.delete<Usuario>(url).pipe(map(res => res));  

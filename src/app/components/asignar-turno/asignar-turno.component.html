@@ -1,0 +1,17 @@
+<div mat-dialog-content>
+  <form [formGroup]="turnoForm" (ngSubmit)="onSubmit()">
+    <h1 class="title-form">{{this.asignar ? 'Asignar' : 'Quitar'}} turno</h1>
+  
+    <div class="form-group">
+      <label class="form-label" for="turno">Turno</label>
+      <select formControlName="turnoId" class="form-control">
+        <option *ngFor="let turno of turnosPosibles" [value]="turno.id">
+          {{ turno.nombre }}
+        </option>
+      </select>
+    </div>
+  
+    <button type="submit" class="btn btn-dark">Confirmar</button>
+  </form>
+</div>
+  
