@@ -17,12 +17,16 @@ export class PerfilComponent {
   estaEditando: boolean = false;
   imagenAnterior: string = '';
   perfilForm: FormGroup;
-  usuario: Usuario | null;
+  usuario: Usuario | null = null;
 
   constructor(private fb: FormBuilder, private authService: AuthService,private mensajeService: MensajeService, private usuarioService: UsuarioService, router: Router){
-    this.usuario = authService.getCurrentUser();
-    if(this.usuario === null)
+    let buscado = authService.getCurrentUser();
+    if(buscado){
+      this.usuario = buscado;
+    }
+    else{
       router.navigate(['/login']);
+    }
     this.perfilForm = this.fb.group({
       dni: new FormControl(this.usuario?.dni, [Validators.required, Validators.pattern(/^\d{8}$/)]), //8 dígitos
       email: new FormControl(this.usuario?.email, [Validators.required, Validators.email]), //correo electrónico
@@ -55,10 +59,10 @@ export class PerfilComponent {
       lector.onload = () => {
         if(this.usuario){
           this.usuario.imagen = (lector.result as string).split(",")[1];//le saco la parte que indica el tipo y que es un base64
+          this.usuario.tipoMime = (lector.result as string).split(",")[0];//la pongo acá
         }
       };;
       lector.readAsDataURL(imagenSeleccionada);
-
     }
   }
   
@@ -71,15 +75,15 @@ export class PerfilComponent {
       this.mensajeService.mostrarMensaje();
     }
     else{
-      // Crear un nuevo UsuarioDTO combinando datos nuevos con los existentes
       const actualizado: UsuarioDTO = new UsuarioDTO({
         id: this.usuario?.id,
         dni: this.perfilForm.value.dni ?? this.usuario?.dni,
         email: this.perfilForm.value.email ?? this.usuario?.email,
         nombre: this.perfilForm.value.nombre ?? this.usuario?.nombre,
         apellido: this.perfilForm.value.apellido ?? this.usuario?.apellido,
-        imagen: this.usuario?.imagen, // Mantener la imagen actual
-        rol: this.usuario?.rol // Mantener el rol actual
+        imagen: this.usuario?.imagen.split(",")[1], // Le saco el prefijo que indica el tipo de la imagen
+        tipoMime: this.usuario?.imagen.split(",")[0], //tipoMime
+        rol: this.usuario?.rol
       });
 
       this.usuarioService.editUsuario(actualizado).subscribe({
@@ -88,16 +92,21 @@ export class PerfilComponent {
           this.mensajeService.mostrarMensaje("Edición exitosa.");
           this.estaEditando = false;
           this.usuario = data;
-          this.imagenAnterior = this.usuario.imagen;
+          this.imagenAnterior = this.usuario?.imagen;
+          this.authService.setCurrentUser(this.usuario);
         },
         error: (err) => {
           console.error('Error en la edición:', err);
           this.mensajeService.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
         }
       })
-      //si hubo errores informa
-      //sino, exito y ya no edito
     }
+  }
+
+  armarImagen(){
+    if(this.usuario?.tipoMime && this.usuario.imagen)
+      return this.usuario?.tipoMime + ',' + this.usuario.imagen;
+    return '';
   }
 
 }

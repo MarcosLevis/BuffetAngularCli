@@ -19,7 +19,6 @@ export class UsuarioService{
             this.router.navigate(['/login']);
 
         const url = `${this.API_URL_LOCAL}/usuarios/`;
-        console.log(usuario)
         return this.http.put<Usuario>(url, usuario).pipe(map(res => res));   
     }
 

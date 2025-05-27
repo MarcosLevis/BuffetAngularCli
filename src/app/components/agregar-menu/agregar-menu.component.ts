@@ -45,11 +45,14 @@ export class AgregarMenuComponent {
       if (this.menuForm.valid) {
         const menu = this.armarMenu();
         const dia = this.menuForm.get('dia')?.value;
+        console.log('DIAAAA',dia);
         const confirmacion = await this.confirmar(menu,dia);
+        console.log('confirmacion:',confirmacion);
         if(confirmacion){
           this.menuService.createMenu(menu, dia).subscribe({
-            next: () => {
+            next: (result) => {
               this.mensajeService.mostrarMensaje(`Se ${this.data.editar ? 'editó' : 'creó'} el menú con éxito`);
+              return result;
             },
             error: () => {
               this.mensajeService.mostrarMensaje(`Ocurrió un error al ${this.data.editar ? 'editar' : 'crear'} el menú`);
@@ -59,7 +62,7 @@ export class AgregarMenuComponent {
       } else {
         this.mensajeService.mostrarMensaje('El formulario no es válido');
       }
-      this.dialogRef.close('');
+      this.dialogRef.close(false);
     }
 
     async confirmar(menu: Menu, dia: Dia): Promise<boolean> {
@@ -72,6 +75,7 @@ export class AgregarMenuComponent {
                       <p>¿Está seguro/a que quiere reemplazarlo?</p>`
       }
 
+      //si ya existe un menu, confirmame que querés reemplazar
       if ((menu.esVegetariano() && dia.menuVegetariano != null) || (!menu.esVegetariano() && dia.menuEstandar != null) ){
         const dialogRef = this.dialog.open(EstasSeguroComponent, {
           width: '450px',
@@ -81,9 +85,8 @@ export class AgregarMenuComponent {
           }
         });
         return await firstValueFrom(dialogRef.afterClosed());
-        //return result === true;
       }
-      return false;//chequear
+      return true;
     }
 
     armarMenu(): Menu {
@@ -95,7 +98,7 @@ export class AgregarMenuComponent {
         bebida: this.menuForm.get('bebida')?.value,
         postre: this.menuForm.get('postre')?.value,
         precio: this.menuForm.get('precio')?.value,
-        tipoItem: 'menu',
+        //tipoItem: 'menu',
         tipoMenu: (this.menuForm.get('vegetariano')?.value) ? 'menuvegetariano' : 'menuestandar',
         imagen: this.imagenBase64,
       });

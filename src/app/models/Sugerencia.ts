@@ -8,8 +8,8 @@ export interface Sugerencia {
   }
 
   export enum CategoriaSugerencia {
-    Alimentos = 0,
-    Atencion = 1,
-    Precios = 2,
-    Infraestructura = 3
+    Alimentos = 'Alimentos',
+    Atencion = 'Atencion',
+    Precios = 'Precios',
+    Infraestructura = 'Infraestructura'
   }

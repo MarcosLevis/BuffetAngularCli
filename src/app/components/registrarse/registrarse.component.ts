@@ -41,7 +41,8 @@ export class RegistrarseComponent {
         "tipoRol": this.rol
       }
 
-      usuario.imagen = this.imagenBase64;
+      usuario.imagen = this.imagenBase64.split(",")[1];
+      usuario.tipoMime = this.imagenBase64.split(",")[0];
 
       this.authService.registro(usuario).subscribe({
         next: (usuario) => {

@@ -5,7 +5,7 @@
     <div class="profile-section">
         <div class="field">
             <label>Foto</label>
-            <img [src]="'data:image/png;base64,'+usuario?.imagen" alt="Foto de perfil" class="profile-pic" id="profile-pic">
+            <img [src]="armarImagen()" alt="Foto de perfil" class="profile-pic" id="profile-pic">
             <input 
                 *ngIf="estaEditando" 
                 type="file" 

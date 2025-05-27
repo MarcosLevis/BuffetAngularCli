@@ -15,6 +15,7 @@ export class Usuario {
   public turnos: Turno[];
   public compras: Compra[];
   public imagen: string;
+  public tipoMime: string;
 
   constructor(obj?: any) {
     this.id = obj && obj.id || '';
@@ -28,6 +29,8 @@ export class Usuario {
     this.turnos = obj && obj.turnos || [];
     this.compras = obj && obj.compras || [];
     this.imagen = obj && obj.imagen || '';
+    this.tipoMime = obj && obj.tipoMime || '';
+
 }
 }
 

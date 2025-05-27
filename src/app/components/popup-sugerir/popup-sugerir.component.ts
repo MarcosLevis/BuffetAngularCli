@@ -16,11 +16,13 @@ import { MatDialogRef } from '@angular/material/dialog';
 export class PopupSugerirComponent {
 
   sugerenciaForm: FormGroup;
+  categorias: string[];
 
   constructor (private mensajeService: MensajeService, private sugerenciaService: SugerenciaService,
     private authService: AuthService, private router: Router, private dialogRef: MatDialogRef<PopupSugerirComponent>, fb: FormBuilder){
+    this.categorias = Object.values(CategoriaSugerencia);
     this.sugerenciaForm = fb.group({
-      tipo: ['Alimentos'],
+      tipo: [CategoriaSugerencia.Alimentos],
       texto:  new FormControl('', [Validators.required, Validators.minLength(1), Validators.maxLength(256)])
     });
   }
@@ -33,7 +35,7 @@ export class PopupSugerirComponent {
         return;
       }
 
-      const categoriaSeleccionada: CategoriaSugerencia = this.sugerenciaForm.value;
+      const categoriaSeleccionada: CategoriaSugerencia = this.sugerenciaForm.value.tipo;
 
       const sugerencia: Sugerencia = {
         id : null,
@@ -45,11 +47,11 @@ export class PopupSugerirComponent {
       }
 
       this.sugerenciaService.createSugerencia(sugerencia, usuario).subscribe({
-        next: (data) => {
+        next: () => {
           this.mensajeService.mostrarMensaje("Sugerencia creada con éxito");
           this.dialogRef.close();
         },
-        error: (err) => {
+        error: () => {
           this.mensajeService.mostrarMensaje('Ocurrió un error. Por favor, intente nuevamente.');
         }
       });

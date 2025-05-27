@@ -5,10 +5,9 @@
       <div class="form-group">
         <label class="form-label" for="tipo">Categoría de sugerencia:</label>
         <mat-select class="mat-select" id="tipo" formControlName="tipo">
-          <mat-option value="CategoriaSugerencia.Alimentos" selected >Alimentos</mat-option>
-          <mat-option value="CategoriaSugerencia.Atención">Atención</mat-option>
-          <mat-option value="CategoriaSugerencia.Precios">Precios</mat-option>
-          <mat-option value="CategoriaSugerenciaInfraestructura">Infraestructura</mat-option>
+          <mat-option *ngFor="let categoria of categorias" [value]="categoria">
+            {{ categoria }}
+          </mat-option>
         </mat-select>
       </div>
       

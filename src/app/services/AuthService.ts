@@ -62,6 +62,20 @@ export class AuthService {
     }
   }
 
+  setCurrentUser(usuario: Usuario | null): void {
+    try {
+      console.log('USUARIO ENVIADO AL AUTHSERVICE ',usuario);
+      if (!!usuario) {
+        localStorage.setItem('usuario', JSON.stringify(usuario));
+        this.currentUser = usuario;
+      } else {
+        console.log('NO ANDA EL SET CURRENT USER',usuario);
+      }
+    } catch (error) {
+      console.log("Error al guardar o eliminar el usuario actual: " + error);
+    }
+  }  
+
   getCurrentToken(): string | null {
     try{
       if (!this.token) {

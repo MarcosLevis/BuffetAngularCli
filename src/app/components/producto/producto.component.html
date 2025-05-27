@@ -42,12 +42,12 @@
     </div>
   </div>
 
-  <div class="d-flex flex-column">
-    <div class="flex-grow-1">
+  <div class="columna-pedido d-flex flex-column">
+    <div class="flex-grow-1 overflow-auto">
       <app-pedido *ngIf="authService.isCliente()" (agregarExitoso)="onProductoAgregado($event)"></app-pedido>
     </div>
     <div class="alfondo">
-      <button class="btn btn-dark" (click)="openDialogAgregarProducto()">Agregar</button>
+      <button *ngIf="authService.isAdministrador()" class="btn btn-dark" (click)="openDialogAgregarProducto()">Agregar</button>
     </div>
-  </div>
+  </div>  
 </div>

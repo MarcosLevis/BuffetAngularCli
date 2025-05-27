@@ -11,7 +11,7 @@ export class EstasSeguroComponent {
   constructor(public dialogRef: MatDialogRef<EstasSeguroComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
     retornar(confirmar: boolean){
-      this.dialogRef.close(confirmar);//si se rompe es porque al usarlo falta agarrar la respuesta y hacer un result === true;
+      this.dialogRef.close(confirmar);
     }
 }
 

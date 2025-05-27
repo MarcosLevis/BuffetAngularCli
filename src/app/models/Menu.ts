@@ -3,7 +3,7 @@ export class Menu {
     public id: number;
     public nombre: string;
     public precio: number;
-    public tipoItem: string;
+    //public tipoItem: string;
     public entrada: string;
     public platoPrincipal: string;
     public postre: string;
@@ -20,7 +20,7 @@ export class Menu {
       this.platoPrincipal = obj && obj.platoPrincipal || '';
       this.postre = obj && obj.postre || '';
       this.bebida = obj && obj.bebida || '';
-      this.tipoItem = 'menu';
+      //this.tipoItem = 'menu';
       this.tipoMenu = obj && obj.tipoMenu || '';
       this.imagen = obj && obj.imagen || '';
     }

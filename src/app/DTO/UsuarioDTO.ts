@@ -14,6 +14,7 @@ export class UsuarioDTO {//el cambio es la falta de password
   public turnos: Turno[];
   public compras: Compra[];
   public imagen: string;
+  public tipoMime: string;
 
   constructor(obj?: any) {
     this.id = obj && obj.id || '';//me parece que va a haber que borrar esto para poder crear a los responsables de turno
@@ -26,7 +27,8 @@ export class UsuarioDTO {//el cambio es la falta de password
     this.turnos = obj && obj.turnos || [];
     this.compras = obj && obj.compras || [];
     this.imagen = obj && obj.imagen || '';
-}
+    this.tipoMime = obj && obj.tipoMime || '';
+  }
 }
 
 
