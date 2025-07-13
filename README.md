@@ -36,13 +36,9 @@ NOTAS:
     2 - Pop up QR compra del usuario (requiere envío por mail)
     3 - Pagos de los usuarios
     ---DTOs en el back para ocultar IDs (chequear los previos)
-    4 - Reemplazar formularios viejos (los que se ven distintos al mockup)
+    4 - Reemplazar formularios viejos (los que se ven distintos al mockup) -->
     ---Ver el tema del título en ls menúes
-    ---Chequear visibilidad
-    ---Hacer que quede la estética del componente "estas seguro" porque está duplicado (el posta es)
 
 DOING:
-    - chequear visibilidad:
-        --cliente:
-        --responsable:
-        --administrador:
+    - volver a chequear visibilidad
+    - chequear que todos los formularios sean los correctos (ESTILO, VISUALMENTE)

@@ -38,9 +38,6 @@ export class PerfilComponent {
 
   cambio() {
     this.estaEditando = !this.estaEditando;
-    if (!this.estaEditando){
-      console.log('Datos guardados:', this.perfilForm.value);
-    }
   }
 
   cancelar() {
@@ -81,14 +78,13 @@ export class PerfilComponent {
         email: this.perfilForm.value.email ?? this.usuario?.email,
         nombre: this.perfilForm.value.nombre ?? this.usuario?.nombre,
         apellido: this.perfilForm.value.apellido ?? this.usuario?.apellido,
-        imagen: this.usuario?.imagen.split(",")[1], // Le saco el prefijo que indica el tipo de la imagen
-        tipoMime: this.usuario?.imagen.split(",")[0], //tipoMime
+        imagen: this.usuario?.imagen,
+        tipoMime: this.usuario?.tipoMime,
         rol: this.usuario?.rol
       });
 
       this.usuarioService.editUsuario(actualizado).subscribe({
         next: (data) => {
-          console.log('Edición exitosa:', data);
           this.mensajeService.mostrarMensaje("Edición exitosa.");
           this.estaEditando = false;
           this.usuario = data;
@@ -96,7 +92,6 @@ export class PerfilComponent {
           this.authService.setCurrentUser(this.usuario);
         },
         error: (err) => {
-          console.error('Error en la edición:', err);
           this.mensajeService.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
         }
       })

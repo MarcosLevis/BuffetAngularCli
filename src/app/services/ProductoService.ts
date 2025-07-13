@@ -8,7 +8,6 @@ import { ProductoDTO } from "../DTO/ProductoDTO";
 export class ProductoService{
 
     constructor(private http: HttpClient) { }
-    //API_URL_LOCAL = environment.API_URL;
     // Ya no usamos el environment, usamos el proxy, porque tiraba errores de CORS  
     API_URL_LOCAL = '/api'
 
@@ -33,7 +32,7 @@ export class ProductoService{
     }
 
     editProducto(producto: Producto):Observable<Producto> {
-        const url = `${this.API_URL_LOCAL}/productos/`;
+        const url = `${this.API_URL_LOCAL}/productos/` + producto.id;
         return this.http.put<Producto>(url, producto).pipe(map(res => res));   
     }
 }

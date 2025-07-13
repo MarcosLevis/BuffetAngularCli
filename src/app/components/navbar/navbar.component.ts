@@ -13,8 +13,6 @@ import { AuthService } from 'src/app/services/AuthService';
 })
 export class NavbarComponent {
 
-  //loegeado es una variable momentanea para probar la vista
-  logeado: boolean = false;
   IniciarSesionComponent = IniciarSesionComponent;
   RegistrarseComponent = RegistrarseComponent;
 
@@ -40,6 +38,10 @@ export class NavbarComponent {
   
   navigateResponsables() {
     this.router.navigate(['responsable']);
+  }
+
+  navigateCompras() {
+    this.router.navigate(['compra']);
   }
 
   openDialog(componente: any, redireccionar : string): void {

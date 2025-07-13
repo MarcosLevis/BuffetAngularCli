@@ -18,7 +18,7 @@
                 <p>{{ getSlice(producto.nombre,0,50) + ((producto.nombre.length > 50) ? '...' : '')}}</p>
               </td>
               <td>$ {{ producto.precio }}</td>
-              <td class="separadas">
+              <td class="separadas" *ngIf="!authService.isResponsableTurno()">
                 <button class="btn btn-dark" *ngIf="authService.isAdministrador()">
                   <i class="bi bi-pencil-fill" (click)="openDialogAgregarProducto(producto)"></i><!--editar-->
                 </button>

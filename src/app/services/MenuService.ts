@@ -9,7 +9,6 @@ import { Dia } from "../models/Dia";
 export class MenuService{
 
     constructor(private http: HttpClient) { }
-    //API_URL_LOCAL = environment.API_URL;ng
     // Ya no usamos el environment, usamos el proxy, porque tiraba errores de CORS  
     API_URL_LOCAL = '/api'
 
@@ -24,7 +23,6 @@ export class MenuService{
     }
 
     createMenu(menu: Menu, dia: Dia):Observable<Dia> {
-        console.log('Menu enviado:',menu);
         const url = `${this.API_URL_LOCAL}/dias/${dia.id}`;
         if (menu.esVegetariano()){
             dia.menuVegetariano = menu;

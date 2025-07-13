@@ -19,10 +19,11 @@
         <div *ngFor="let dia of getPaginatedMenus()" >
             <div *ngIf="dia.menuVegetariano != null && verVegeta " class="carrusel" >
                 <img *ngIf="dia.menuVegetariano.imagen" type="image/*" [src]="getSanitizedImage(dia.menuVegetariano.imagen)" alt="Foto de Menú">
+                <img *ngIf="!dia.menuVegetariano.imagen" type="image/*" src="assets/sin_menu.png" alt="Foto de Menú">
             </div>
             <div *ngIf="dia.menuEstandar != null && !verVegeta" class="carrusel" >
                 <img *ngIf="dia.menuEstandar.imagen" type="image/*" [src]="getSanitizedImage(dia.menuEstandar.imagen)" alt="Foto de Menú">
-                <img *ngIf="!dia.menuEstandar.imagen" type="image/*" src="assets/menu_base.png" alt="Foto de Menú">
+                <img *ngIf="!dia.menuEstandar.imagen" type="image/*" src="assets/sin_menu.png" alt="Foto de Menú">
             </div>
         </div>
 

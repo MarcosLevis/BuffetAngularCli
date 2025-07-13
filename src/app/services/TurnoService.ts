@@ -24,9 +24,9 @@ export class TurnoService {
     return this.http.get<TurnoDTO[]>(url).pipe(map(res => res));
   }
 
-  editTurno(turnoDTO: TurnoDTO):Observable<TurnoDTO> {
+  editTurno(turnoDTO: TurnoDTO):Observable<Turno> {
     const url = this.urlbase + '/turnos/';
-    return this.http.put<TurnoDTO>(url, turnoDTO).pipe(map(res => res));   
+    return this.http.put<Turno>(url, turnoDTO).pipe(map(res => res));   
   }
 
   deleteTurno(turno: TurnoDTO):Observable<Turno> {

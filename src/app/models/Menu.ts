@@ -1,5 +1,4 @@
 export class Menu {
-    //se que no te va a gustar el public pero no pasa nada papa
     public id: number;
     public nombre: string;
     public precio: number;

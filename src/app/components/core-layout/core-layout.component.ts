@@ -5,9 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './core-layout.component.html',
   styleUrls: ['./core-layout.component.css']
 })
-export class CoreLayoutComponent {
-
-
-// para mi este core layout tiene que usar un signal o un service que guarde la data del usuario logeado
-
-}
+export class CoreLayoutComponent {}

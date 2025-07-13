@@ -10,7 +10,6 @@ import { UsuarioDTO } from "../DTO/UsuarioDTO";
 export class UsuarioService{
 
     constructor(private http: HttpClient, private router: Router) {}
-    //API_URL_LOCAL = environment.API_URL;
     // Ya no usamos el environment, usamos el proxy, porque tiraba errores de CORS  
     API_URL_LOCAL = '/api'
 

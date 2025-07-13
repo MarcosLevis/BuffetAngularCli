@@ -38,16 +38,19 @@ export class AgregarMenuComponent {
         vegetariano: [data?.vegetariano || false, [Validators.required]],
         dia: [data?.dia || data.dias[0], [Validators.required]],
       });
-      this.seleccionarImagenLocal('assets/agregar.png');
+      if(data.menu?.imagen){
+        this.imagenBase64 = data.menu?.imagen;
+      }
+      else{
+        this.seleccionarImagenLocal('assets/agregar.png');
+      }
     }
 
     async agregarMenu(): Promise<void> {
       if (this.menuForm.valid) {
         const menu = this.armarMenu();
         const dia = this.menuForm.get('dia')?.value;
-        console.log('DIAAAA',dia);
         const confirmacion = await this.confirmar(menu,dia);
-        console.log('confirmacion:',confirmacion);
         if(confirmacion){
           this.menuService.createMenu(menu, dia).subscribe({
             next: (result) => {
@@ -108,7 +111,6 @@ export class AgregarMenuComponent {
       this.imagenService.seleccionarImagenLocal(path).subscribe({
         next: (data) => {
           this.imagenBase64 = data;
-          this.menuForm.get('foto')?.setValue(data);
         },
         error: (err) => {
           this.imagenError = 'Error al seleccionar la imagen local';
@@ -120,9 +122,7 @@ export class AgregarMenuComponent {
       this.imagenService.seleccionarImagen(event).subscribe({
         next: (data) => {
           this.imagenBase64 = data;
-          this.menuForm.get('foto')?.setValue(data);
         },
-
         error: (err) => {
           this.imagenError = 'Error al seleccionar la imagen';
         }

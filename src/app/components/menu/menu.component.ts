@@ -9,7 +9,6 @@ import { AuthService } from 'src/app/services/AuthService';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { PopupSugerirComponent } from '../popup-sugerir/popup-sugerir.component';
-import { PopupEstasSeguroComponent } from '../popup-estas-seguro/popup-estas-seguro.component';
 import { MensajeService } from 'src/app/services/MensajeService';
 
 
@@ -29,7 +28,6 @@ export class MenuComponent {
 
   diaSeleccionadoIndex: number = 0;
   PopupSugerirComponent = PopupSugerirComponent;
-  PopupEstasSeguroComponent = PopupEstasSeguroComponent;
 
   constructor(private dialog: MatDialog, private menuService: MenuService, private authService: AuthService, private sanitizer: DomSanitizer, private router: Router, private mensajeService: MensajeService) {}
   

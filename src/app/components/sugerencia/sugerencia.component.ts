@@ -33,8 +33,8 @@ export class SugerenciaComponent {
   }
 
   getSugerenciasFecha(event: Event){
-    const input = event.target as HTMLInputElement;  // Casting a HTMLInputElement
-    const fecha = input.value  // Acceder a la propiedad value del input
+    const input = event.target as HTMLInputElement;
+    const fecha = input.value;
     this.sugerenciaService.getSugerenciasDeUnaFecha(fecha).subscribe({
       next: (data) => {
         this.sugerencias = data;

@@ -19,13 +19,11 @@ export class AuthService {
 
   registro(usuario: Usuario): Observable<Usuario>{
     const url = this.urlbase + '/usuarios/';
-    console.log('url en servicel', url)
     return this.http.post<Usuario>(url,usuario).pipe(map(res => res));   
   }
   
   login(email: string, password: string): Observable<LoginResponse> {
     const credenciales = { email, password };
-    console.log(this.urlbase);
     const url = this.urlbase + '/auth/login';
     return this.http.post<LoginResponse>(url, credenciales).pipe(
       map((res: LoginResponse) => {
@@ -64,12 +62,9 @@ export class AuthService {
 
   setCurrentUser(usuario: Usuario | null): void {
     try {
-      console.log('USUARIO ENVIADO AL AUTHSERVICE ',usuario);
       if (!!usuario) {
         localStorage.setItem('usuario', JSON.stringify(usuario));
         this.currentUser = usuario;
-      } else {
-        console.log('NO ANDA EL SET CURRENT USER',usuario);
       }
     } catch (error) {
       console.log("Error al guardar o eliminar el usuario actual: " + error);
@@ -96,7 +91,7 @@ export class AuthService {
   }
 
   isResponsableTurno():boolean{
-    return this.getCurrentUser()?.rol?.tipoRol ==="responsable-turno";
+    return this.getCurrentUser()?.rol?.tipoRol === "responsable-turno";
   }
 
   isCliente():boolean{

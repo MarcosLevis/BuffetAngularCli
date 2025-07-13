@@ -17,27 +17,23 @@ export class IniciarSesionComponent {
   
   constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<IniciarSesionComponent>, private authService: AuthService,private snackbar: MatSnackBar, private router: Router) {
     this.loginForm = this.fb.group({
-      email: new FormControl('', [Validators.required]),  // Add validation here if needed
-      password: new FormControl('', [Validators.required])  // Add validation here if needed
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required])
     });
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value.email,this.loginForm.value.password).subscribe({
-        next: (data) => {
-          console.log('Login exitoso:', data);
+        next: () => {
           this.dialogRef.close(true);
-          this.router.navigate(['menu']);//anda?
+          this.router.navigate(['menu']);
         },
         error: (err) => {
           console.error('Error en el login:', err);
-          this.mostrarError('Datos inválidos. Por favor, intente nuevamente.'); // Llamada a una función para manejar el error
+          this.mostrarError('Datos inválidos. Por favor, intente nuevamente.');
         }
       })
-    }
-    else {
-      console.log('Formulario de login inválido');
     }
   }
 

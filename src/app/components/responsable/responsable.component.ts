@@ -11,6 +11,7 @@ import { firstValueFrom } from 'rxjs';
 import { RegistrarseComponent } from '../registrarse/registrarse.component';
 import { AgregarTurnoComponent } from '../agregar-turno/agregar-turno.component';
 import { AsignarTurnoComponent } from '../asignar-turno/asignar-turno.component';
+import { Turno } from 'src/app/models/Turno';
 
 @Component({
   selector: 'app-responsable',
@@ -72,11 +73,19 @@ export class ResponsableComponent {
     this.mensajeService.mostrarMensaje(mensaje);
   }
 
-  private reemplazarEditado(editado: TurnoDTO){
+  private reemplazarEditado(editado: Turno){
     const index = this.turnos.findIndex(t => t.id = editado.id);
     if(index != -1){
-      this.turnos.splice(index,1,editado);
+      this.turnos.splice(index,1,new TurnoDTO(editado));
     }
+    this.responsables.forEach(responsable => {
+      let index = responsable.turnos.findIndex(t => t.id = editado.id);
+      if(index != -1){
+        responsable.turnos[index].nombre = editado.nombre;
+        responsable.turnos[index].horaEntrada = editado.horaEntrada;
+        responsable.turnos[index].horaSalida = editado.horaSalida;
+      }
+    });
   }
 
   async openDialogAgregarResponsable(){

@@ -3,14 +3,14 @@ export class Producto {
     public id: number;
     public nombre: string;
     public precio: number;
-    public tipoItem: string;
+    //public tipoItem: string;
 
     constructor(obj?: any)
     {
       this.id = obj && obj.id || null;
       this.precio = obj && obj.precio || '';
       this.nombre = obj && obj.nombre || '';
-      this.tipoItem = obj && obj.tipoItem || 'producto'; 
+      //this.tipoItem = obj && obj.tipoItem || 'producto'; 
     }
 
   }

@@ -13,7 +13,7 @@
         <ng-container *ngFor="let pedido of pedidos; trackBy: trackById">
           <tr>
             <td>
-              <p>{{ getSlice(pedido.nombre,0,8) + ((pedido.nombre.length > 50) ? '...' : '')}}</p>
+              <p>{{ getSlice(pedido.nombre,0,16) + ((pedido.nombre.length > 16) ? '...' : '')}}</p>
             </td>
             <td>{{ pedido.cantidad }}</td>
             <td>${{ (pedido.precio * pedido.cantidad).toFixed(2)}}</td>

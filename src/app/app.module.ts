@@ -29,13 +29,13 @@ import { MatTableModule } from '@angular/material/table';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { PopupSugerirComponent } from './components/popup-sugerir/popup-sugerir.component';
 import { SugerenciaComponent } from './components/sugerencia/sugerencia.component';
-import { PopupEstasSeguroComponent } from './components/popup-estas-seguro/popup-estas-seguro.component';
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 import { ProductoComponent } from './components/producto/producto.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { ResponsableComponent } from './components/responsable/responsable.component';
 import { AgregarTurnoComponent } from './components/agregar-turno/agregar-turno.component';
 import { AsignarTurnoComponent } from './components/asignar-turno/asignar-turno.component';
+import { CompraComponent } from './components/compra/compra.component';
 
 @NgModule({
   declarations: [
@@ -50,13 +50,13 @@ import { AsignarTurnoComponent } from './components/asignar-turno/asignar-turno.
     EstasSeguroComponent,
     PopupSugerirComponent,
     SugerenciaComponent,
-    PopupEstasSeguroComponent,
     AgregarProductoComponent,
     ProductoComponent,
     PedidoComponent,
     ResponsableComponent,
     AgregarTurnoComponent,
-    AsignarTurnoComponent
+    AsignarTurnoComponent,
+    CompraComponent
   ],
   imports: [
     BrowserModule,

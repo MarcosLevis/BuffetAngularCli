@@ -35,8 +35,7 @@ export class ProductoComponent {
   }
 
   ngAfterViewInit() {
-    // Aquí puedes asegurarte de que el componente hijo esté listo
-    console.log('Componente hijo listo:', this.pedido);
+    // esperar a que el componente hijo esté listo
   }
 
   trackById(index: number, item: Producto): number | null {
@@ -120,15 +119,13 @@ export class ProductoComponent {
   }
 
   agregarAlPedido(producto: Producto){
-    setTimeout(()=>{
+    //setTimeout(()=>{
       this.pedido.agregarAlPedido(producto);
-    },1);
   }
 
   sacarDelPedido(producto: Producto){
-    setTimeout(()=>{
+    //setTimeout(()=>{
       this.pedido.sacarDelPedido(producto);
-    },1);
   }
 
   public onProductoAgregado(exito: boolean) {

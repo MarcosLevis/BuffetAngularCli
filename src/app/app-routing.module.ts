@@ -7,6 +7,7 @@ import { PerfilComponent } from './components/perfil/perfil.component';
 import { SugerenciaComponent } from './components/sugerencia/sugerencia.component';
 import { ProductoComponent } from './components/producto/producto.component';
 import { ResponsableComponent } from './components/responsable/responsable.component';
+import { CompraComponent } from './components/compra/compra.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
@@ -16,9 +17,10 @@ const routes: Routes = [
     { path: 'sugerencia', component: SugerenciaComponent},
     { path: 'producto', component: ProductoComponent},
     { path: 'responsable', component: ResponsableComponent},
+    { path: 'compra', component: CompraComponent},
     { path: '**', redirectTo: 'home'},
   ];
-
+//cambiar
   @NgModule({
     imports: [RouterModule.forRoot(routes)],
     exports: [RouterModule]
