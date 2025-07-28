@@ -27,7 +27,7 @@ import { MatTableModule } from '@angular/material/table';
 
 //Modelos
 import { PerfilComponent } from './components/perfil/perfil.component';
-import { PopupSugerirComponent } from './components/popup-sugerir/popup-sugerir.component';
+import { AgregarSugerenciaComponent } from './components/agregar-sugerencia/agregar-sugerencia.component';
 import { SugerenciaComponent } from './components/sugerencia/sugerencia.component';
 import { AgregarProductoComponent } from './components/agregar-producto/agregar-producto.component';
 import { ProductoComponent } from './components/producto/producto.component';
@@ -48,7 +48,7 @@ import { CompraComponent } from './components/compra/compra.component';
     IniciarSesionComponent,
     AgregarMenuComponent,
     EstasSeguroComponent,
-    PopupSugerirComponent,
+    AgregarSugerenciaComponent,
     SugerenciaComponent,
     AgregarProductoComponent,
     ProductoComponent,

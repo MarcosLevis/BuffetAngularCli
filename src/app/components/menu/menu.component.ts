@@ -8,7 +8,7 @@ import { Dia } from '../../models/Dia';
 import { AuthService } from 'src/app/services/AuthService';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
-import { PopupSugerirComponent } from '../popup-sugerir/popup-sugerir.component';
+import { AgregarSugerenciaComponent } from '../agregar-sugerencia/agregar-sugerencia.component';
 import { MensajeService } from 'src/app/services/MensajeService';
 
 
@@ -27,7 +27,7 @@ export class MenuComponent {
   itemsPerPage: number = 1;
 
   diaSeleccionadoIndex: number = 0;
-  PopupSugerirComponent = PopupSugerirComponent;
+  AgregarSugerenciaComponent = AgregarSugerenciaComponent;
 
   constructor(private dialog: MatDialog, private menuService: MenuService, private authService: AuthService, private sanitizer: DomSanitizer, private router: Router, private mensajeService: MensajeService) {}
   
@@ -101,7 +101,7 @@ export class MenuComponent {
   
   openDialogSugerir(): void {
     
-    const dialogRef = this.dialog.open(PopupSugerirComponent, {
+    const dialogRef = this.dialog.open(AgregarSugerenciaComponent, {
       width: '450px'
     });
     dialogRef.afterClosed().subscribe();

@@ -9,17 +9,17 @@ import { Usuario } from 'src/app/models/Usuario';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
-  selector: 'app-popup-sugerir',
-  templateUrl: './popup-sugerir.component.html',
-  styleUrls: ['./popup-sugerir.component.css']
+  selector: 'app-agregar-sugerencia',
+  templateUrl: './agregar-sugerencia.component.html',
+  styleUrls: ['./agregar-sugerencia.component.css']
 })
-export class PopupSugerirComponent {
+export class AgregarSugerenciaComponent {
 
   sugerenciaForm: FormGroup;
   categorias: string[];
 
   constructor (private mensajeService: MensajeService, private sugerenciaService: SugerenciaService,
-    private authService: AuthService, private router: Router, private dialogRef: MatDialogRef<PopupSugerirComponent>, fb: FormBuilder){
+    private authService: AuthService, private router: Router, private dialogRef: MatDialogRef<AgregarSugerenciaComponent>, fb: FormBuilder){
     this.categorias = Object.values(CategoriaSugerencia);
     this.sugerenciaForm = fb.group({
       tipo: [CategoriaSugerencia.Alimentos],
