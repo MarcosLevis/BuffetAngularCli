@@ -14,7 +14,7 @@ export class SugerenciaComponent {
   displayedColumns: string[] = ['fecha', 'autor', 'categoria', 'texto'];
   sugerencias: Sugerencia[] = [];
   expandedElement: Sugerencia | null = null;
-  fechaMaxima: String;
+  fechaMaxima: string;
 
   constructor(private router: Router, private mensajeService: MensajeService, private sugerenciaService: SugerenciaService){
     this.getSugerencias(true);
@@ -47,7 +47,7 @@ export class SugerenciaComponent {
 
   private error(){
     this.mensajeService.mostrarMensaje("Error al obtener sugerencias");
-        this.router.navigate(['sugerencia']);
+    this.router.navigate(['sugerencia']);
   }
 
   toggleExpand(sugerencia: Sugerencia) {

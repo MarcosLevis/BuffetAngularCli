@@ -5,7 +5,6 @@ import { Injectable } from "@angular/core";
 import { Dia } from "../models/Dia";
 
 @Injectable({providedIn: 'root'})
-
 export class MenuService{
 
     constructor(private http: HttpClient) { }

@@ -39,6 +39,14 @@ NOTAS:
     4 - Reemplazar formularios viejos (los que se ven distintos al mockup) -->
     ---Ver el tema del título en ls menúes
 
-DOING:
+COMPRAS:
+    - 1
+    -   La compra ignora al usuario en la API, por lo que hay que hacer un endpoint para conseguir las de un usuario.
+        El problema viene con los Menues que tienen un @Lob, lo que  se deberia hacer por ahora es que al pedir las compras
+        esta traiga DTOs que son los productos o los menues pero reducidos (sin la imagen). Caso contrario, cambiar la persistencia de
+        las imagenes para que no estén más los @Lob
+
+
+PENDIENTE:
     - volver a chequear visibilidad
     - chequear que todos los formularios sean los correctos (ESTILO, VISUALMENTE)

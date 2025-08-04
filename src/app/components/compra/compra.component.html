@@ -1,1 +1,65 @@
-<p>compra works!</p>
+<div class="encabezados">
+    <h1 class="titulo">Compras</h1>
+    <form [formGroup]="compraForm" (ngSubmit)="getComprasEntreFechas($event)">
+      <div class="fechaDesde">
+        <label for="desde">Desde: </label>
+        <input
+          id="desde"
+          type="date"
+          class="btn btn-secondary mb-2"
+          max="{{ fechaMaxima }}"
+          formControlName="fechaDesde"
+        />
+      </div>
+      <div>
+        <label for="hasta">Hasta: </label>
+        <input
+          id="hasta"
+          type="date"
+          class="btn btn-secondary mb-2"
+          formControlName="fechaHasta"
+        />
+      </div>
+      <button type="submit" [disabled]="compraForm.invalid">Filtrar</button>
+    </form>
+  </div>
+  
+<div class="table-container">
+    <div class="table-responsive">
+        <table class="table table-bordered" *ngIf="compras.length > 0">
+            <thead class="table-dark">
+                <tr>
+                    <th>Compra</th>
+                    <th>Fecha</th>
+                    <th>Monto</th>
+                </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let compra of compras; trackBy: trackById">
+                <tr>
+                    <td>{{ ((compra.getNombre().length > 10) ? compra.getNombre().substring(0,10) +  '...' : compra.getNombre() )}}</td>
+                    <td>{{ compra.getFecha() }}</td>
+                    <td>$ {{ compra.getPrecio() }}</td>
+                    <td class="text-center">
+                        <button mat-icon-button (click)="toggleExpand(compra); $event.stopPropagation()">
+                          <mat-icon>{{ expandedElement === compra ? 'expand_less' : 'expand_more' }}</mat-icon>
+                        </button> 
+                    </td>
+                </tr>
+                <tr *ngIf="expandedElement === compra">
+                    <td colspan="5" class="expanded-content">
+                      <div>
+                        <img src="/assets/gato.jpg" alt="QR">
+                      </div>
+                      <ul *ngFor="let item of compra.getItems(); trackBy: trackById">
+                        <li>{{ item.getNombre() + ' $' + item.getPrecio() }}</li>
+                      </ul>
+                    </td>
+                </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <div *ngIf="compras.length == 0">
+        <p>¡No hay compras aún!</p>
+    </div>
+</div>
