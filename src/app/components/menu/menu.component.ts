@@ -10,6 +10,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { AgregarSugerenciaComponent } from '../agregar-sugerencia/agregar-sugerencia.component';
 import { MensajeService } from 'src/app/services/MensajeService';
+import { ImagenService } from 'src/app/services/ImagenService';
+import { firstValueFrom, forkJoin, map, Observable } from 'rxjs';
 
 
 @Component({
@@ -29,11 +31,14 @@ export class MenuComponent {
   diaSeleccionadoIndex: number = 0;
   AgregarSugerenciaComponent = AgregarSugerenciaComponent;
 
-  constructor(private dialog: MatDialog, private menuService: MenuService, private authService: AuthService, private sanitizer: DomSanitizer, private router: Router, private mensajeService: MensajeService) {}
+  constructor(private dialog: MatDialog, private menuService: MenuService, private authService: AuthService, private sanitizer: DomSanitizer, private router: Router, private mensajeService: MensajeService, private imagenService: ImagenService) {}
   
   ngOnInit(){
     this.menuService.getDias().subscribe(data => {
       this.dias = data.sort((a, b) => a.id - b.id);
+      if(this.dias.length > 0){
+        this.cambiarPagina(0);//lunes
+      }
     })
   }
 
@@ -51,11 +56,12 @@ export class MenuComponent {
   }
 
   private actualizarDia(dialogRef: MatDialogRef<AgregarMenuComponent>): void {
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(async result => {
       if (result) {
         const diaRecibido = new Dia(result.dia);
         const posicion = this.dias.findIndex(dia => dia.enumDia === diaRecibido.enumDia);
         this.dias[posicion] = diaRecibido;
+        await this.buscarImagenesDelDia(this.dias[posicion]);// esperar a que las imágenes Base64 se carguen
       }
     });
   }
@@ -69,7 +75,7 @@ export class MenuComponent {
         titulo: 'Editar Menú',
         dias: this.dias,
         dia: dia,
-        menu: menu,
+        menu: menu_local,
         boton: 'Editar',
         vegetariano: menu_local.esVegetariano(),
         editar: true
@@ -114,11 +120,12 @@ export class MenuComponent {
   getPaginatedMenus(): any[] {
     const start = this.currentPage * this.itemsPerPage;
     return this.dias.slice(start, start + this.itemsPerPage);
-  }  
+  }
 
-  cambiarPagina(dia: number) {
-    this.currentPage = dia;
-    this.diaSeleccionadoIndex = dia;
+  async cambiarPagina(diaIndex: number) {
+    this.currentPage = diaIndex;
+    this.diaSeleccionadoIndex = diaIndex;
+    await this.buscarImagenesDelDia(this.dias[diaIndex]);// esperar a que las imágenes Base64 se carguen
   }
 
   verOpcionVegetariana(){
@@ -128,7 +135,6 @@ export class MenuComponent {
   //recibe la imagen en 64 y la santiza por seguridad
   public getSanitizedImage(imageBase64: string): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(imageBase64);
-
   }
 
   encontrarDiaPorNombre(diaBuscado: string): Dia{
@@ -138,6 +144,40 @@ export class MenuComponent {
     }
     return dia;
   }
+
+  private async buscarImagenesDelDia(dia: Dia): Promise<void> {
+    const observables: Observable<string>[] = [];
+  
+    if(dia.menuEstandar?.imagenUrl && !dia.menuEstandar.imagen){
+      observables.push(
+        this.imagenService.recuperarImagenBase64(dia.menuEstandar.imagenUrl).pipe(
+          map(base64 => {
+            dia.menuEstandar!.imagen = base64;
+            return base64;
+          })
+        )
+      );
+    }
+  
+    if(dia.menuVegetariano?.imagenUrl && !dia.menuVegetariano.imagen){
+      observables.push(
+        this.imagenService.recuperarImagenBase64(dia.menuVegetariano.imagenUrl).pipe(
+          map(base64 => {
+            dia.menuVegetariano!.imagen = base64;
+            return base64;
+          })
+        )
+      );
+    }
+  
+    if(observables.length === 0){
+      return Promise.resolve();
+    }
+  
+    // forkJoin espera a que todos los observables se completen
+    return firstValueFrom(forkJoin(observables)).then(() => {});
+  }
+  
 
   public esCliente(): boolean { return this.authService.isCliente(); }
   public esAdministrador(): boolean { return this.authService.isAdministrador(); }

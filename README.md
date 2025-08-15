@@ -45,6 +45,8 @@ COMPRAS:
         El problema viene con los Menues que tienen un @Lob, lo que  se deberia hacer por ahora es que al pedir las compras
         esta traiga DTOs que son los productos o los menues pero reducidos (sin la imagen). Caso contrario, cambiar la persistencia de
         las imagenes para que no estén más los @Lob
+    - ante la duda buscar --> //cambiado para imagenes
+    - MENU: SACAR EL "IMAGEN" DEL BACK, PERO NO DEL FRONT PORUQE SE USA (TRAE PROBLEMAS CON EL UPDATE, YA QUE SE GUARDA EN LA BD)
 
 
 PENDIENTE:

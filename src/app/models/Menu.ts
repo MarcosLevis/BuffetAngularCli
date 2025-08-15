@@ -8,7 +8,8 @@ export class Menu {
     public postre: string;
     public bebida: string;
     public tipoMenu: string;
-    public imagen: string; //base64
+    public imagen: string | null; //base64, se usa para guardar acá la imagen y solo buscarla 1 vez al back
+    public imagenUrl: string | null; //nueva forma de persistir imagenes
 
     constructor(obj?: any)
     {
@@ -21,7 +22,8 @@ export class Menu {
       this.bebida = obj && obj.bebida || '';
       //this.tipoItem = 'menu';
       this.tipoMenu = obj && obj.tipoMenu || '';
-      this.imagen = obj && obj.imagen || '';
+      this.imagen = obj && obj.imagen || null;
+      this.imagenUrl = obj && obj.imagenUrl;
     }
 
     esVegetariano(){
