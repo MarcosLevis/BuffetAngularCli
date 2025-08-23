@@ -17,11 +17,13 @@ export class PerfilComponent {
   estaEditando: boolean = false;
   imagenAnterior: string = '';
   perfilForm: FormGroup;
+  usuarioOriginal: Usuario | null = null;
   usuario: Usuario | null = null;
 
-  constructor(private fb: FormBuilder, private authService: AuthService,private mensajeService: MensajeService, private usuarioService: UsuarioService, router: Router){
+  constructor(private fb: FormBuilder, private authService: AuthService,private mensajeService: MensajeService, private usuarioService: UsuarioService, private router: Router){
     let buscado = authService.getCurrentUser();
     if(buscado){
+      this.usuarioOriginal = new Usuario(buscado);
       this.usuario = buscado;
     }
     else{
@@ -44,9 +46,9 @@ export class PerfilComponent {
     this.cambio();
     if(this.usuario != null){
       this.usuario.imagen = this.imagenAnterior;
+      this.reiniciarFormulario();
     }
   }
-
 
   cambiarFoto(event: Event) {
     const imagen = event.target as HTMLInputElement;
@@ -92,7 +94,12 @@ export class PerfilComponent {
           this.authService.setCurrentUser(this.usuario);
         },
         error: (err) => {
-          this.mensajeService.mostrarMensaje('Datos inválidos. Por favor, intente nuevamente.');
+          let mensaje = 'Datos inválidos. Por favor, intente nuevamente.';
+          if(err.status === 409){
+            mensaje = 'Datos conflictivos. Por favor, conuníquese con atención al cliente si insiste en realizar este cambio.';
+          }
+
+          this.mensajeService.mostrarMensaje(mensaje);
         }
       })
     }
@@ -102,6 +109,15 @@ export class PerfilComponent {
     if(this.usuario?.tipoMime && this.usuario.imagen)
       return this.usuario?.tipoMime + ',' + this.usuario.imagen;
     return '';
+  }
+
+  reiniciarFormulario(){
+    this.perfilForm.patchValue({
+      dni: this.usuarioOriginal?.dni ?? '',
+      email: this.usuarioOriginal?.email ?? '',
+      nombre: this.usuarioOriginal?.nombre ?? '',
+      apellido: this.usuarioOriginal?.apellido ?? ''
+    });
   }
 
 }

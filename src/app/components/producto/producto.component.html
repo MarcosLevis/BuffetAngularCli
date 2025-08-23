@@ -19,17 +19,17 @@
               </td>
               <td>$ {{ producto.precio }}</td>
               <td class="separadas" *ngIf="!authService.isResponsableTurno()">
-                <button class="btn btn-dark" *ngIf="authService.isAdministrador()">
-                  <i class="bi bi-pencil-fill" (click)="openDialogAgregarProducto(producto)"></i><!--editar-->
+                <button class="btn btn-dark" (click)="openDialogAgregarProducto(producto)" *ngIf="authService.isAdministrador()">
+                  <i class="bi bi-pencil-fill" ></i><!--editar-->
                 </button>
-                <button class="btn btn-dark" *ngIf="authService.isAdministrador()">
-                  <i class="bi bi-trash-fill" (click)="eliminarProducto(producto)"></i><!--borrar-->
+                <button class="btn btn-dark" (click)="eliminarProducto(producto)" *ngIf="authService.isAdministrador()">
+                  <i class="bi bi-trash-fill"></i><!--borrar-->
                 </button>
-                <button class="btn btn-dark" *ngIf="authService.isCliente()">
-                  <i class="bi bi-plus" (click)="agregarAlPedido(producto)"></i><!--agrear al pedido-->
+                <button class="btn btn-dark" (click)="agregarAlPedido(producto)" *ngIf="authService.isCliente()">
+                  <i class="bi bi-plus"></i><!--agrear al pedido-->
                 </button>
-                <button class="btn btn-dark" *ngIf="authService.isCliente()">
-                  <i class="bi bi-dash" (click)="sacarDelPedido(producto)"></i><!--agrear al pedido-->
+                <button class="btn btn-dark" (click)="sacarDelPedido(producto)" *ngIf="authService.isCliente()">
+                  <i class="bi bi-dash"></i><!--agrear al pedido-->
                 </button>
               </td>
             </tr>
@@ -43,11 +43,11 @@
   </div>
 
   <div class="columna-pedido d-flex flex-column">
-    <div class="flex-grow-1 overflow-auto">
-      <app-pedido *ngIf="authService.isCliente()" (agregarExitoso)="onProductoAgregado($event)"></app-pedido>
-    </div>
     <div class="alfondo">
       <button *ngIf="authService.isAdministrador()" class="btn btn-dark" (click)="openDialogAgregarProducto()">Agregar</button>
+    </div>
+    <div class="flex-grow-1 overflow-auto">
+      <app-pedido *ngIf="authService.isCliente()" (agregarExitoso)="onProductoAgregado($event)"></app-pedido>
     </div>
   </div>  
 </div>

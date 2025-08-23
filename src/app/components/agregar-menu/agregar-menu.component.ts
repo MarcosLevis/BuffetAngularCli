@@ -30,10 +30,10 @@ export class AgregarMenuComponent {
     @Inject(MAT_DIALOG_DATA) public data: any, private dialog : MatDialog) {
       this.menuForm = this.fb.group({
         nombre: [data.menu?.nombre || '', Validators.required],
-        entrada: [data.menu?.entrada || '', Validators.required],
-        platoPrincipal: [data.menu?.platoPrincipal || '', Validators.required],
-        bebida: [data.menu?.bebida || '', Validators.required],
-        postre: [data.menu?.postre || '', Validators.required],
+        entrada: [data.menu?.entrada || ''],
+        platoPrincipal: [data.menu?.platoPrincipal || ''],
+        bebida: [data.menu?.bebida || ''],
+        postre: [data.menu?.postre || ''],
         precio: [data.menu?.precio || 0, [Validators.required,Validators.min(1), Validators.max(99999.9999)]],
         vegetariano: [data?.vegetariano || false, [Validators.required]],
         dia: [data?.dia || data.dias[0], [Validators.required]],
@@ -71,10 +71,10 @@ export class AgregarMenuComponent {
     async confirmar(menu: Menu, dia: Dia): Promise<boolean> {
       let mensaje;
       if(this.data.editar){
-        mensaje = `¿Está seguro/a de que quiere editar el <strong>menú ${menu.esVegetariano() ? 'vegetariano' : 'estándar'}</strong> del día <strong>${dia.enumDia}</strong>?</p>`;
+        mensaje = `¿Está seguro/a de que quiere editar el menú ${menu.esVegetariano() ? 'vegetariano' : ''} del día '${dia.enumDia}'</p>`;
       }
       else{
-        mensaje = `<p>Ya existe un <strong>menú ${menu.esVegetariano() ? 'vegetariano' : 'estándar'}</strong> en el día <strong>${dia.enumDia}</strong><p>
+        mensaje = `<p>Ya existe un menú ${menu.esVegetariano() ? 'vegetariano' : ''} en el día '${dia.enumDia}'<p>
                       <p>¿Está seguro/a que quiere reemplazarlo?</p>`
       }
 

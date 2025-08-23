@@ -52,9 +52,8 @@ export class ResponsableComponent {
     let mensaje;
     if(!!creado){
       this.turnos.push(creado);
-      mensaje = 'Turno creado con éxito';
+      this.mensajeService.mostrarMensaje('Turno creado con éxito');
     }
-    this.mensajeService.mostrarMensaje(mensaje);
   }
 
   async openDialogEditarTurno(turno: TurnoDTO){
@@ -65,12 +64,10 @@ export class ResponsableComponent {
       }
     });
     const editado = await firstValueFrom(dialogRef.afterClosed());
-    let mensaje;
     if(!!editado){
       this.reemplazarEditado(editado);
-      mensaje = 'Turno editado con éxito';
+      this.mensajeService.mostrarMensaje('Turno editado con éxito');
     }
-    this.mensajeService.mostrarMensaje(mensaje);
   }
 
   private reemplazarEditado(editado: Turno){
@@ -96,12 +93,10 @@ export class ResponsableComponent {
       }
     });
     const creado = await firstValueFrom(dialogRef.afterClosed());
-    let mensaje;
     if(!!creado){
       this.responsables.push(creado);
-      mensaje = 'Responsable creado con éxito';
+      this.mensajeService.mostrarMensaje('Responsable creado con éxito');
     }
-    this.mensajeService.mostrarMensaje(mensaje);
   }
 
   async openDialogAsignarTurno(responsable: UsuarioDTO){
@@ -164,7 +159,7 @@ export class ResponsableComponent {
   }
 
   private async confirmar(nombre: string): Promise<boolean>{
-    let mensaje = `<p>¿Está seguro/a que quiere <strong>eliminar</strong> al responsable de turno <strong>${nombre}</strong> del día <strong>?<p>`
+    let mensaje = `<p>¿Está seguro/a que quiere eliminar al responsable de turno '${nombre}'?<p>`
     const dialogRef = this.dialog.open(EstasSeguroComponent, {
       width: '450px',
       data:{

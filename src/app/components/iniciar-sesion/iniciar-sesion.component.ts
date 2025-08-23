@@ -26,8 +26,9 @@ export class IniciarSesionComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value.email,this.loginForm.value.password).subscribe({
         next: () => {
-          this.dialogRef.close(true);
-          this.router.navigate(['menu']);
+          this.router.navigate(['menu']).then(() => {
+            this.dialogRef.close(true);
+          });          
         },
         error: (err) => {
           console.error('Error en el login:', err);

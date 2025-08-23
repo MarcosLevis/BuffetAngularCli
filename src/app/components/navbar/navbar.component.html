@@ -20,9 +20,9 @@
         <button class="navbar-item" (click)="navigateProductos()">
             Productos
         </button>
-        <button class="navbar-item" (click)="navigateCompras()" *ngIf="isCliente()">
+        <!-- <button class="navbar-item" (click)="navigateCompras()" *ngIf="isCliente()">
             Compras
-        </button>
+        </button> -->
         <button class="navbar-item" (click)="navigateSugerencias()" *ngIf="!isCliente()">
             Sugerencias
         </button>
@@ -47,7 +47,7 @@
         <div *ngIf="isLoged()" class="navbar-item has-dropdown is-hoverable">
           <div class="material-icons" >account_circle</div>
           <div class="navbar-dropdown  is-right">
-            <button class="navbar-item" (click)="navigatePerfil()">
+            <button class="navbar-item" (click)="navigatePerfil()" *ngIf="isCliente()">
               Perfil
             </button>
             <button class="navbar-item" (click)="logOut()">

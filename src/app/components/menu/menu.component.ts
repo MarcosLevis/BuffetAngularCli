@@ -86,7 +86,7 @@ export class MenuComponent {
       width: '450px',
       data:{
         titulo: 'Eliminar Menú',
-        contenido: `<p>¿Está seguro/a que quiere eliminar el menú <strong>${tipo}</strong> del día <strong>${dia.enumDia}</strong>?<p>`,
+        contenido: `<p>¿Está seguro/a que quiere eliminar el menú ${tipo === 'menuvegetariano' ? 'vegetariano' : ''} del día '${dia.enumDia}'?<p>`,
       }
     });
 

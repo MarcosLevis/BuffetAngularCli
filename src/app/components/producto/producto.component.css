@@ -53,3 +53,7 @@
   display: flex;
   width: 98%;
 }
+
+.titulo {
+  font-size: xx-large;
+}

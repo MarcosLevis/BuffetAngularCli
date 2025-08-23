@@ -52,9 +52,6 @@ export class AuthService {
         this.currentUser = storedUser ? JSON.parse(storedUser) : null;
       }
     }
-    catch(error){
-      console.log("Error al recuperar el usuario actual: " + error);
-    }
     finally{
       return this.currentUser;
     }
@@ -77,9 +74,6 @@ export class AuthService {
         const storedToken = localStorage.getItem('accessToken');
         this.token = storedToken ? storedToken : null;
       }
-    }
-    catch(error){
-      console.log("Error al recuperar el usuario actual: " + error);
     }
     finally{
       return this.token;

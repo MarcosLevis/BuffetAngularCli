@@ -62,7 +62,7 @@ export class ProductoComponent {
   }
 
   async confirmar(producto: Producto){
-    let mensaje =`¿Está seguro/a de que quiere <strong>eliminar</strong> el producto <strong>${producto.nombre}</strong>?</p>`;
+    let mensaje =`¿Está seguro/a de que quiere eliminar el producto '${producto.nombre}'?</p>`;
     const dialogRef = this.dialog.open(EstasSeguroComponent, {
       width: '450px',
       data:{
